@@ -9,23 +9,38 @@
     <h:body>
 
         <h:form>
-            <p:dataTable var="cidade" value="#{dtCidadeView.cidades}" rows="10"
-                         paginator="true"
-                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                         rowsPerPageTemplate="5,10,15">
-                <p:column headerText="Código">
+
+            <p:dataTable var="cidade" value="#{dtCidadeView.cidades}">
+                <p:column headerText="Id">
                     <h:outputText value="#{cidade.id}" />
                 </p:column>
 
-                <p:column headerText="Nome da Cidade">
+                <p:column headerText="Year (p3)" priority="3">
                     <h:outputText value="#{cidade.cidade}" />
                 </p:column>
 
-                <p:column headerText="Estado">
+                <p:column headerText="Brand (p2)" priority="2">
                     <h:outputText value="#{cidade.uf}" />
                 </p:column>
-                
             </p:dataTable>
+
+
+            <h3>Reflow</h3>
+            <p:dataTable var="cidade" value="#{dtCidadeView.cidades}" reflow="true" rows="5" paginator="true">
+                <p:column headerText="Id">
+                    <h:outputText value="#{cidade.id}" />
+                </p:column>
+
+                <p:column headerText="Nome">
+                    <h:outputText value="#{cidade.cidade}" />
+                </p:column>
+
+                <p:column headerText="UF">
+                    <h:outputText value="#{cidade.uf}" />
+                </p:column>
+
+            </p:dataTable>         
+
         </h:form>
 
     </h:body>
