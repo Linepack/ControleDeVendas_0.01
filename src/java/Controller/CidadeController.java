@@ -26,5 +26,9 @@ public class CidadeController {
     public void insertCidade(String cidade, String uf){
         CidadeDAO.insertCidade(cidade, uf);
     }
+    
+    public void deleteCidade(Cidade cidade){
+        CidadeDAO.deleteCidade(cidade);
+    }
         
 }

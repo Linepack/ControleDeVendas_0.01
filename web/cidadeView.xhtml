@@ -38,7 +38,7 @@
                 <f:facet name="footer">
                     <p:commandButton icon="ui-icon-plus"  actionListener="#{dfCidadeInsert.viewCidadeInsert()}"/>
                     <p:commandButton process="cidade" icon="ui-icon-pencil"  />
-                    <p:commandButton process="cidade" icon="ui-icon-close" />
+                    <p:commandButton process="cidade" icon="ui-icon-close" actionListener="#{dtCidadeView.deleteCidade()}"/>
                 </f:facet>                                                                
 
             </p:dataTable>                         

@@ -2,6 +2,7 @@ package View;
 
 import Controller.CidadeController;
 import Model.Cidade;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -32,6 +33,13 @@ public class DTCidadeView implements Serializable {
     @PostConstruct
     public void init() {
         cidades = controller.createCidades();
+    }
+
+    public void deleteCidade() throws IOException {
+        for (Cidade cidade : cidadesSelecionadas) {
+            controller.deleteCidade(cidade);
+        }
+        FacesContext.getCurrentInstance().getExternalContext().redirect("cidadeView.xhtml");
     }
 
     public List<Cidade> getCidades() {

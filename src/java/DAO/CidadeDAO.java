@@ -53,5 +53,13 @@ public class CidadeDAO {
         em.persist(cid);
         em.getTransaction().commit();
     }
+    
+    public static void deleteCidade(Cidade cidade){
+        if (!em.getTransaction().isActive()) {
+            em.getTransaction().begin();
+        }        
+        em.remove(cidade);
+        em.getTransaction().commit();                        
+    }
 
 }
