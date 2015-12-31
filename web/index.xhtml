@@ -2,47 +2,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
+        <meta name="viewport" content="width=device-width, user-scalable=no"/>
         <title>Controle de Vendas</title>
     </h:head>
-    <h:body>
-
-        <h:form>
-
-            <p:dataTable var="cidade" value="#{dtCidadeView.cidades}">
-                <p:column headerText="Id">
-                    <h:outputText value="#{cidade.id}" />
-                </p:column>
-
-                <p:column headerText="Year (p3)" priority="3">
-                    <h:outputText value="#{cidade.cidade}" />
-                </p:column>
-
-                <p:column headerText="Brand (p2)" priority="2">
-                    <h:outputText value="#{cidade.uf}" />
-                </p:column>
-            </p:dataTable>
+    <h:body>        
 
 
-            <h3>Reflow</h3>
-            <p:dataTable var="cidade" value="#{dtCidadeView.cidades}" reflow="true" rows="5" paginator="true">
-                <p:column headerText="Id">
-                    <h:outputText value="#{cidade.id}" />
-                </p:column>
-
-                <p:column headerText="Nome">
-                    <h:outputText value="#{cidade.cidade}" />
-                </p:column>
-
-                <p:column headerText="UF">
-                    <h:outputText value="#{cidade.uf}" />
-                </p:column>
-
-            </p:dataTable>         
-
-        </h:form>
-
+        <br />
+        <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
     </h:body>
 </html>
 

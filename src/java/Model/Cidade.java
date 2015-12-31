@@ -2,6 +2,8 @@ package Model;
 // Generated Dec 28, 2015 10:28:32 PM by Hibernate Tools 4.3.1
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 
@@ -9,13 +11,18 @@ import javax.persistence.Id;
 public class Cidade  implements java.io.Serializable {
      
      @Id
+     @GeneratedValue
      private int id;
      private String cidade;
      private String uf;
 
     public Cidade() {
     }
-
+    
+    public Cidade(String cidade, String uf){
+      this.cidade = cidade;
+      this.uf = uf;
+    }
 	
     public Cidade(int id) {
         this.id = id;

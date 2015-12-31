@@ -14,16 +14,15 @@ import static jdk.nashorn.internal.objects.NativeError.printStackTrace;
  */
 public class CidadeDAO {
 
-    EntityManager em = null;
+    private static EntityManager em = EntityManagerUtil.createEntityManager();
 
-    public CidadeDAO() {
-        this.em = EntityManagerUtil.createEntityManager();
-    }
-
-    public Cidade getCidadeByID(int id) {
+    public static Cidade getCidadeByID(int id) {
         Cidade cidade = null;
         try {
-            em.getTransaction().begin();
+
+            if (!em.getTransaction().isActive()) {
+                em.getTransaction().begin();
+            }
             Query q = em.createQuery("select c from Cidade c where c.id = " + id);
             cidade = (Cidade) q.getResultList();
 
@@ -33,14 +32,26 @@ public class CidadeDAO {
         return cidade;
     }
 
-    public List getCidadeList() {
+    public static List getCidadeList() {
         List<Cidade> cidadeList = new ArrayList<>();
 
-        em.getTransaction().begin();
+        if (!em.getTransaction().isActive()) {
+            em.getTransaction().begin();
+        }
+
         Query q = em.createQuery("select c from Cidade c order by c.id");
         cidadeList = (List<Cidade>) q.getResultList();
 
         return cidadeList;
+    }
+
+    public static void insertCidade(String cidade, String uf) {
+        if (!em.getTransaction().isActive()) {
+            em.getTransaction().begin();
+        }        
+        Cidade cid = new Cidade(cidade, uf);                
+        em.persist(cid);
+        em.getTransaction().commit();
     }
 
 }

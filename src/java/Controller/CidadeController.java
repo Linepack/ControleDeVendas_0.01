@@ -2,9 +2,12 @@ package Controller;
 
 import DAO.CidadeDAO;
 import Model.Cidade;
+import java.io.IOException;
 import java.util.List;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -13,14 +16,15 @@ import javax.faces.bean.ManagedBean;
 @ManagedBean(name = "cidadeController")
 @ApplicationScoped
 public class CidadeController {
-
+       
     public List<Cidade> createCidades() {
-        List<Cidade> cidadeList = null;
-
-        CidadeDAO helper = new CidadeDAO();
-        cidadeList = helper.getCidadeList();
-
+        List<Cidade> cidadeList = null;       
+        cidadeList = CidadeDAO.getCidadeList();
         return cidadeList;
     }
-
+    
+    public void insertCidade(String cidade, String uf){
+        CidadeDAO.insertCidade(cidade, uf);
+    }
+        
 }

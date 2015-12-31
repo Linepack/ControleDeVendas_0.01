@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <meta name="viewport" content="width=device-width, user-scalable=no"/>
+        <title>Controle de Vendas</title>
+    </h:head>
+    <h:body>
+
+        <h:form id="form">                       
+            <p:growl id="msgs" showDetail="true" />
+            <p:dataTable id="cidade"
+                         var="cidade" 
+                         value="#{dtCidadeView.cidades}" 
+                         paginator="true"
+                         rows="5"
+                         selection="#{dtCidadeView.cidadesSelecionadas}"
+                         rowKey="#{cidade.id}" style="margin-bottom:0"
+                         emptyMessage="Nada encontrado." filteredValue="#{dtCidadeView.cidadesFiltradas}"
+                         widgetVar="cidadesTable">             
+
+                <p:column selectionMode="multiple" style="width:1px; text-align:center"/>                
+                <p:column headerText="Id" filterBy="#{cidade.id}" width="10" priority="2">
+                    <h:outputText value="#{cidade.id}" />
+                </p:column>
+
+                <p:column headerText="Nome" filterBy="#{cidade.cidade}" filterMatchMode="contains" priority="1" width="50">
+                    <h:outputText value="#{cidade.cidade}" />
+                </p:column>
+
+                <p:column headerText="UF" filterBy="#{cidade.uf}" priority="1" width="20">
+                    <h:outputText value="#{cidade.uf}" />
+                </p:column>
+
+                <f:facet name="footer">
+                    <p:commandButton icon="ui-icon-plus"  actionListener="#{dfCidadeInsert.viewCidadeInsert()}"/>
+                    <p:commandButton process="cidade" icon="ui-icon-pencil"  />
+                    <p:commandButton process="cidade" icon="ui-icon-close" />
+                </f:facet>                                                                
+
+            </p:dataTable>                         
+        </h:form>
+
+
+
+
+    </h:body>
+</html>
+
