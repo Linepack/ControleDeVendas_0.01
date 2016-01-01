@@ -30,5 +30,10 @@ public class CidadeController {
     public void deleteCidade(Cidade cidade){
         CidadeDAO.deleteCidade(cidade);
     }
+    
+    public void updateCidade(Cidade cidade){
+        CidadeDAO.updateCidade(cidade);        
+    }
+            
         
 }

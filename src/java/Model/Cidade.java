@@ -11,7 +11,7 @@ import javax.persistence.Id;
 public class Cidade  implements java.io.Serializable {
      
      @Id
-     @GeneratedValue
+     @GeneratedValue(strategy = GenerationType.SEQUENCE)
      private int id;
      private String cidade;
      private String uf;

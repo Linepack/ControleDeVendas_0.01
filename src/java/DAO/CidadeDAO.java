@@ -61,5 +61,13 @@ public class CidadeDAO {
         em.remove(cidade);
         em.getTransaction().commit();                        
     }
+    
+    public static void updateCidade(Cidade cidade){
+        if (!em.getTransaction().isActive()) {
+            em.getTransaction().begin();
+        }        
+        em.merge(cidade);
+        em.getTransaction().commit();                        
+    }
 
 }

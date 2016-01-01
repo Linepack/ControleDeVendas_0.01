@@ -10,42 +10,88 @@
     </h:head>
     <h:body>
 
-        <h:form id="form">                       
-            <p:growl id="msgs" showDetail="true" />
-            <p:dataTable id="cidade"
-                         var="cidade" 
-                         value="#{dtCidadeView.cidades}" 
+
+        <p:growl id="growl" showDetail="true" sticky="true"/>  
+        <h:form id="form">                                   
+            <p:dataTable var="cidade" 
+                         value="#{cidadeView.cidades}" 
                          paginator="true"
                          rows="5"
-                         selection="#{dtCidadeView.cidadesSelecionadas}"
+                         selection="#{cidadeView.cidadesSelecionadas}"
                          rowKey="#{cidade.id}" style="margin-bottom:0"
-                         emptyMessage="Nada encontrado." filteredValue="#{dtCidadeView.cidadesFiltradas}"
+                         emptyMessage="Nada encontrado." filteredValue="#{cidadeView.cidadesFiltradas}"
                          widgetVar="cidadesTable">             
 
                 <p:column selectionMode="multiple" style="width:1px; text-align:center"/>                
-                <p:column headerText="Id" filterBy="#{cidade.id}" width="10" priority="2">
+                <p:column headerText="Id" filterBy="#{cidade.id}" sortBy="#{cidade.id}" width="10" priority="2">
                     <h:outputText value="#{cidade.id}" />
                 </p:column>
 
-                <p:column headerText="Nome" filterBy="#{cidade.cidade}" filterMatchMode="contains" priority="1" width="50">
+                <p:column headerText="Nome" filterBy="#{cidade.cidade}" filterMatchMode="contains" sortBy="#{cidade.cidade}" priority="1" width="50">
                     <h:outputText value="#{cidade.cidade}" />
                 </p:column>
 
-                <p:column headerText="UF" filterBy="#{cidade.uf}" priority="1" width="20">
+                <p:column headerText="UF" filterBy="#{cidade.uf}" sortBy="#{cidade.uf}" priority="1" width="20">
                     <h:outputText value="#{cidade.uf}" />
                 </p:column>
 
                 <f:facet name="footer">
-                    <p:commandButton icon="ui-icon-plus"  actionListener="#{dfCidadeInsert.viewCidadeInsert()}"/>
-                    <p:commandButton process="cidade" icon="ui-icon-pencil"  />
-                    <p:commandButton process="cidade" icon="ui-icon-close" actionListener="#{dtCidadeView.deleteCidade()}"/>
+                    <p:commandButton icon="ui-icon-plus"  onclick="PF('insertCidade').show();"/>
+                    <p:commandButton process="form" icon="ui-icon-pencil" update="editCidade" actionListener="#{cidadeView.listEditCidade()}"/>
+                    <p:commandButton process="form" icon="ui-icon-close" actionListener="#{cidadeView.deleteCidade()}"/>
                 </f:facet>                                                                
-
-            </p:dataTable>                         
+            </p:dataTable>  
         </h:form>
 
+        <p:dialog header="Editar Cidade" 
+                  widgetVar="editCidade" 
+                  modal="true"                                     
+                  responsive="true"
+                  resizable="false"                      
+                  id="editCidade">
 
+            <h:form>
+                <h:panelGrid columns="2" cellpadding="5">                  
+                    <p:outputLabel for="id" value="Id"/>
+                    <p:inplace id="id" disabled="true"> 
+                        <p:inputText value="#{cidadeView.idCidade}"/>
+                    </p:inplace>
 
+                    <p:outputLabel for="nome" value="Nome"/>
+                    <p:inplace id="nome">
+                        <p:inputText value="#{cidadeView.nomeCidade}"/>
+                    </p:inplace>
+
+                    <p:outputLabel for="uf" value="UF"/>
+                    <p:inplace id="uf">
+                        <p:inputText value="#{cidadeView.ufCidade}"/>
+                    </p:inplace>
+
+                    <p:commandButton value="Limpar" type="reset" />                
+                    <p:commandButton value="Gravar" actionListener="#{cidadeView.updateCidade()}" ajax="false"/>                
+                </h:panelGrid>
+            </h:form>
+        </p:dialog> 
+
+        <p:dialog header="Inserir Cidade" 
+                  widgetVar="insertCidade" 
+                  modal="true"                                     
+                  responsive="true"
+                  resizable="false">
+            <h:form>            
+                <h:panelGrid columns="2" cellpadding="5">
+                    <p:outputLabel for="nome" value="Nome"/>
+                    <p:inputText id="nome" value="#{cidadeView.nomeCidade}" />
+
+                    <p:outputLabel for="uf" value="UF"/>
+                    <p:inputText id="uf" value="#{cidadeView.ufCidade}"/>
+
+                    <p:commandButton value="Limpar" type="reset" />                
+                    <p:commandButton value="Gravar" actionListener="#{cidadeView.insertCidade()}" ajax="false"/>
+                </h:panelGrid>
+
+            </h:form>
+        </p:dialog>
 
     </h:body>
 </html>
