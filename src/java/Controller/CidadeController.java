@@ -16,15 +16,15 @@ import org.primefaces.context.RequestContext;
 @ManagedBean(name = "cidadeController")
 @ApplicationScoped
 public class CidadeController {
-       
+              
     public List<Cidade> createCidades() {
         List<Cidade> cidadeList = null;       
         cidadeList = CidadeDAO.getCidadeList();
         return cidadeList;
     }
     
-    public void insertCidade(String cidade, String uf){
-        CidadeDAO.insertCidade(cidade, uf);
+    public void insertCidade(Cidade cidade){
+        CidadeDAO.insertCidade(cidade);
     }
     
     public void deleteCidade(Cidade cidade){

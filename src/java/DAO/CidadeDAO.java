@@ -2,6 +2,7 @@ package DAO;
 
 import Model.Cidade;
 import Utils.EntityManagerUtil;
+import Utils.TransactionUtil;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -16,58 +17,31 @@ public class CidadeDAO {
 
     private static EntityManager em = EntityManagerUtil.createEntityManager();
 
-    public static Cidade getCidadeByID(int id) {
-        Cidade cidade = null;
-        try {
-
-            if (!em.getTransaction().isActive()) {
-                em.getTransaction().begin();
-            }
-            Query q = em.createQuery("select c from Cidade c where c.id = " + id);
-            cidade = (Cidade) q.getResultList();
-
-        } catch (Exception e) {
-            printStackTrace(e);
-        }
-        return cidade;
-    }
-
     public static List getCidadeList() {
         List<Cidade> cidadeList = new ArrayList<>();
-
-        if (!em.getTransaction().isActive()) {
-            em.getTransaction().begin();
-        }
-
+        TransactionUtil.begin(em);
         Query q = em.createQuery("select c from Cidade c order by c.id");
         cidadeList = (List<Cidade>) q.getResultList();
 
         return cidadeList;
     }
 
-    public static void insertCidade(String cidade, String uf) {
-        if (!em.getTransaction().isActive()) {
-            em.getTransaction().begin();
-        }        
-        Cidade cid = new Cidade(cidade, uf);                
-        em.persist(cid);
+    public static void insertCidade(Cidade cidade) {
+        TransactionUtil.begin(em);
+        em.persist(cidade);
         em.getTransaction().commit();
     }
-    
-    public static void deleteCidade(Cidade cidade){
-        if (!em.getTransaction().isActive()) {
-            em.getTransaction().begin();
-        }        
+
+    public static void deleteCidade(Cidade cidade) {
+        TransactionUtil.begin(em);
         em.remove(cidade);
-        em.getTransaction().commit();                        
+        em.getTransaction().commit();
     }
-    
-    public static void updateCidade(Cidade cidade){
-        if (!em.getTransaction().isActive()) {
-            em.getTransaction().begin();
-        }        
+
+    public static void updateCidade(Cidade cidade) {
+        TransactionUtil.begin(em);
         em.merge(cidade);
-        em.getTransaction().commit();                        
+        em.getTransaction().commit();
     }
 
 }
