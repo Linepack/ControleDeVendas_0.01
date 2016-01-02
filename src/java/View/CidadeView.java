@@ -73,8 +73,9 @@ public class CidadeView implements Serializable {
         }
     }
 
-    public void updateCidade() {
+    public void updateCidade() throws IOException {
         controller.updateCidade(this.cidadeUpdate);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("cidadeView.xhtml");
     }
 
     public List<Cidade> getCidades() {
