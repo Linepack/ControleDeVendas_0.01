@@ -2,10 +2,11 @@ package View;
 
 import Controller.CidadeController;
 import Model.Cidade;
-import static Model.Cidade_.cidade;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -13,8 +14,6 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
-import org.primefaces.event.SelectEvent;
-import org.primefaces.event.UnselectEvent;
 
 /**
  *
@@ -39,21 +38,30 @@ public class CidadeView implements Serializable {
         cidades = controller.createCidades();
     }
 
-    public void openDialogInsert(){
+    public void openDialogInsert() {
         this.cidadeInsert = new Cidade();
-        RequestContext.getCurrentInstance().execute("PF('insertCidade').show();");        
+        RequestContext.getCurrentInstance().execute("PF('insertCidade').show();");
     }
-    
+
     public void insertCidade() throws IOException {
-        controller.insertCidade(cidadeInsert);
-        FacesContext.getCurrentInstance().getExternalContext().redirect("cidadeView.xhtml");
+        FacesContext context = FacesContext.getCurrentInstance();
+
+        if (cidadeInsert.getCidade() == "") {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Nome deve ser informado!", null));
+        } else if (cidadeInsert.getUf() == "") {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "UF deve ser informado!", null));
+        } else {
+            controller.insertCidade(cidadeInsert);
+            RequestContext.getCurrentInstance().execute("PF('insertCidade').hide();");
+            this.init();
+        }
     }
 
     public void deleteCidade() throws IOException {
         for (Cidade cidade : cidadesSelecionadas) {
             controller.deleteCidade(cidade);
         }
-        FacesContext.getCurrentInstance().getExternalContext().redirect("cidadeView.xhtml");
+        this.init();
     }
 
     public void openDialogEdit() {
@@ -66,7 +74,7 @@ public class CidadeView implements Serializable {
             }
         }
         if (numeroSelecoes == 1) {
-            RequestContext.getCurrentInstance().execute("PF('editCidade').show();");            
+            RequestContext.getCurrentInstance().execute("PF('editCidade').show();");
         } else if (numeroSelecoes >= 2) {
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Atenção!", "Selecione apenas um registro!"));
@@ -74,8 +82,16 @@ public class CidadeView implements Serializable {
     }
 
     public void updateCidade() throws IOException {
-        controller.updateCidade(this.cidadeUpdate);
-        FacesContext.getCurrentInstance().getExternalContext().redirect("cidadeView.xhtml");
+        FacesContext context = FacesContext.getCurrentInstance();
+
+        if (cidadeUpdate.getCidade() == "") {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Nome deve ser informado!", null));
+        } else if (cidadeUpdate.getUf() == "") {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "UF deve ser informado!", null));
+        } else {
+            controller.updateCidade(this.cidadeUpdate);
+            RequestContext.getCurrentInstance().execute("PF('editCidade').hide();");
+        }
     }
 
     public List<Cidade> getCidades() {
