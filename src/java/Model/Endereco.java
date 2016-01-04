@@ -18,7 +18,7 @@ public class Endereco implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
-    private String endereço;
+    private String endereco;
     private String cep;
     @ManyToOne
     @JoinColumn(name = "cidade_id")
@@ -32,12 +32,12 @@ public class Endereco implements Serializable {
         this.id = id;
     }
 
-    public String getEndereço() {
-        return endereço;
+    public String getEndereco() {
+        return endereco;
     }
 
-    public void setEndereço(String endereço) {
-        this.endereço = endereço;
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 
     public String getCep() {

@@ -84,9 +84,21 @@
 
                                     <h:outputLabel for="nome" value="Nome"/>                        
                                     <p:inputText id="nome" value="#{vendedorView.vendedorInsert.nome}" autocomplete="off" maxlength="100"/>
+                                    
+                                    <h:outputLabel for="cpf" value="CPF"/>                        
+                                    <p:inputText id="cpf" value="#{vendedorView.vendedorInsert.cnpjOuCpf}" autocomplete="off" maxlength="100"/>
+                                    
+                                    <h:outputLabel for="perc" value="% Com."/>                        
+                                    <p:inputText id="perc" value="#{vendedorView.vendedorInsert.percentualComissao}" autocomplete="off" maxlength="100"/>
 
+                                    <h:outputLabel for="cep" value="CEP"/>                        
+                                    <p:inputText id="cep" value="#{vendedorView.vendedorInsert.endereco.cep}" autocomplete="off" maxlength="100"/>
+                                    
+                                    <h:outputLabel for="end" value="Endereço"/>                        
+                                    <p:inputText id="end" value="#{vendedorView.vendedorInsert.endereco.endereco}" autocomplete="off" maxlength="100"/>
+                                                                        
                                     <h:outputLabel for="cidade" value="Cidades"/>
-                                    <p:autoComplete id="cidade" value="#{vendedorView.cidade}" completeMethod="#{vendedorView.getCidades}"
+                                    <p:autoComplete id="cidade" value="#{vendedorView.vendedorInsert.endereco.cidade}" completeMethod="#{vendedorView.getCidades}"
                                                     var="cidade" itemLabel="#{cidade.cidade}-#{cidade.uf}" itemValue="#{cidade}" forceSelection="true" />
 
                                     <p:commandButton update=":form:dataTableVendedor, msgsInsertVendedor" value="Gravar" actionListener="#{vendedorView.insertVendedor()}"/>                                           

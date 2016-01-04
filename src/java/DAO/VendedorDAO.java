@@ -25,5 +25,11 @@ public class VendedorDAO {
 
         return vendedorList;
     }
+    
+    public static void insertVendedor(Vendedor vendedor){
+        TransactionUtil.begin(em);
+        em.persist(vendedor);
+        em.getTransaction().commit();
+    }
 
 }

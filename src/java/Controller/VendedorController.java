@@ -28,5 +28,9 @@ public class VendedorController {
         cidades = CidadeDAO.getCidadeListByLike(filtro);
         return cidades;
     }   
+    
+    public void insertVendedor(Vendedor vendedor){
+        VendedorDAO.insertVendedor(vendedor);        
+    }
         
 }

@@ -2,8 +2,10 @@ package View;
 
 import Controller.VendedorController;
 import Model.Cidade;
+import Model.Endereco;
 import Model.Pessoa;
 import Model.Vendedor;
+import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -17,32 +19,36 @@ import org.primefaces.context.RequestContext;
  */
 @ManagedBean(name = "vendedorView")
 @ViewScoped
-public class VendedorView {
-    
+public class VendedorView implements Serializable {
+
     private List<Vendedor> vendedores;
     private List<Vendedor> vendedoresSelecionados;
     private List<Vendedor> vendedoresFiltrador;
-    private Vendedor vendedorInsert;
-    private Cidade cidade;
-    
+    private Vendedor vendedorInsert;    
+
     @ManagedProperty(value = "#{vendedorController}")
     private VendedorController vendedorController;
-        
+
     @PostConstruct
-    public void init(){
+    public void init() {
         vendedores = vendedorController.createVendedores();
     }
-        
-    public List<Cidade> getCidades(String filtro){
-        return vendedorController.getCidadeListByLike(filtro);                        
+
+    public List<Cidade> getCidades(String filtro) {
+        return vendedorController.getCidadeListByLike(filtro);
     }
-    
-    public void openDialogInsert(){
+
+    public void openDialogInsert() {
+        vendedorInsert = new Vendedor();
+        vendedorInsert.setEndereco(new Endereco());
+        vendedorInsert.getEndereco().setCidade(new Cidade());
         RequestContext.getCurrentInstance().execute("PF('insertVendedor').show();");
     }
-    
-    public void insertVendedor(){
-        
+
+    public void insertVendedor() {
+        vendedorController.insertVendedor(vendedorInsert);
+        RequestContext.getCurrentInstance().execute("PF('insertVendedor').hide();");
+
     }
 
     public List<Vendedor> getVendedores() {
@@ -75,7 +81,7 @@ public class VendedorView {
 
     public void setVendedoresFiltrador(List<Vendedor> vendedoresFiltrador) {
         this.vendedoresFiltrador = vendedoresFiltrador;
-    }        
+    }
 
     public Vendedor getVendedorInsert() {
         return vendedorInsert;
@@ -84,15 +90,5 @@ public class VendedorView {
     public void setVendedorInsert(Vendedor vendedorInsert) {
         this.vendedorInsert = vendedorInsert;
     }
-
-    public Cidade getCidade() {
-        return cidade;
-    }
-
-    public void setCidade(Cidade cidade) {
-        this.cidade = cidade;
-    }
     
-    
-
 }
