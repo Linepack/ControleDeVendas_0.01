@@ -25,6 +25,8 @@
             <b:column span="3"></b:column>
             <b:column span="6">
                 <b:panel title="Cadastro de Vendedores" look="primary" collapsible="false">
+
+                    <!-- LISTA DE VENEDDORES -->
                     <h:form id="form">                                                           
                         <p:dataTable id="dataTableVendedor"
                                      var="vendedor" 
@@ -33,38 +35,67 @@
                                      rows="10"       
                                      selection="#{vendedorView.vendedoresSelecionados}"
                                      emptyMessage="Nada encontrado." filteredValue="#{vendedorView.vendedoresFiltrador}"
-                                     rowKey="#{vendedor.pessoa.id}" style="margin-bottom:0"
+                                     rowKey="#{vendedor.id}" style="margin-bottom:0"
                                      widgetVar="vendedoresTable"
                                      paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                      rowsPerPageTemplate="5,10,15,25,50,100">
 
                             <p:column selectionMode="multiple" style="width:1px; text-align:center"/>                
-                            <p:column headerText="Id" filterBy="#{vendedor.pessoa.id}" sortBy="#{vendedor.pessoa.id}" width="10" priority="2">
-                                <h:outputText value="#{vendedor.pessoa.id}" />
+                            <p:column headerText="Id" filterBy="#{vendedor.id}" sortBy="#{vendedor.id}" width="10" priority="2">
+                                <h:outputText value="#{vendedor.id}" />
                             </p:column>                           
 
-                            <p:column headerText="Nome" filterBy="#{vendedor.pessoa.nome}" filterMatchMode="contains" sortBy="#{vendedor.pessoa.nome}"  width="10" priority="1">
-                                <h:outputText value="#{vendedor.pessoa.nome}" />
+                            <p:column headerText="Nome" filterBy="#{vendedor.nome}" filterMatchMode="contains" sortBy="#{vendedor.nome}"  width="10" priority="1">
+                                <h:outputText value="#{vendedor.nome}" />
                             </p:column>
 
-                            <p:column headerText="CPF" filterBy="#{vendedor.pessoa.cnpjOuCpf}" filterMatchMode="contains" sortBy="#{vendedor.pessoa.cnpjOuCpf}" width="10" priority="1">
-                                <h:outputText value="#{vendedor.pessoa.cnpjOuCpf}" />
+                            <p:column headerText="CPF" filterBy="#{vendedor.cnpjOuCpf}" filterMatchMode="contains" sortBy="#{vendedor.cnpjOuCpf}" width="10" priority="1">
+                                <h:outputText value="#{vendedor.cnpjOuCpf}" />
                             </p:column>                                              
 
-                            <p:column headerText="Cidade" filterBy="#{vendedor.pessoa.endereco.cidade.cidade}-#{vendedor.pessoa.endereco.cidade.uf}" filterMatchMode="contains" sortBy="#{vendedor.pessoa.endereco.cidade.cidade}-#{vendedor.pessoa.endereco.cidade.uf}" width="10" priority="2">
-                                <h:outputText value="#{vendedor.pessoa.endereco.cidade.cidade}-#{vendedor.pessoa.endereco.cidade.uf}" />
+                            <p:column headerText="Cidade" filterBy="#{vendedor.endereco.cidade.cidade}-#{vendedor.endereco.cidade.uf}" filterMatchMode="contains" sortBy="#{vendedor.pessoa.endereco.cidade.cidade}-#{vendedor.pessoa.endereco.cidade.uf}" width="10" priority="2">
+                                <h:outputText value="#{vendedor.endereco.cidade.cidade}-#{vendedor.endereco.cidade.uf}" />
                             </p:column>
 
                             <p:column headerText="%Com." filterBy="#{vendedor.percentualComissao}" sortBy="#{vendedor.percentualComissao}" width="10" priority="2">
                                 <h:outputText value="#{vendedor.percentualComissao}" />
                             </p:column>  
                             <f:facet name="footer">
-                                <p:commandButton icon="ui-icon-plus" />
+                                <p:commandButton icon="ui-icon-plus" update=":insertVendedor" actionListener="#{vendedorView.openDialogInsert()}"/>
                                 <p:commandButton icon="ui-icon-pencil"/>
                                 <p:commandButton icon="ui-icon-close"/>
                             </f:facet> 
                         </p:dataTable>  
                     </h:form>
+
+
+                    <!-- INSERCAO DE VENDEDOR -->
+                    <p:dialog header="Inserir Vendedor" 
+                              widgetVar="insertVendedor" 
+                              modal="true"                                     
+                              responsive="true"
+                              resizable="false"
+                              id="insertVendedor">
+                        <h:form>
+                            <p:panel>                    
+                                <p:focus for="nome" />
+                                <p:messages autoUpdate="true" id="msgsInsertVendedor" />
+                                <h:panelGrid columns="2" cellpadding="5">                        
+
+                                    <h:outputLabel for="nome" value="Nome"/>                        
+                                    <p:inputText id="nome" value="#{vendedorView.vendedorInsert.nome}" autocomplete="off" maxlength="100"/>
+
+                                    <h:outputLabel for="cidade" value="Cidades"/>
+                                    <p:autoComplete id="cidade" value="#{vendedorView.cidade}" completeMethod="#{vendedorView.getCidades}"
+                                                    var="cidade" itemLabel="#{cidade.cidade}-#{cidade.uf}" itemValue="#{cidade}" forceSelection="true" />
+
+                                    <p:commandButton update=":form:dataTableVendedor, msgsInsertVendedor" value="Gravar" actionListener="#{vendedorView.insertVendedor()}"/>                                           
+                                    <p:commandButton value="Limpar" type="reset" />                                     
+                                </h:panelGrid>
+                            </p:panel>
+                        </h:form>
+                    </p:dialog>  
+
                 </b:panel>
             </b:column>
             <b:column span="3"></b:column>            

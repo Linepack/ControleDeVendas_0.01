@@ -1,7 +1,10 @@
 package Controller;
 
+import DAO.CidadeDAO;
 import DAO.VendedorDAO;
+import Model.Cidade;
 import Model.Vendedor;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
@@ -19,5 +22,11 @@ public class VendedorController {
         vendedorList = VendedorDAO.getVendedorList();
         return vendedorList;
     }                
+    
+    public List<Cidade> getCidadeListByLike(String filtro) {
+        List<Cidade> cidades = new ArrayList<>();
+        cidades = CidadeDAO.getCidadeListByLike(filtro);
+        return cidades;
+    }   
         
 }

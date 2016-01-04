@@ -20,10 +20,28 @@ public class CidadeDAO {
     public static List getCidadeList() {
         List<Cidade> cidadeList = new ArrayList<>();
         TransactionUtil.begin(em);
-        Query q = em.createQuery("select c from Cidade c order by c.id");
+        Query q = em.createQuery("select c from Cidade c order by c.cidade");
         cidadeList = (List<Cidade>) q.getResultList();
 
         return cidadeList;
+    }
+    
+    public static List getCidadeListByLike(String filtro) {
+        List<Cidade> cidadeList = new ArrayList<>();
+        TransactionUtil.begin(em);
+        Query q = em.createQuery("select c from Cidade c where upper(c.cidade) like '%"+filtro.toUpperCase()+"%' order by c.cidade");
+        cidadeList = (List<Cidade>) q.getResultList();
+
+        return cidadeList;
+    }
+    
+    public static Cidade getCidadeByID(Integer id) {
+        Cidade cidade;
+        TransactionUtil.begin(em);
+        Query q = em.createQuery("select c from Cidade c where c.id = "+id);
+        cidade = (Cidade) q.getResultList().get(0);
+
+        return cidade;
     }
 
     public static void insertCidade(Cidade cidade) {

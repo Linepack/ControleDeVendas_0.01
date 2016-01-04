@@ -20,7 +20,7 @@ public class VendedorDAO {
     public static List getVendedorList() {
         List<Vendedor> vendedorList = new ArrayList<>();
         TransactionUtil.begin(em);
-        Query q = em.createQuery("select v from Vendedor v");
+        Query q = em.createQuery("select p from Pessoa p");
         vendedorList = (List<Vendedor>) q.getResultList();
 
         return vendedorList;

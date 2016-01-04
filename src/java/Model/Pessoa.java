@@ -16,7 +16,9 @@ import javax.persistence.MappedSuperclass;
  *
  * @author leandro
  */
-@Entity(name = "Pessoa")
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "pertence_a_classe")
 public class Pessoa implements Serializable {
 
     @Id
