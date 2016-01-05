@@ -3,14 +3,15 @@ package View;
 import Controller.VendedorController;
 import Model.Cidade;
 import Model.Endereco;
-import Model.Pessoa;
 import Model.Vendedor;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -24,7 +25,7 @@ public class VendedorView implements Serializable {
     private List<Vendedor> vendedores;
     private List<Vendedor> vendedoresSelecionados;
     private List<Vendedor> vendedoresFiltrador;
-    private Vendedor vendedorInsert;    
+    private Vendedor vendedorInsert;
 
     @ManagedProperty(value = "#{vendedorController}")
     private VendedorController vendedorController;
@@ -45,9 +46,16 @@ public class VendedorView implements Serializable {
         RequestContext.getCurrentInstance().execute("PF('insertVendedor').show();");
     }
 
-    public void insertVendedor() {
-        vendedorController.insertVendedor(vendedorInsert);
+    public String insertVendedor() {
+        String retorno = vendedorController.insertVendedor(vendedorInsert);
+        if (retorno != "") {
+            FacesContext instance = FacesContext.getCurrentInstance();
+            instance.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", retorno));
+            return retorno;
+        }
         RequestContext.getCurrentInstance().execute("PF('insertVendedor').hide();");
+        this.init();
+        return "";
 
     }
 
@@ -90,5 +98,5 @@ public class VendedorView implements Serializable {
     public void setVendedorInsert(Vendedor vendedorInsert) {
         this.vendedorInsert = vendedorInsert;
     }
-    
+
 }

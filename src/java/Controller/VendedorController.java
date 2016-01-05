@@ -25,12 +25,11 @@ public class VendedorController {
     
     public List<Cidade> getCidadeListByLike(String filtro) {
         List<Cidade> cidades = new ArrayList<>();
-        cidades = CidadeDAO.getCidadeListByLike(filtro);
+        cidades = CidadeDAO.getCidadeListByLike(filtro);        
         return cidades;
     }   
     
-    public void insertVendedor(Vendedor vendedor){
-        VendedorDAO.insertVendedor(vendedor);        
-    }
-        
+    public String insertVendedor(Vendedor vendedor){
+        return VendedorDAO.insertVendedor(vendedor);        
+    }            
 }

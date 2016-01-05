@@ -11,6 +11,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
+import org.hibernate.annotations.Cascade;
 
 /**
  *
@@ -26,7 +27,7 @@ public class Pessoa implements Serializable {
     private Integer id;
     private String nome;
     @ManyToOne
-    @JoinColumn(name = "endereco_id")
+    @JoinColumn(name = "endereco_id")    
     private Endereco endereco;
     public String cnpjOuCpf;
 

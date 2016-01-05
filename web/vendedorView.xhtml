@@ -26,6 +26,7 @@
             <b:column span="6">
                 <b:panel title="Cadastro de Vendedores" look="primary" collapsible="false">
 
+                    <p:growl id="growl" showDetail="true" sticky="true"/>  
                     <!-- LISTA DE VENEDDORES -->
                     <h:form id="form">                                                           
                         <p:dataTable id="dataTableVendedor"
@@ -53,7 +54,7 @@
                                 <h:outputText value="#{vendedor.cnpjOuCpf}" />
                             </p:column>                                              
 
-                            <p:column headerText="Cidade" filterBy="#{vendedor.endereco.cidade.cidade}-#{vendedor.endereco.cidade.uf}" filterMatchMode="contains" sortBy="#{vendedor.pessoa.endereco.cidade.cidade}-#{vendedor.pessoa.endereco.cidade.uf}" width="10" priority="2">
+                            <p:column headerText="Cidade" filterBy="#{vendedor.endereco.cidade.cidade}-#{vendedor.endereco.cidade.uf}" filterMatchMode="contains" sortBy="#{vendedor.endereco.cidade.cidade}-#{vendedor.endereco.cidade.uf}" width="10" priority="2">
                                 <h:outputText value="#{vendedor.endereco.cidade.cidade}-#{vendedor.endereco.cidade.uf}" />
                             </p:column>
 
@@ -78,31 +79,49 @@
                               id="insertVendedor">
                         <h:form>
                             <p:panel>                    
-                                <p:focus for="nome" />
-                                <p:messages autoUpdate="true" id="msgsInsertVendedor" />
+                                <p:focus for="nome" />                                
                                 <h:panelGrid columns="2" cellpadding="5">                        
 
-                                    <h:outputLabel for="nome" value="Nome"/>                        
-                                    <p:inputText id="nome" value="#{vendedorView.vendedorInsert.nome}" autocomplete="off" maxlength="100"/>
-                                    
-                                    <h:outputLabel for="cpf" value="CPF"/>                        
-                                    <p:inputText id="cpf" value="#{vendedorView.vendedorInsert.cnpjOuCpf}" autocomplete="off" maxlength="100"/>
-                                    
-                                    <h:outputLabel for="perc" value="% Com."/>                        
-                                    <p:inputText id="perc" value="#{vendedorView.vendedorInsert.percentualComissao}" autocomplete="off" maxlength="100"/>
+                                    <p:inputText id="nome" 
+                                                 value="#{vendedorView.vendedorInsert.nome}" 
+                                                 autocomplete="off" 
+                                                 maxlength="100"
+                                                 placeholder="Nome"/>
 
-                                    <h:outputLabel for="cep" value="CEP"/>                        
-                                    <p:inputText id="cep" value="#{vendedorView.vendedorInsert.endereco.cep}" autocomplete="off" maxlength="100"/>
-                                    
-                                    <h:outputLabel for="end" value="Endereço"/>                        
-                                    <p:inputText id="end" value="#{vendedorView.vendedorInsert.endereco.endereco}" autocomplete="off" maxlength="100"/>
-                                                                        
-                                    <h:outputLabel for="cidade" value="Cidades"/>
-                                    <p:autoComplete id="cidade" value="#{vendedorView.vendedorInsert.endereco.cidade}" completeMethod="#{vendedorView.getCidades}"
-                                                    var="cidade" itemLabel="#{cidade.cidade}-#{cidade.uf}" itemValue="#{cidade}" forceSelection="true" />
+                                    <p:inputText id="cpf" 
+                                                 value="#{vendedorView.vendedorInsert.cnpjOuCpf}" 
+                                                 autocomplete="off" 
+                                                 placeholder="CPF: 999.999.999-00"/>
 
-                                    <p:commandButton update=":form:dataTableVendedor, msgsInsertVendedor" value="Gravar" actionListener="#{vendedorView.insertVendedor()}"/>                                           
-                                    <p:commandButton value="Limpar" type="reset" />                                     
+                                    <p:inputText id="perc" 
+                                                 value="#{vendedorView.vendedorInsert.percentualComissao}" 
+                                                 autocomplete="off"
+                                                 placeholder="Comissão: 99.99"/>
+
+                                    <p:inputText id="cep" 
+                                                 value="#{vendedorView.vendedorInsert.endereco.cep}" 
+                                                 autocomplete="off" 
+                                                 placeholder="CEP 99999-999" />                                                                        
+
+                                    <p:inputText id="end" 
+                                                 value="#{vendedorView.vendedorInsert.endereco.endereco}" 
+                                                 autocomplete="off" 
+                                                 maxlength="100"
+                                                 placeholder="Endereço"/>                                                                        
+
+                                    <p:autoComplete id="cidadeAutoComplete"                                                     
+                                                    value="#{vendedorView.vendedorInsert.endereco.cidade}" 
+                                                    completeMethod="#{vendedorView.getCidades}"
+                                                    var="cidade" 
+                                                    itemLabel="#{(cidade.cidade != null) ? cidade.cidade : 'Cidade'}-#{(cidade.uf != null ) ? cidade.uf : 'UF'}" 
+                                                    itemValue="#{cidade}" 
+                                                    forceSelection="true"/> 
+
+                                    <p:commandButton update=":form:dataTableVendedor, growl" 
+                                                     value="Gravar" 
+                                                     actionListener="#{vendedorView.insertVendedor()}"/>                                           
+                                    <p:commandButton value="Limpar" 
+                                                     type="reset" />                                     
                                 </h:panelGrid>
                             </p:panel>
                         </h:form>
