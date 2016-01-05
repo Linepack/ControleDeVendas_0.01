@@ -78,7 +78,7 @@
                               resizable="false"
                               id="insertVendedor">
                         <h:form>
-                            <p:panel>                    
+                            <p:panel id="panelInsertVendedor">                    
                                 <p:focus for="nome" />                                
                                 <h:panelGrid columns="2" cellpadding="5">                        
 
@@ -86,22 +86,28 @@
                                                  value="#{vendedorView.vendedorInsert.nome}" 
                                                  autocomplete="off" 
                                                  maxlength="100"
-                                                 placeholder="Nome"/>
+                                                 placeholder="Nome"
+                                                 required="true"
+                                                 requiredMessage="Nome Obrigatório"/>                                    
 
                                     <p:inputText id="cpf" 
                                                  value="#{vendedorView.vendedorInsert.cnpjOuCpf}" 
                                                  autocomplete="off" 
-                                                 placeholder="CPF: 999.999.999-00"/>
+                                                 placeholder="CPF: 999.999.999-00"
+                                                 required="true"
+                                                 requiredMessage="CPF Obrigatório"/>
 
                                     <p:inputText id="perc" 
                                                  value="#{vendedorView.vendedorInsert.percentualComissao}" 
                                                  autocomplete="off"
-                                                 placeholder="Comissão: 99.99"/>
+                                                 placeholder="Comissão: 99.99"
+                                                 required="true"
+                                                 requiredMessage="% Comissão Obrigatório"/>
 
                                     <p:inputText id="cep" 
                                                  value="#{vendedorView.vendedorInsert.endereco.cep}" 
                                                  autocomplete="off" 
-                                                 placeholder="CEP 99999-999" />                                                                        
+                                                 placeholder="CEP 99999-999"/>                                                                        
 
                                     <p:inputText id="end" 
                                                  value="#{vendedorView.vendedorInsert.endereco.endereco}" 
@@ -116,13 +122,12 @@
                                                     itemLabel="#{(cidade.cidade != null) ? cidade.cidade : 'Cidade'}-#{(cidade.uf != null ) ? cidade.uf : 'UF'}" 
                                                     itemValue="#{cidade}" 
                                                     forceSelection="true"/> 
-
-                                    <p:commandButton update=":form:dataTableVendedor, growl" 
-                                                     value="Gravar" 
-                                                     actionListener="#{vendedorView.insertVendedor()}"/>                                           
-                                    <p:commandButton value="Limpar" 
-                                                     type="reset" />                                     
                                 </h:panelGrid>
+                                <p:commandButton update=":form:dataTableVendedor, growl, panelInsertVendedor" 
+                                                 value="Gravar" 
+                                                 actionListener="#{vendedorView.insertVendedor()}"/>                                           
+                                <p:commandButton value="Limpar" 
+                                                 type="reset" />                                     
                             </p:panel>
                         </h:form>
                     </p:dialog>  
