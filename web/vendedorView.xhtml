@@ -33,7 +33,7 @@
                                      var="vendedor" 
                                      value="#{vendedorView.vendedores}" 
                                      paginator="true"
-                                     rows="10"       
+                                     rows="5"       
                                      selection="#{vendedorView.vendedoresSelecionados}"
                                      emptyMessage="Nada encontrado." filteredValue="#{vendedorView.vendedoresFiltrador}"
                                      rowKey="#{vendedor.id}" style="margin-bottom:0"
@@ -90,24 +90,27 @@
                                                  required="true"
                                                  requiredMessage="Nome Obrigatório"/>                                    
 
-                                    <p:inputText id="cpf" 
+                                    <p:inputMask id="cpf" 
                                                  value="#{vendedorView.vendedorInsert.cnpjOuCpf}" 
                                                  autocomplete="off" 
                                                  placeholder="CPF: 999.999.999-00"
                                                  required="true"
-                                                 requiredMessage="CPF Obrigatório"/>
+                                                 requiredMessage="CPF Obrigatório"
+                                                 mask="999.999.999-99"/>
 
-                                    <p:inputText id="perc" 
+                                    <p:inputMask id="perc" 
                                                  value="#{vendedorView.vendedorInsert.percentualComissao}" 
                                                  autocomplete="off"
                                                  placeholder="Comissão: 99.99"
                                                  required="true"
-                                                 requiredMessage="% Comissão Obrigatório"/>
+                                                 requiredMessage="% Comissão Obrigatório"
+                                                 mask="99.99"/>
 
-                                    <p:inputText id="cep" 
+                                    <p:inputMask id="cep" 
                                                  value="#{vendedorView.vendedorInsert.endereco.cep}" 
                                                  autocomplete="off" 
-                                                 placeholder="CEP 99999-999"/>                                                                        
+                                                 placeholder="CEP 99999-999"
+                                                 mask="99999-999"/>                                                                        
 
                                     <p:inputText id="end" 
                                                  value="#{vendedorView.vendedorInsert.endereco.endereco}" 
@@ -120,8 +123,7 @@
                                                     completeMethod="#{vendedorView.getCidades}"
                                                     var="cidade" 
                                                     itemLabel="#{(cidade.cidade != null) ? cidade.cidade : 'Cidade'}-#{(cidade.uf != null ) ? cidade.uf : 'UF'}" 
-                                                    itemValue="#{cidade}" 
-                                                    forceSelection="true"/> 
+                                                    itemValue="#{cidade}"/> 
                                 </h:panelGrid>
                                 <p:commandButton update=":form:dataTableVendedor, growl, panelInsertVendedor" 
                                                  value="Gravar" 

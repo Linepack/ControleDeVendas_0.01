@@ -29,13 +29,17 @@ public class VendedorDAO {
     public static String insertVendedor(Vendedor vendedor) {
         try {
             TransactionUtil.begin(em);
+            if (vendedor.getEndereco().getCidade().getId() == 0) {
+                em.persist(vendedor.getEndereco().getCidade());
+            }
+
             em.persist(vendedor.getEndereco());
             em.persist(vendedor);
             em.getTransaction().commit();
         } catch (Exception e) {
             return e.toString();
         }
-        
+
         return "";
     }
 

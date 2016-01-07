@@ -31,7 +31,7 @@
                                      var="cidade" 
                                      value="#{cidadeView.cidades}" 
                                      paginator="true"
-                                     rows="10"
+                                     rows="5"
                                      selection="#{cidadeView.cidadesSelecionadas}"
                                      rowKey="#{cidade.id}" style="margin-bottom:0"
                                      emptyMessage="Nada encontrado." filteredValue="#{cidadeView.cidadesFiltradas}"
@@ -55,7 +55,7 @@
                             <f:facet name="footer">
                                 <p:commandButton icon="ui-icon-plus" update="insertCidade" actionListener="#{cidadeView.openDialogInsert()}"/>
                                 <p:commandButton icon="ui-icon-pencil" update="editCidade,growl" actionListener="#{cidadeView.openDialogEdit()}"/>
-                                <p:commandButton icon="ui-icon-close" update=":form:dataTableCidade" actionListener="#{cidadeView.deleteCidade()}"/>
+                                <p:commandButton icon="ui-icon-close" update=":form:dataTableCidade, growl" actionListener="#{cidadeView.deleteCidade()}"/>
                             </f:facet>                                                                
                         </p:dataTable>  
                     </h:form>
@@ -69,7 +69,7 @@
                         <h:form>
                             <p:panel>
                                 <p:focus for="nome"/>
-                                <p:messages autoUpdate="true" id="msgsEditCidade" />
+                                
                                 <h:panelGrid columns="2" cellpadding="5" id="panelGridEditCidade">                                          
                                     <p:outputLabel for="id" value="Id"/>
                                     <p:inplace id="id" disabled="true"> 
@@ -83,10 +83,10 @@
 
                                     <p:inputText id="uf" value="#{cidadeView.cidadeUpdate.uf}" autocomplete="off" maxlength="2" validatorMessage="UF deve conter apenas letras (maiúsculas)."> 
                                         <f:validateRegex pattern="^[A-Z]+$"/>
-                                        <p:ajax event="keyup" update="msgsEditCidade"/>                                        
+                                        <p:ajax event="keyup" update="growl"/>                                        
                                     </p:inputText>
 
-                                    <p:commandButton update=":form:dataTableCidade,msgsEditCidade" value="Gravar" actionListener="#{cidadeView.updateCidade()}"/>
+                                    <p:commandButton update=":form:dataTableCidade,growl" value="Gravar" actionListener="#{cidadeView.updateCidade()}"/>
                                 </h:panelGrid>
                             </p:panel>
                         </h:form>
@@ -100,8 +100,7 @@
                               id="insertCidade">
                         <h:form>
                             <p:panel>                    
-                                <p:focus for="nome" />
-                                <p:messages autoUpdate="true" id="msgsInsertCidade" />
+                                <p:focus for="nome" />                                
                                 <h:panelGrid columns="2" cellpadding="5">                        
                                     <h:outputLabel for="nome" value="Nome"/>                        
                                     <p:inputText id="nome" value="#{cidadeView.cidadeInsert.cidade}" autocomplete="off" maxlength="100"/>
@@ -109,10 +108,10 @@
                                     <h:outputLabel for="uf" value="UF"/>
                                     <p:inputText id="uf" value="#{cidadeView.cidadeInsert.uf}" autocomplete="off" maxlength="2" validatorMessage="UF deve conter apenas letras (maiúsculas).">                                                                            
                                         <f:validateRegex pattern="^[A-Z]+$"/>
-                                        <p:ajax event="keyup" update="msgsInsertCidade"/>
+                                        <p:ajax event="keyup" update="growl"/>
                                     </p:inputText>
 
-                                    <p:commandButton update=":form:dataTableCidade, msgsInsertCidade" value="Gravar" actionListener="#{cidadeView.insertCidade()}"/>                                           
+                                    <p:commandButton update=":form:dataTableCidade, growl" value="Gravar" actionListener="#{cidadeView.insertCidade()}"/>                                           
                                     <p:commandButton value="Limpar" type="reset" />                                     
                                 </h:panelGrid>
                             </p:panel>

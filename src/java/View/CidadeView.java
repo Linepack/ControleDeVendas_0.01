@@ -47,9 +47,9 @@ public class CidadeView implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
 
         if (cidadeInsert.getCidade() == "") {
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Nome deve ser informado!", null));
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Validação!", "Nome deve ser informado!"));
         } else if (cidadeInsert.getUf() == "") {
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "UF deve ser informado!", null));
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Validação!", "UF deve ser informado!"));
         } else {
             controller.insertCidade(cidadeInsert);
             RequestContext.getCurrentInstance().execute("PF('insertCidade').hide();");
@@ -85,9 +85,9 @@ public class CidadeView implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
 
         if (cidadeUpdate.getCidade() == "") {
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Nome deve ser informado!", null));
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Validação","Nome deve ser informado!"));
         } else if (cidadeUpdate.getUf() == "") {
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "UF deve ser informado!", null));
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Validação", "UF deve ser informado!"));
         } else {
             controller.updateCidade(this.cidadeUpdate);
             RequestContext.getCurrentInstance().execute("PF('editCidade').hide();");
