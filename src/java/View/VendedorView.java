@@ -81,10 +81,22 @@ public class VendedorView implements Serializable {
         }        
         if (numeroSelecoes == 1){
             RequestContext.getCurrentInstance().execute("PF('editVendedor').show();");
-        }else{   
+        }else if(numeroSelecoes > 1){   
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Edite um (1) vendedor por vez."));
         }        
+    }
+    
+    public void updateVendedor(){
+        String retorno = null;
+        retorno = vendedorController.updateVendedor(vendedorUpdate);
+        if (retorno != ""){
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro atualizando", retorno));
+        }else{
+            RequestContext.getCurrentInstance().execute("PF('editVendedor').hide();");
+            this.init();
+        }
     }
 
     public List<Vendedor> getVendedores() {
