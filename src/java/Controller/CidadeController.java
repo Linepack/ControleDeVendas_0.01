@@ -27,8 +27,8 @@ public class CidadeController {
         CidadeDAO.insertCidade(cidade);
     }
     
-    public void deleteCidade(Cidade cidade){
-        CidadeDAO.deleteCidade(cidade);
+    public String deleteCidade(Cidade cidade){        
+        return CidadeDAO.deleteCidade(cidade);
     }
     
     public void updateCidade(Cidade cidade){

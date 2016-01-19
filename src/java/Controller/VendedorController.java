@@ -31,5 +31,13 @@ public class VendedorController {
     
     public String insertVendedor(Vendedor vendedor){        
         return VendedorDAO.insertVendedor(vendedor);        
-    }            
+    }      
+    
+    public String deleteVendedor(Vendedor vendedor){
+        return VendedorDAO.deleteVendedor(vendedor);
+    }
+    
+    public String updateVendedor(Vendedor vendedor){
+        return VendedorDAO.updateVendedor(vendedor);        
+    }
 }

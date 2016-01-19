@@ -58,8 +58,14 @@ public class CidadeView implements Serializable {
     }
 
     public void deleteCidade() throws IOException {
-        for (Cidade cidade : cidadesSelecionadas) {
-            controller.deleteCidade(cidade);
+        String retorno = null;
+        for (Cidade cidade : cidadesSelecionadas) {            
+            retorno = controller.deleteCidade(cidade);
+            if (retorno != ""){
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro Deletando", retorno));
+            }
+            
         }
         this.init();
     }
@@ -85,7 +91,7 @@ public class CidadeView implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
 
         if (cidadeUpdate.getCidade() == "") {
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Validação","Nome deve ser informado!"));
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Validação", "Nome deve ser informado!"));
         } else if (cidadeUpdate.getUf() == "") {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Validação", "UF deve ser informado!"));
         } else {

@@ -43,4 +43,30 @@ public class VendedorDAO {
         return "";
     }
 
+    public static String deleteVendedor(Vendedor vendedor) {
+        try {
+            TransactionUtil.begin(em);
+            em.remove(vendedor);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (e.toString().contains("Integ")) {
+                return "Vendedor já utilizado em outro processo.";
+            } else {
+                return e.toString();
+            }
+        }
+        return "";
+    }
+
+    public static String updateVendedor(Vendedor vendedor) {
+        try {
+            TransactionUtil.begin(em);
+            em.merge(vendedor);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            return e.toString();
+        }
+        return "";
+    }
+
 }

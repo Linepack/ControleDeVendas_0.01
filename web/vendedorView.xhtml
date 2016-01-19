@@ -63,8 +63,8 @@
                             </p:column>  
                             <f:facet name="footer">
                                 <p:commandButton icon="ui-icon-plus" update=":insertVendedor" actionListener="#{vendedorView.openDialogInsert()}"/>
-                                <p:commandButton icon="ui-icon-pencil"/>
-                                <p:commandButton icon="ui-icon-close"/>
+                                <p:commandButton icon="ui-icon-pencil" update=":editVendedor, growl" actionListener="#{vendedorView.openDialogEdit()}"/>
+                                <p:commandButton icon="ui-icon-close" update=":form:dataTableVendedor, growl" actionListener="#{vendedorView.deleteVendedores()}"/>
                             </f:facet> 
                         </p:dataTable>  
                     </h:form>
@@ -104,7 +104,8 @@
                                                  placeholder="Comissão: 99.99"
                                                  required="true"
                                                  requiredMessage="% Comissão Obrigatório"
-                                                 mask="99.99"/>
+                                                 mask="99.99"/>                                       
+                                    
 
                                     <p:inputMask id="cep" 
                                                  value="#{vendedorView.vendedorInsert.endereco.cep}" 
@@ -123,11 +124,79 @@
                                                     completeMethod="#{vendedorView.getCidades}"
                                                     var="cidade" 
                                                     itemLabel="#{(cidade.cidade != null) ? cidade.cidade : 'Cidade'}-#{(cidade.uf != null ) ? cidade.uf : 'UF'}" 
-                                                    itemValue="#{cidade}"/> 
+                                                    itemValue="#{cidade}"
+                                                    forceSelection="true"/> 
                                 </h:panelGrid>
                                 <p:commandButton update=":form:dataTableVendedor, growl, panelInsertVendedor" 
                                                  value="Gravar" 
                                                  actionListener="#{vendedorView.insertVendedor()}"/>                                           
+                                <p:commandButton value="Limpar" 
+                                                 type="reset" />                                     
+                            </p:panel>
+                        </h:form>
+                    </p:dialog>  
+                    
+                    
+                    <!-- EDIÇÃO DE VENDEDOR -->
+                    <p:dialog header="Editar Vendedor" 
+                              widgetVar="editVendedor" 
+                              modal="true"                                     
+                              responsive="true"
+                              resizable="false"
+                              id="editVendedor">
+                        <h:form>
+                            <p:panel id="panelEditVendedor">                    
+                                <p:focus for="nome" />                                
+                                <h:panelGrid columns="2" cellpadding="5">                        
+
+                                    <p:inputText id="nome" 
+                                                 value="#{vendedorView.vendedorUpdate.nome}" 
+                                                 autocomplete="off" 
+                                                 maxlength="100"
+                                                 placeholder="Nome"
+                                                 required="true"
+                                                 requiredMessage="Nome Obrigatório"/>                                    
+
+                                    <p:inputMask id="cpf" 
+                                                 value="#{vendedorView.vendedorUpdate.cnpjOuCpf}" 
+                                                 autocomplete="off" 
+                                                 placeholder="CPF: 999.999.999-00"
+                                                 required="true"
+                                                 requiredMessage="CPF Obrigatório"
+                                                 mask="999.999.999-99"/>
+
+                                    
+                                    <p:inputMask id="perc" 
+                                                 value="#{vendedorView.vendedorUpdate.percentualComissao}" 
+                                                 autocomplete="off"
+                                                 placeholder="Comissão: 99.99"
+                                                 required="true"
+                                                 requiredMessage="% Comissão Obrigatório"
+                                                 mask="99.99"/>                                                                            
+
+                                    <p:inputMask id="cep" 
+                                                 value="#{vendedorView.vendedorUpdate.endereco.cep}" 
+                                                 autocomplete="off" 
+                                                 placeholder="CEP 99999-999"
+                                                 mask="99999-999"/>                                                                        
+
+                                    <p:inputText id="end" 
+                                                 value="#{vendedorView.vendedorUpdate.endereco.endereco}" 
+                                                 autocomplete="off" 
+                                                 maxlength="100"
+                                                 placeholder="Endereço"/>                                                                        
+
+                                    <p:autoComplete id="cidadeAutoComplete"                                                     
+                                                    value="#{vendedorView.vendedorUpdate.endereco.cidade}" 
+                                                    completeMethod="#{vendedorView.getCidades}"
+                                                    var="cidade" 
+                                                    itemLabel="#{(cidade.cidade != null) ? cidade.cidade : 'Cidade'}-#{(cidade.uf != null ) ? cidade.uf : 'UF'}" 
+                                                    itemValue="#{cidade}"
+                                                    forceSelection="true"/> 
+                                </h:panelGrid>
+                                <p:commandButton update=":form:dataTableVendedor, growl, panelEditVendedor" 
+                                                 value="Gravar" 
+                                                 actionListener="#{vendedorView.updateVendedor()}"/>                                           
                                 <p:commandButton value="Limpar" 
                                                  type="reset" />                                     
                             </p:panel>

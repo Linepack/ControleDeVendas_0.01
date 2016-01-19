@@ -25,7 +25,7 @@
             <b:column span="3"></b:column>
             <b:column span="6">
                 <b:panel title="Cadastro de Cidades" look="primary" collapsible="false">
-                    <p:growl id="growl" showDetail="true" sticky="true"/>  
+                    <p:growl id="growl" showDetail="true"/>  
                     <h:form id="form">                                                           
                         <p:dataTable id="dataTableCidade"
                                      var="cidade" 
@@ -83,7 +83,7 @@
 
                                     <p:inputText id="uf" value="#{cidadeView.cidadeUpdate.uf}" autocomplete="off" maxlength="2" validatorMessage="UF deve conter apenas letras (maiúsculas)."> 
                                         <f:validateRegex pattern="^[A-Z]+$"/>
-                                        <p:ajax event="keyup" update="growl"/>                                        
+                                        <p:ajax event="keyup" update="growl"/> 
                                     </p:inputText>
 
                                     <p:commandButton update=":form:dataTableCidade,growl" value="Gravar" actionListener="#{cidadeView.updateCidade()}"/>

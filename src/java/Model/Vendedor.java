@@ -1,5 +1,6 @@
 package Model;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -11,6 +12,7 @@ import javax.persistence.Entity;
 @DiscriminatorValue("Vendedor")
 public class Vendedor extends Pessoa{
         
+    @Column(precision = 2)
     private Float percentualComissao;
 
     public Float getPercentualComissao() {
