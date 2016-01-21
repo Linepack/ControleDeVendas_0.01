@@ -26,7 +26,7 @@
             <b:column span="8">
                 <b:panel title="Cadastro de Vendedores" look="primary" collapsible="false">
 
-                    <p:growl id="growl" showDetail="true" sticky="true"/>  
+                    <p:growl id="growl" showDetail="true"/>  
                     <!-- LISTA DE VENEDDORES -->
                     <h:form id="form">                                                           
                         <p:dataTable id="dataTableVendedor"
@@ -80,69 +80,58 @@
                         <h:form>
                             <p:panel id="panelInsertVendedor">                    
                                 <p:focus for="nome" />                                
-                                <p:panelGrid class="ui-noborder">                        
-                                    <p:row>
-                                        <p:column>
-                                            <p:inputText id="nome" 
-                                                         value="#{vendedorView.vendedorInsert.nome}" 
-                                                         autocomplete="off" 
-                                                         maxlength="100"
-                                                         placeholder="Nome"
-                                                         required="true"
-                                                         requiredMessage="Nome Obrigatório"/>                                    
-                                        </p:column>                                        
-                                        <p:column>
-                                            <p:inputMask id="cpf" 
-                                                         value="#{vendedorView.vendedorInsert.cnpjOuCpf}" 
-                                                         autocomplete="off" 
-                                                         placeholder="CPF: 999.999.999-00"
-                                                         required="true"
-                                                         requiredMessage="CPF Obrigatório"
-                                                         mask="999.999.999-99"/>
-                                        </p:column>
-                                    </p:row>
+                                <p:panelGrid columns="4" class="ui-noborder">                                                            
+                                    <p:outputLabel for="nome" value="Nome"/>
+                                    <p:inputText id="nome" 
+                                                 value="#{vendedorView.vendedorInsert.nome}" 
+                                                 autocomplete="off" 
+                                                 maxlength="100"
+                                                 placeholder="Nome"
+                                                 required="true"
+                                                 requiredMessage="Nome Obrigatório"/>                                    
 
-                                    <p:row>
-                                        <p:column>
-                                            <p:inputMask id="perc" 
-                                                         value="#{vendedorView.vendedorInsert.percentualComissao}" 
-                                                         autocomplete="off"
-                                                         placeholder="Comissão: 99.99"
-                                                         required="true"
-                                                         requiredMessage="% Comissão Obrigatório"
-                                                         mask="99.99">                                       
-                                                <f:convertNumber pattern="#00.00"/>
-                                            </p:inputMask>
-                                        </p:column>
-                                        <p:column>
+                                    <p:outputLabel for="cpf" value="CPF"/>
+                                    <p:inputMask id="cpf" 
+                                                 value="#{vendedorView.vendedorInsert.cnpjOuCpf}" 
+                                                 autocomplete="off" 
+                                                 placeholder="CPF: 999.999.999-00"
+                                                 required="true"
+                                                 requiredMessage="CPF Obrigatório"
+                                                 mask="999.999.999-99"/>                                        
+                                    
+                                    <p:outputLabel for="perc" value="Comissão %"/>
+                                    <p:inputMask id="perc" 
+                                                 value="#{vendedorView.vendedorInsert.percentualComissao}" 
+                                                 autocomplete="off"
+                                                 placeholder="Comissão: 99.99"
+                                                 required="true"
+                                                 requiredMessage="% Comissão Obrigatório"
+                                                 mask="99.99">                                       
+                                        <f:convertNumber pattern="#00.00"/>
+                                    </p:inputMask>                                        
 
-                                            <p:inputMask id="cep" 
-                                                         value="#{vendedorView.vendedorInsert.endereco.cep}" 
-                                                         autocomplete="off" 
-                                                         placeholder="CEP 99999-999"
-                                                         mask="99999-999"/>                                                                        
-                                        </p:column>
-                                    </p:row>
+                                   <p:outputLabel for="cep" value="CEP"/>
+                                    <p:inputMask id="cep" 
+                                                 value="#{vendedorView.vendedorInsert.endereco.cep}" 
+                                                 autocomplete="off" 
+                                                 placeholder="CEP 99999-999"
+                                                 mask="99999-999"/>                                                                        
 
-                                    <p:row>
-                                        <p:column>
-                                            <p:inputText id="end" 
-                                                         value="#{vendedorView.vendedorInsert.endereco.endereco}" 
-                                                         autocomplete="off" 
-                                                         maxlength="100"
-                                                         placeholder="Endereço"/>                                                                        
+                                    <p:outputLabel for="end" value="Endereço"/>
+                                    <p:inputText id="end" 
+                                                 value="#{vendedorView.vendedorInsert.endereco.endereco}" 
+                                                 autocomplete="off" 
+                                                 maxlength="100"
+                                                 placeholder="Endereço"/>                                                                        
 
-                                        </p:column>
-                                        <p:column>
-                                            <p:autoComplete id="cidadeAutoComplete"                                                     
-                                                            value="#{vendedorView.vendedorInsert.endereco.cidade}" 
-                                                            completeMethod="#{vendedorView.getCidades}"
-                                                            var="cidade" 
-                                                            itemLabel="#{(cidade.cidade != null) ? cidade.cidade : 'Cidade'}-#{(cidade.uf != null ) ? cidade.uf : 'UF'}" 
-                                                            itemValue="#{cidade}"
-                                                            forceSelection="true"/> 
-                                        </p:column>
-                                    </p:row>
+                                    <p:outputLabel for="cidadeAutoComplete" value="Cidade"/>
+                                    <p:autoComplete id="cidadeAutoComplete"                                                     
+                                                    value="#{vendedorView.vendedorInsert.endereco.cidade}" 
+                                                    completeMethod="#{vendedorView.getCidades}"
+                                                    var="cidade" 
+                                                    itemLabel="#{cidade.cidade} #{cidade.uf}" 
+                                                    itemValue="#{cidade}"
+                                                    forceSelection="true"/>                                     
                                 </p:panelGrid>
                                 <p:commandButton update=":form:dataTableVendedor, growl, panelInsertVendedor" 
                                                  value="Gravar" 
@@ -164,66 +153,64 @@
                         <h:form>
                             <p:panel id="panelEditVendedor">                    
                                 <p:focus for="nome" />                                
-                                <p:panelGrid class="ui-noborder">                        
-                                    <p:row>
-                                        <p:column>
-                                            <p:inputText id="nome" 
-                                                         value="#{vendedorView.vendedorUpdate.nome}" 
-                                                         autocomplete="off" 
-                                                         maxlength="100"
-                                                         placeholder="Nome"
-                                                         required="true"
-                                                         requiredMessage="Nome Obrigatório"/>                                    
+                                <p:panelGrid columns="4" class="ui-noborder">                        
 
-                                        </p:column>
-                                        <p:column>
-                                            <p:inputMask id="cpf" 
-                                                         value="#{vendedorView.vendedorUpdate.cnpjOuCpf}" 
-                                                         autocomplete="off" 
-                                                         placeholder="CPF: 999.999.999-00"
-                                                         required="true"
-                                                         requiredMessage="CPF Obrigatório"
-                                                         mask="999.999.999-99"/>
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <p:inputMask id="perc" 
-                                                         value="#{vendedorView.vendedorUpdate.percentualComissao}" 
-                                                         autocomplete="off"
-                                                         placeholder="Comissão: 99.99"
-                                                         required="true"
-                                                         requiredMessage="% Comissão Obrigatório"
-                                                         mask="99.99">                                                                            
-                                                <f:convertNumber pattern="#00.00"/>
-                                            </p:inputMask>
-                                        </p:column>
-                                        <p:column>
-                                            <p:inputMask id="cep" 
-                                                         value="#{vendedorView.vendedorUpdate.endereco.cep}" 
-                                                         autocomplete="off" 
-                                                         placeholder="CEP 99999-999"
-                                                         mask="99999-999"/>   
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <p:inputText id="end" 
-                                                         value="#{vendedorView.vendedorUpdate.endereco.endereco}" 
-                                                         autocomplete="off" 
-                                                         maxlength="100"
-                                                         placeholder="Endereço"/>                                                                        
-                                        </p:column>
-                                        <p:column>
-                                            <p:autoComplete id="cidadeAutoComplete"                                                     
-                                                            value="#{vendedorView.vendedorUpdate.endereco.cidade}" 
-                                                            completeMethod="#{vendedorView.getCidades}"
-                                                            var="cidade" 
-                                                            itemLabel="#{(cidade.cidade != null) ? cidade.cidade : 'Cidade'}-#{(cidade.uf != null ) ? cidade.uf : 'UF'}" 
-                                                            itemValue="#{cidade}"
-                                                            forceSelection="true"/> 
-                                        </p:column>                                        
-                                    </p:row>
+                                    <p:outputLabel for="nome" value="Nome"/>                                
+                                    <p:inputText id="nome" 
+                                                 value="#{vendedorView.vendedorUpdate.nome}" 
+                                                 autocomplete="off" 
+                                                 maxlength="100"
+                                                 placeholder="Nome"
+                                                 required="true"
+                                                 requiredMessage="Nome Obrigatório"/>                                    
+
+
+                                    <p:outputLabel for="cpf" value="CPF"/>                        
+                                    <p:inputMask id="cpf" 
+                                                 value="#{vendedorView.vendedorUpdate.cnpjOuCpf}" 
+                                                 autocomplete="off" 
+                                                 placeholder="CPF: 999.999.999-00"
+                                                 required="true"
+                                                 requiredMessage="CPF Obrigatório"
+                                                 mask="999.999.999-99"/>
+
+
+                                    <p:outputLabel for="perc" value="Comissão %"/>                        
+                                    <p:inputMask id="perc" 
+                                                 value="#{vendedorView.vendedorUpdate.percentualComissao}" 
+                                                 autocomplete="off"
+                                                 placeholder="Comissão: 99.99"
+                                                 required="true"
+                                                 requiredMessage="% Comissão Obrigatório"
+                                                 mask="99.99">                                                                            
+                                        <f:convertNumber pattern="#00.00"/>
+                                    </p:inputMask>
+
+                                    <p:outputLabel for="cep" value="CEP "/>                        
+                                    <p:inputMask id="cep" 
+                                                 value="#{vendedorView.vendedorUpdate.endereco.cep}" 
+                                                 autocomplete="off" 
+                                                 placeholder="CEP 99999-999"
+                                                 mask="99999-999"/>   
+
+
+
+                                    <p:outputLabel for="end" value="Endereço"/>                        
+                                    <p:inputText id="end" 
+                                                 value="#{vendedorView.vendedorUpdate.endereco.endereco}" 
+                                                 autocomplete="off" 
+                                                 maxlength="100"
+                                                 placeholder="Endereço"/>                                                                        
+
+                                    <p:outputLabel for="cidadeAutoComplete" value="Cidade"/>                        
+                                    <p:autoComplete id="cidadeAutoComplete"                                                     
+                                                    value="#{vendedorView.vendedorUpdate.endereco.cidade}" 
+                                                    completeMethod="#{vendedorView.getCidades}"
+                                                    var="cidade" 
+                                                    itemLabel="#{cidade.cidade} #{cidade.uf}" 
+                                                    itemValue="#{cidade}"
+                                                    forceSelection="true"/> 
+
                                 </p:panelGrid>
                                 <p:commandButton update=":form:dataTableVendedor, growl, panelEditVendedor" 
                                                  value="Gravar" 

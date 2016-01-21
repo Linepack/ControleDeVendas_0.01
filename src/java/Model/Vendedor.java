@@ -12,7 +12,6 @@ import javax.persistence.Entity;
 @DiscriminatorValue("Vendedor")
 public class Vendedor extends Pessoa{
         
-    @Column(precision = 2)
     private Float percentualComissao;
 
     public Float getPercentualComissao() {

@@ -27,8 +27,8 @@ public class Pessoa implements Serializable {
     @ManyToOne
     @JoinColumn(name = "endereco_id")    
     private Endereco endereco;
-    public String cnpjOuCpf;
-
+    private String cnpjOuCpf;
+   
     public Integer getId() {
         return id;
     }
