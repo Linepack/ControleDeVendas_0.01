@@ -7,11 +7,10 @@ import Model.Endereco;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.faces.application.FacesMessage;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -23,10 +22,15 @@ import org.primefaces.context.RequestContext;
 public class ContatoInsertView implements Serializable {
 
     private Contato contato;
-    private List<Contato> contatosInseridos = new ArrayList<>();
+    private List<Contato> contatosInseridos;
 
     @ManagedProperty(value = "#{contatoController}")
     private ContatoController contatoController;
+    
+    @PostConstruct
+    public void init(){
+        contatosInseridos = new ArrayList<>();
+    }
 
     public List<Cidade> getCidaesByLike(String filtro) {
         return contatoController.getCidadesByLike(filtro);
@@ -67,5 +71,6 @@ public class ContatoInsertView implements Serializable {
     public void setContatosInseridos(List<Contato> contatosInseridos) {
         this.contatosInseridos = contatosInseridos;
     }
-
+    
+    
 }

@@ -1,8 +1,6 @@
 package View;
 
 import Controller.VendedorController;
-import Model.Cidade;
-import Model.Endereco;
 import Model.Vendedor;
 import View.Contato.ContatoInsertView;
 import java.io.Serializable;
@@ -30,14 +28,15 @@ public class VendedorView implements Serializable {
     private Vendedor vendedorUpdate;
 
     @ManagedProperty(value = "#{vendedorController}")
-    private VendedorController vendedorController;     
-        
+    private VendedorController vendedorController;   
+    
     @ManagedProperty(value = "#{contatoInsertView}")
     private ContatoInsertView contatoInsertView;
-
+        
     @PostConstruct
-    public void init() {
+    public void init() {                
         vendedores = vendedorController.createVendedores();
+        this.contatoInsertView.init();
     }
 
     public void openDialogInsert() {
@@ -45,7 +44,7 @@ public class VendedorView implements Serializable {
         RequestContext.getCurrentInstance().execute("PF('insertVendedor').show();");
     }
 
-    public String insertVendedor() {
+    public String insertVendedor() {        
         vendedorInsert.setContatos(contatoInsertView.getContatosInseridos());
         String retorno = vendedorController.insertVendedor(vendedorInsert);
         if (retorno != "") {
@@ -53,7 +52,7 @@ public class VendedorView implements Serializable {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", retorno));
             return retorno;
         }
-        RequestContext.getCurrentInstance().execute("PF('insertVendedor').hide();");
+        RequestContext.getCurrentInstance().execute("PF('insertVendedor').hide();");        
         this.init();
         return "";
     }
@@ -144,7 +143,7 @@ public class VendedorView implements Serializable {
 
     public void setVendedorUpdate(Vendedor vendedorUpdate) {
         this.vendedorUpdate = vendedorUpdate;
-    }
+    }   
 
     public ContatoInsertView getContatoInsertView() {
         return contatoInsertView;

@@ -132,7 +132,7 @@
                                     </p:inputMask>     
 
                                 </p:panelGrid>
-                                <p:commandButton update="insertContato"
+                                <p:commandButton update="insertContato, panelInsertVendedor, growl"
                                                  value="Inserir Contato"
                                                  actionListener="#{contatoInsertView.openDialogInsert()}"/>
                                 <p:commandButton update=":form:dataTableVendedor, growl, panelInsertVendedor" 

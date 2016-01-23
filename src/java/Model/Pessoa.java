@@ -1,5 +1,6 @@
 package Model;
 
+import com.sun.istack.internal.Nullable;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -29,8 +30,8 @@ public class Pessoa implements Serializable {
     private String nome;    
     private String cnpjOuCpf;                
     
-    @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "id_pessoa")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_pessoa")    
     private List<Contato> contatos;
    
     public Integer getId() {

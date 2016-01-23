@@ -1,5 +1,6 @@
 package DAO;
 
+import Model.Contato;
 import Model.Pessoa;
 import Model.Vendedor;
 import Utils.EntityManagerUtil;
@@ -28,9 +29,9 @@ public class VendedorDAO {
 
     public static String insertVendedor(Vendedor vendedor) {
         try {
-            TransactionUtil.begin(em);           
+            TransactionUtil.begin(em);                        
             em.persist(vendedor);
-            em.getTransaction().commit();
+            em.getTransaction().commit();            
         } catch (Exception e) {
             return e.toString();
         }
