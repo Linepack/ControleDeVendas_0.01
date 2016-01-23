@@ -1,0 +1,75 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+        
+    <!-- Inserção dos Contatos -->
+    <p:dialog id="insertContato"
+              widgetVar="insertContato"
+              modal="true"                                     
+              responsive="true"
+              resizable="false"
+              header="Informações de Contato">
+        <h:form>
+            <p:panel id="panelInsertContato">                    
+                <p:focus for="desc" />                                
+                <p:panelGrid columns="4" class="ui-noborder">    
+
+                    <p:outputLabel for="desc" value="Descrição"/>
+                    <p:inputText id="desc" 
+                                 value="#{contatoInsertView.contato.descricaoContato}" 
+                                 autocomplete="off" 
+                                 maxlength="100"
+                                 required="true"
+                                 requiredMessage="Descrição do contato deve ser informada"/>  
+                    
+                    
+                    <p:outputLabel for="email" value="E-mail"/>
+                    <p:inputText id="email" 
+                                 value="#{contatoInsertView.contato.email}" 
+                                 autocomplete="off" 
+                                 maxlength="100"/>  
+
+                    <p:outputLabel for="tel" value="Telefone"/>
+                    <p:inputMask id="tel" 
+                                 value="#{contatoInsertView.contato.telefone}" 
+                                 autocomplete="off"
+                                 placeholder="(44) 09999-9999"                                                 
+                                 mask="(99) 99999-9999">                                                                               
+                    </p:inputMask>    
+
+                    <p:outputLabel for="end" value="Endereço"/>
+                    <p:inputText id="end" 
+                                 value="#{contatoInsertView.contato.endereco.endereco}" 
+                                 autocomplete="off" 
+                                 maxlength="200"/> 
+
+                    <p:outputLabel for="cep" value="CEP"/>
+                    <p:inputMask id="cep" 
+                                 value="#{contatoInsertView.contato.endereco.cep}" 
+                                 autocomplete="off"
+                                 placeholder="99999-999"                                                 
+                                 mask="99999-999">                                                                               
+                    </p:inputMask>                                                                       
+
+                    <p:outputLabel for="cidadeAutoComplete" value="Cidade"/>
+                    <p:autoComplete id="cidadeAutoComplete"                                                     
+                                    value="#{contatoInsertView.contato.endereco.cidade}" 
+                                    completeMethod="#{contatoInsertView.getCidaesByLike}"
+                                    var="cidade" 
+                                    itemLabel="#{cidade.cidade} #{cidade.uf}" 
+                                    itemValue="#{cidade}"
+                                    forceSelection="true"/>  
+
+                </p:panelGrid>                                
+                <p:commandButton update="panelInsertContato, growl" 
+                                 value="Gravar"
+                                 actionListener="#{contatoInsertView.insertContato()}"/>                                           
+                <p:commandButton value="Limpar" 
+                                 type="reset" />
+            </p:panel>
+
+        </h:form>
+    </p:dialog>
+</ui:composition>

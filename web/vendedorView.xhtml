@@ -27,6 +27,7 @@
                 <b:panel title="Cadastro de Vendedores" look="primary" collapsible="false">
 
                     <p:growl id="growl" showDetail="true"/>  
+
                     <!-- LISTA DE VENEDDORES -->
                     <h:form id="form">                                                           
                         <p:dataTable id="dataTableVendedor"
@@ -41,30 +42,51 @@
                                      paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                      rowsPerPageTemplate="5,10,15,25,50,100">
 
-                            <p:column selectionMode="multiple" style="width:1px; text-align:center"/>                
-                            <p:column headerText="Id" filterBy="#{vendedor.id}" sortBy="#{vendedor.id}" width="10" priority="2">
+                            <p:column selectionMode="multiple" 
+                                      style="width:1px; text-align:center"/>                
+                            <p:column headerText="Id" 
+                                      filterBy="#{vendedor.id}" 
+                                      sortBy="#{vendedor.id}" 
+                                      width="10" 
+                                      priority="2">
                                 <h:outputText value="#{vendedor.id}" />
                             </p:column>                           
 
-                            <p:column headerText="Nome" filterBy="#{vendedor.nome}" filterMatchMode="contains" sortBy="#{vendedor.nome}"  width="10" priority="1">
+                            <p:column headerText="Nome" 
+                                      filterBy="#{vendedor.nome}" 
+                                      filterMatchMode="contains" 
+                                      sortBy="#{vendedor.nome}"  
+                                      width="10" 
+                                      priority="1">
                                 <h:outputText value="#{vendedor.nome}" />
                             </p:column>
 
-                            <p:column headerText="CPF" filterBy="#{vendedor.cnpjOuCpf}" filterMatchMode="contains" sortBy="#{vendedor.cnpjOuCpf}" width="10" priority="1">
+                            <p:column headerText="CPF"
+                                      filterBy="#{vendedor.cnpjOuCpf}" 
+                                      filterMatchMode="contains" 
+                                      sortBy="#{vendedor.cnpjOuCpf}" 
+                                      width="10"
+                                      priority="1">
                                 <h:outputText value="#{vendedor.cnpjOuCpf}" />
                             </p:column>                                              
 
-                            <p:column headerText="Cidade" filterBy="#{vendedor.endereco.cidade.cidade}-#{vendedor.endereco.cidade.uf}" filterMatchMode="contains" sortBy="#{vendedor.endereco.cidade.cidade}-#{vendedor.endereco.cidade.uf}" width="10" priority="2">
-                                <h:outputText value="#{vendedor.endereco.cidade.cidade}-#{vendedor.endereco.cidade.uf}" />
-                            </p:column>
-
-                            <p:column headerText="%Com." filterBy="#{vendedor.percentualComissao}" sortBy="#{vendedor.percentualComissao}" width="10" priority="2">
+                            <p:column headerText="%Com." 
+                                      filterBy="#{vendedor.percentualComissao}" 
+                                      sortBy="#{vendedor.percentualComissao}"
+                                      width="10"
+                                      priority="2">
                                 <h:outputText value="#{vendedor.percentualComissao}" />
                             </p:column>  
                             <f:facet name="footer">
-                                <p:commandButton icon="ui-icon-plus" update=":insertVendedor" actionListener="#{vendedorView.openDialogInsert()}"/>
-                                <p:commandButton icon="ui-icon-pencil" update=":editVendedor, growl" actionListener="#{vendedorView.openDialogEdit()}"/>
-                                <p:commandButton icon="ui-icon-close" update=":form:dataTableVendedor, growl" actionListener="#{vendedorView.deleteVendedores()}"/>
+                                <p:commandButton icon="ui-icon-plus" 
+                                                 update=":insertVendedor" 
+                                                 actionListener="#{vendedorView.openDialogInsert()}"/>
+                                <p:commandButton icon="ui-icon-pencil" 
+                                                 update=":editVendedor, growl" 
+                                                 actionListener="#{vendedorView.openDialogEdit()}"/>
+                                <p:commandButton icon="ui-icon-close" 
+                                                 update=":form:dataTableVendedor, growl"
+                                                 actionListener="#{vendedorView.deleteVendedores()}"/>
                             </f:facet> 
                         </p:dataTable>  
                     </h:form>
@@ -80,13 +102,12 @@
                         <h:form>
                             <p:panel id="panelInsertVendedor">                    
                                 <p:focus for="nome" />                                
-                                <p:panelGrid columns="4" class="ui-noborder">                                                            
+                                <p:panelGrid columns="2" class="ui-noborder">                                                            
                                     <p:outputLabel for="nome" value="Nome"/>
                                     <p:inputText id="nome" 
                                                  value="#{vendedorView.vendedorInsert.nome}" 
                                                  autocomplete="off" 
-                                                 maxlength="100"
-                                                 placeholder="Nome"
+                                                 maxlength="100"                                                 
                                                  required="true"
                                                  requiredMessage="Nome Obrigatório"/>                                    
 
@@ -94,54 +115,41 @@
                                     <p:inputMask id="cpf" 
                                                  value="#{vendedorView.vendedorInsert.cnpjOuCpf}" 
                                                  autocomplete="off" 
-                                                 placeholder="CPF: 999.999.999-00"
+                                                 placeholder="999.999.999-00"
                                                  required="true"
                                                  requiredMessage="CPF Obrigatório"
                                                  mask="999.999.999-99"/>                                        
-                                    
+
                                     <p:outputLabel for="perc" value="Comissão %"/>
                                     <p:inputMask id="perc" 
                                                  value="#{vendedorView.vendedorInsert.percentualComissao}" 
                                                  autocomplete="off"
-                                                 placeholder="Comissão: 99.99"
+                                                 placeholder="99.99"
                                                  required="true"
                                                  requiredMessage="% Comissão Obrigatório"
                                                  mask="99.99">                                       
                                         <f:convertNumber pattern="#00.00"/>
-                                    </p:inputMask>                                        
+                                    </p:inputMask>     
 
-                                   <p:outputLabel for="cep" value="CEP"/>
-                                    <p:inputMask id="cep" 
-                                                 value="#{vendedorView.vendedorInsert.endereco.cep}" 
-                                                 autocomplete="off" 
-                                                 placeholder="CEP 99999-999"
-                                                 mask="99999-999"/>                                                                        
-
-                                    <p:outputLabel for="end" value="Endereço"/>
-                                    <p:inputText id="end" 
-                                                 value="#{vendedorView.vendedorInsert.endereco.endereco}" 
-                                                 autocomplete="off" 
-                                                 maxlength="100"
-                                                 placeholder="Endereço"/>                                                                        
-
-                                    <p:outputLabel for="cidadeAutoComplete" value="Cidade"/>
-                                    <p:autoComplete id="cidadeAutoComplete"                                                     
-                                                    value="#{vendedorView.vendedorInsert.endereco.cidade}" 
-                                                    completeMethod="#{vendedorView.getCidades}"
-                                                    var="cidade" 
-                                                    itemLabel="#{cidade.cidade} #{cidade.uf}" 
-                                                    itemValue="#{cidade}"
-                                                    forceSelection="true"/>                                     
                                 </p:panelGrid>
+                                <p:commandButton update="insertContato"
+                                                 value="Inserir Contato"
+                                                 actionListener="#{contatoInsertView.openDialogInsert()}"/>
                                 <p:commandButton update=":form:dataTableVendedor, growl, panelInsertVendedor" 
                                                  value="Gravar" 
                                                  actionListener="#{vendedorView.insertVendedor()}"/>                                           
                                 <p:commandButton value="Limpar" 
-                                                 type="reset" />                                     
+                                                 type="reset" />                                
                             </p:panel>
+
                         </h:form>
                     </p:dialog>  
 
+                    <div>
+                        <ui:insert >
+                            <ui:include src="/Contato/contatoInsertView.xhtml"/>
+                        </ui:insert>
+                    </div>
 
                     <!-- EDIÇÃO DE VENDEDOR -->
                     <p:dialog header="Editar Vendedor" 
@@ -184,32 +192,7 @@
                                                  requiredMessage="% Comissão Obrigatório"
                                                  mask="99.99">                                                                            
                                         <f:convertNumber pattern="#00.00"/>
-                                    </p:inputMask>
-
-                                    <p:outputLabel for="cep" value="CEP "/>                        
-                                    <p:inputMask id="cep" 
-                                                 value="#{vendedorView.vendedorUpdate.endereco.cep}" 
-                                                 autocomplete="off" 
-                                                 placeholder="CEP 99999-999"
-                                                 mask="99999-999"/>   
-
-
-
-                                    <p:outputLabel for="end" value="Endereço"/>                        
-                                    <p:inputText id="end" 
-                                                 value="#{vendedorView.vendedorUpdate.endereco.endereco}" 
-                                                 autocomplete="off" 
-                                                 maxlength="100"
-                                                 placeholder="Endereço"/>                                                                        
-
-                                    <p:outputLabel for="cidadeAutoComplete" value="Cidade"/>                        
-                                    <p:autoComplete id="cidadeAutoComplete"                                                     
-                                                    value="#{vendedorView.vendedorUpdate.endereco.cidade}" 
-                                                    completeMethod="#{vendedorView.getCidades}"
-                                                    var="cidade" 
-                                                    itemLabel="#{cidade.cidade} #{cidade.uf}" 
-                                                    itemValue="#{cidade}"
-                                                    forceSelection="true"/> 
+                                    </p:inputMask>                                                                     
 
                                 </p:panelGrid>
                                 <p:commandButton update=":form:dataTableVendedor, growl, panelEditVendedor" 

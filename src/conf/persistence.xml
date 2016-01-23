@@ -6,6 +6,7 @@
     <class>Model.Endereco</class>
     <class>Model.Pessoa</class>
     <class>Model.Vendedor</class>
+    <class>Model.Contato</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/vendas"/>

@@ -1,6 +1,7 @@
 package Model;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +11,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -23,11 +25,12 @@ public class Pessoa implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
-    private String nome;
-    @ManyToOne
-    @JoinColumn(name = "endereco_id")    
-    private Endereco endereco;
-    private String cnpjOuCpf;
+    private String nome;    
+    private String cnpjOuCpf;                
+    
+    @OneToMany
+    @JoinColumn(name = "id_pessoa")
+    private List<Contato> contatos;
    
     public Integer getId() {
         return id;
@@ -45,20 +48,12 @@ public class Pessoa implements Serializable {
         this.nome = nome;
     }
 
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
-
     public String getCnpjOuCpf() {
         return cnpjOuCpf;
     }
 
     public void setCnpjOuCpf(String cnpjOuCpf) {
         this.cnpjOuCpf = cnpjOuCpf;
-    }
+    }   
 
 }
