@@ -22,16 +22,16 @@ public class ConverterCidade implements Converter {
         } catch (Exception e) {
         }
 
-        try {
-            if (cidade == null) {
-                cidade = new Cidade();
-                int posicaoTraco = id.indexOf("-");
-                cidade.setCidade(id.substring(0, posicaoTraco));
-                cidade.setUf(id.substring(posicaoTraco+1));
-            }
-        } catch (Exception e) {
-            
-        }
+//        try {
+//            if (cidade == null) {
+//                cidade = new Cidade();
+//                int posicaoTraco = id.indexOf("-");
+//                cidade.setCidade(id.substring(0, posicaoTraco));
+//                cidade.setUf(id.substring(posicaoTraco+1));
+//            }
+//        } catch (Exception e) {
+//            
+//        }
         return cidade;
     }
 

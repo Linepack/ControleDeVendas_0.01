@@ -17,7 +17,7 @@
 
         <div id="header">
             <ui:insert name="header">
-                <ui:include src="header.xhtml"/>                
+                <ui:include src="/Padrao/header.xhtml"/>                
             </ui:insert>
         </div>
 
@@ -44,7 +44,12 @@
                                 <h:outputText value="#{cidade.id}" />
                             </p:column>
 
-                            <p:column headerText="Nome" filterBy="#{cidade.cidade}" filterMatchMode="contains" sortBy="#{cidade.cidade}" priority="1" width="50">
+                            <p:column headerText="Nome" 
+                                      filterBy="#{cidade.cidade}" 
+                                      filterMatchMode="contains" 
+                                      sortBy="#{cidade.cidade}" 
+                                      priority="1" 
+                                      width="50">
                                 <h:outputText value="#{cidade.cidade}" />
                             </p:column>
 
@@ -124,7 +129,7 @@
 
         <div id="footer">            
             <ui:insert name="footer"   >
-                <ui:include src="footer.xhtml"/>
+                <ui:include src="/Padrao/footer.xhtml"/>
             </ui:insert>
         </div>
 
