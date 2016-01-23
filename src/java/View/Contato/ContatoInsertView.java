@@ -5,6 +5,7 @@ import Model.Cidade;
 import Model.Contato;
 import Model.Endereco;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -22,29 +23,24 @@ import org.primefaces.context.RequestContext;
 public class ContatoInsertView implements Serializable {
 
     private Contato contato;
-    
+    private List<Contato> contatosInseridos = new ArrayList<>();
+
     @ManagedProperty(value = "#{contatoController}")
     private ContatoController contatoController;
-    
-    
-    public List<Cidade> getCidaesByLike(String filtro){
+
+    public List<Cidade> getCidaesByLike(String filtro) {
         return contatoController.getCidadesByLike(filtro);
     }
-        
+
     public void openDialogInsert() {
         contato = new Contato();
         contato.setEndereco(new Endereco());
         contato.getEndereco().setCidade(new Cidade());
         RequestContext.getCurrentInstance().execute("PF('insertContato').show();");
     }
-    
-    public void insertContato(){
-        String retorno = null;
-        retorno = contatoController.insertContato(contato);
-        if (retorno != ""){
-            FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro inserindo", retorno));            
-        }
+
+    public void insertContato() {
+        contatosInseridos.add(contato);
         RequestContext.getCurrentInstance().execute("PF('insertContato').hide();");
     }
 
@@ -63,7 +59,13 @@ public class ContatoInsertView implements Serializable {
     public void setContatoController(ContatoController contatoController) {
         this.contatoController = contatoController;
     }
-    
-    
-    
+
+    public List<Contato> getContatosInseridos() {
+        return contatosInseridos;
+    }
+
+    public void setContatosInseridos(List<Contato> contatosInseridos) {
+        this.contatosInseridos = contatosInseridos;
+    }
+
 }

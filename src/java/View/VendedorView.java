@@ -30,7 +30,10 @@ public class VendedorView implements Serializable {
     private Vendedor vendedorUpdate;
 
     @ManagedProperty(value = "#{vendedorController}")
-    private VendedorController vendedorController;        
+    private VendedorController vendedorController;     
+        
+    @ManagedProperty(value = "#{contatoInsertView}")
+    private ContatoInsertView contatoInsertView;
 
     @PostConstruct
     public void init() {
@@ -43,6 +46,7 @@ public class VendedorView implements Serializable {
     }
 
     public String insertVendedor() {
+        vendedorInsert.setContatos(contatoInsertView.getContatosInseridos());
         String retorno = vendedorController.insertVendedor(vendedorInsert);
         if (retorno != "") {
             FacesContext context = FacesContext.getCurrentInstance();
@@ -141,4 +145,14 @@ public class VendedorView implements Serializable {
     public void setVendedorUpdate(Vendedor vendedorUpdate) {
         this.vendedorUpdate = vendedorUpdate;
     }
+
+    public ContatoInsertView getContatoInsertView() {
+        return contatoInsertView;
+    }
+
+    public void setContatoInsertView(ContatoInsertView contatoInsertView) {
+        this.contatoInsertView = contatoInsertView;
+    }
+    
+    
 }
