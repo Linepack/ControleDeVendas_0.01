@@ -2,7 +2,6 @@ package View;
 
 import Controller.VendedorController;
 import Model.Vendedor;
-import View.Contato.ContatoInsertView;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -30,13 +29,13 @@ public class VendedorView implements Serializable {
     @ManagedProperty(value = "#{vendedorController}")
     private VendedorController vendedorController;   
     
-    @ManagedProperty(value = "#{contatoInsertView}")
-    private ContatoInsertView contatoInsertView;
+    @ManagedProperty(value = "#{contatoView}")
+    private ContatoView contatoView;
         
     @PostConstruct
     public void init() {                
         vendedores = vendedorController.createVendedores();
-        this.contatoInsertView.init();
+        this.contatoView.init();
     }
 
     public void openDialogInsert() {
@@ -45,7 +44,7 @@ public class VendedorView implements Serializable {
     }
 
     public String insertVendedor() {        
-        vendedorInsert.setContatos(contatoInsertView.getContatosInseridos());
+        vendedorInsert.setContatos(contatoView.getContatos());
         String retorno = vendedorController.insertVendedor(vendedorInsert);
         if (retorno != "") {
             FacesContext context = FacesContext.getCurrentInstance();
@@ -96,6 +95,11 @@ public class VendedorView implements Serializable {
             this.init();
         }
     }
+    
+    public void openDialogEditContato() {
+        contatoView.setContatos(vendedorUpdate.getContatos());       
+        contatoView.openDialogUpdate();
+    }
 
     public List<Vendedor> getVendedores() {
         return vendedores;
@@ -145,12 +149,12 @@ public class VendedorView implements Serializable {
         this.vendedorUpdate = vendedorUpdate;
     }   
 
-    public ContatoInsertView getContatoInsertView() {
-        return contatoInsertView;
+    public ContatoView getContatoView() {
+        return contatoView;
     }
 
-    public void setContatoInsertView(ContatoInsertView contatoInsertView) {
-        this.contatoInsertView = contatoInsertView;
+    public void setContatoView(ContatoView contatoView) {
+        this.contatoView = contatoView;
     }
     
     

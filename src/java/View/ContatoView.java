@@ -1,4 +1,4 @@
-package View.Contato;
+package View;
 
 import Controller.ContatoController;
 import Model.Cidade;
@@ -11,25 +11,28 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 
 /**
  *
  * @author leandro
  */
-@ManagedBean(name = "contatoInsertView")
+@ManagedBean(name = "contatoView")
 @ViewScoped
-public class ContatoInsertView implements Serializable {
+public class ContatoView implements Serializable {
 
     private Contato contato;
-    private List<Contato> contatosInseridos;
+    private List<Contato> contatos;     
+    private List<Contato> contatosFiltrados;
+    private List<Contato> contatosSelecionados;
 
     @ManagedProperty(value = "#{contatoController}")
     private ContatoController contatoController;
     
     @PostConstruct
     public void init(){
-        contatosInseridos = new ArrayList<>();
+        contatos = new ArrayList<>();
     }
 
     public List<Cidade> getCidaesByLike(String filtro) {
@@ -41,11 +44,19 @@ public class ContatoInsertView implements Serializable {
         contato.setEndereco(new Endereco());
         contato.getEndereco().setCidade(new Cidade());
         RequestContext.getCurrentInstance().execute("PF('insertContato').show();");
-    }
+    }        
 
     public void insertContato() {
-        contatosInseridos.add(contato);
+        contatos.add(contato);
         RequestContext.getCurrentInstance().execute("PF('insertContato').hide();");
+    }
+    
+    public void openDialogUpdate() {                        
+        RequestContext.getCurrentInstance().execute("PF('editContato').show();");
+    }
+    
+    public void updateContato(){
+        RequestContext.getCurrentInstance().execute("PF('editContato').hide();");
     }
 
     public Contato getContato() {
@@ -64,13 +75,31 @@ public class ContatoInsertView implements Serializable {
         this.contatoController = contatoController;
     }
 
-    public List<Contato> getContatosInseridos() {
-        return contatosInseridos;
+    public List<Contato> getContatos() {
+        return contatos;
     }
 
-    public void setContatosInseridos(List<Contato> contatosInseridos) {
-        this.contatosInseridos = contatosInseridos;
+    public void setContatos(List<Contato> contatos) {
+        this.contatos = contatos;
     }
+
+    public List<Contato> getContatosFiltrados() {
+        return contatosFiltrados;
+    }
+
+    public void setContatosFiltrados(List<Contato> contatosFiltrados) {
+        this.contatosFiltrados = contatosFiltrados;
+    }
+
+    public List<Contato> getContatosSelecionados() {
+        return contatosSelecionados;
+    }
+
+    public void setContatosSelecionados(List<Contato> contatosSelecionados) {
+        this.contatosSelecionados = contatosSelecionados;
+    }
+    
+    
     
     
 }

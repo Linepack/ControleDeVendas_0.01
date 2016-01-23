@@ -1,0 +1,106 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:b="http://bootsfaces.net/ui">
+
+
+    <!-- Inserção dos Contatos -->
+    <p:dialog id="editContato"
+              widgetVar="editContato"
+              modal="true"                                     
+              responsive="true"
+              resizable="false"
+              header="Editar Informações de Contato">
+        <b:panel>
+            <h:form>              
+                <p:dataTable id="dataTabledEditContato" 
+                             widgetVar="dataTableEditContato"
+                             var="contato" 
+                             value="#{contatoView.contatos}"                          
+                             paginator="true"
+                             rows="5"       
+                             selection="#{contatoView.contatosSelecionados}"
+                             filteredValue="#{contatoView.contatosFiltrados}"
+                             emptyMessage="Nada encontrado."
+                             rowKey="#{contato.id}"
+                             paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15,25,50,100"
+                             style="margin-bottom:0;width: 1024px">                        
+
+                    <p:column selectionMode="multiple" 
+                              style="width:1px; text-align:center"/>
+
+                    <p:column headerText="Id" 
+                              filterBy="#{contato.id}" 
+                              sortBy="#{contato.id}" 
+                              width="10" 
+                              priority="3">
+                        <h:outputText value="#{contato.id}" />
+                    </p:column>
+
+                    <p:column headerText="Tipo" 
+                              filterBy="#{contato.descricaoContato}" 
+                              filterMatchMode="contains"
+                              sortBy="#{contato.descricaoContato}" 
+                              width="10" 
+                              priority="3">
+                        <h:outputText value="#{contato.descricaoContato}" />
+                    </p:column>
+
+                    <p:column headerText="E-mail" 
+                              filterBy="#{contato.email}" 
+                              filterMatchMode="contains"
+                              sortBy="#{contato.email}" 
+                              width="30" 
+                              priority="1">
+                        <h:outputText value="#{contato.email}" />
+                    </p:column>
+
+                    <p:column headerText="Telefone" 
+                              filterBy="#{contato.telefone}" 
+                              filterMatchMode="contains"
+                              sortBy="#{contato.telefone}" 
+                              width="30" 
+                              priority="1">
+                        <h:outputText value="#{contato.telefone}" />
+                    </p:column>
+
+                    <p:column headerText="Endereço" 
+                              filterBy="#{contato.endereco.endereco}" 
+                              filterMatchMode="contains"
+                              sortBy="#{contato.endereco.endereco}" 
+                              width="50" 
+                              priority="1">
+                        <h:outputText value="#{contato.endereco.endereco}" />
+                    </p:column>
+
+                    <p:column headerText="CEP" 
+                              filterBy="#{contato.endereco.cep}" 
+                              filterMatchMode="contains"
+                              sortBy="#{contato.endereco.cep}" 
+                              width="10" 
+                              priority="3">
+                        <h:outputText value="#{contato.endereco.cep}" />
+                    </p:column>
+
+                    <p:column headerText="Cidade" 
+                              filterBy="#{contato.endereco.cidade.cidade} #{contato.endereco.cidade.uf}" 
+                              filterMatchMode="contains"
+                              sortBy="#{contato.endereco.cidade.cidade} #{contato.endereco.cidade.uf}" 
+                              width="10" 
+                              priority="2">
+                        <h:outputText value="#{contato.endereco.cidade.cidade} #{contato.endereco.cidade.uf}" />
+                    </p:column>                
+                    <f:facet name="footer">
+                        <p:commandButton icon="ui-icon-plus" />
+                        <p:commandButton icon="ui-icon-pencil"/>
+                        <p:commandButton icon="ui-icon-close"/>
+                    </f:facet> 
+                </p:dataTable>            
+            </h:form>
+        </b:panel>
+    </p:dialog>    
+</ui:composition>

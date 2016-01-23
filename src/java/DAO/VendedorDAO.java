@@ -1,7 +1,5 @@
 package DAO;
 
-import Model.Contato;
-import Model.Pessoa;
 import Model.Vendedor;
 import Utils.EntityManagerUtil;
 import Utils.TransactionUtil;

@@ -18,7 +18,7 @@
 
                     <p:outputLabel for="desc" value="Descrição"/>
                     <p:inputText id="desc" 
-                                 value="#{contatoInsertView.contato.descricaoContato}" 
+                                 value="#{contatoView.contato.descricaoContato}" 
                                  autocomplete="off" 
                                  maxlength="100"
                                  required="true"
@@ -27,13 +27,13 @@
                     
                     <p:outputLabel for="email" value="E-mail"/>
                     <p:inputText id="email" 
-                                 value="#{contatoInsertView.contato.email}" 
+                                 value="#{contatoView.contato.email}" 
                                  autocomplete="off" 
                                  maxlength="100"/>  
 
                     <p:outputLabel for="tel" value="Telefone"/>
                     <p:inputMask id="tel" 
-                                 value="#{contatoInsertView.contato.telefone}" 
+                                 value="#{contatoView.contato.telefone}" 
                                  autocomplete="off"
                                  placeholder="(44) 09999-9999"                                                 
                                  mask="(99) 99999-9999">                                                                               
@@ -41,13 +41,13 @@
 
                     <p:outputLabel for="end" value="Endereço"/>
                     <p:inputText id="end" 
-                                 value="#{contatoInsertView.contato.endereco.endereco}" 
+                                 value="#{contatoView.contato.endereco.endereco}" 
                                  autocomplete="off" 
                                  maxlength="200"/> 
 
                     <p:outputLabel for="cep" value="CEP"/>
                     <p:inputMask id="cep" 
-                                 value="#{contatoInsertView.contato.endereco.cep}" 
+                                 value="#{contatoView.contato.endereco.cep}" 
                                  autocomplete="off"
                                  placeholder="99999-999"                                                 
                                  mask="99999-999">                                                                               
@@ -55,8 +55,8 @@
 
                     <p:outputLabel for="cidadeAutoComplete" value="Cidade"/>
                     <p:autoComplete id="cidadeAutoComplete"                                                     
-                                    value="#{contatoInsertView.contato.endereco.cidade}" 
-                                    completeMethod="#{contatoInsertView.getCidaesByLike}"
+                                    value="#{contatoView.contato.endereco.cidade}" 
+                                    completeMethod="#{contatoView.getCidaesByLike}"
                                     var="cidade" 
                                     itemLabel="#{cidade.cidade} #{cidade.uf}" 
                                     itemValue="#{cidade}"
@@ -65,7 +65,7 @@
                 </p:panelGrid>                                
                 <p:commandButton update="panelInsertContato, growl" 
                                  value="Gravar"
-                                 actionListener="#{contatoInsertView.insertContato()}"/>                                           
+                                 actionListener="#{contatoView.insertContato()}"/>                                           
                 <p:commandButton value="Limpar" 
                                  type="reset" />
             </p:panel>

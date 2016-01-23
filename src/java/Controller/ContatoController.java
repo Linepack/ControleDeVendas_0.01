@@ -28,4 +28,8 @@ public class ContatoController implements Serializable{
         return ContatoDAO.insertContato(contato);
     }
     
+    public List<Contato> getContatosByPessoaID(Integer pessoaID){
+        return ContatoDAO.getContatosByPessoID(pessoaID);
+    }
+    
 }
