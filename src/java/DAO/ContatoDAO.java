@@ -33,7 +33,7 @@ public class ContatoDAO {
         List<Contato> contatos = new ArrayList<>();
         try {            
             TransactionUtil.begin(em);
-            Query q = em.createQuery("select c from Contato where c.id_pessoa = " + pessoaID);
+            Query q = em.createQuery("select c from Contato c where c.id_pessoa = " + pessoaID);
             contatos = (List<Contato>) (Contato) q.getResultList();
         } catch (Exception e) {
             e.printStackTrace();

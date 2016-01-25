@@ -96,9 +96,9 @@ public class VendedorView implements Serializable {
         }
     }
     
-    public void openDialogEditContato() {
-        contatoView.setContatos(vendedorUpdate.getContatos());       
-        contatoView.openDialogUpdate();
+    public void openDialogEditContato() {        
+        contatoView.setContatos(vendedorUpdate.getContatos());
+        contatoView.openDataTableUpdate();
     }
 
     public List<Vendedor> getVendedores() {

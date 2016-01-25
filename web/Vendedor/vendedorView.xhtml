@@ -46,7 +46,7 @@
 
                             <p:column selectionMode="multiple" 
                                       style="width:1px; text-align:center"/>                
-                            
+
                             <p:column headerText="Id" 
                                       filterBy="#{vendedor.id}" 
                                       sortBy="#{vendedor.id}" 
@@ -92,140 +92,35 @@
                                                  actionListener="#{vendedorView.deleteVendedores()}"/>
                             </f:facet> 
                         </p:dataTable>  
-                    </h:form>
-
-
-                    <!-- INSERCAO DE VENDEDOR -->
-                    <p:dialog header="Inserir Vendedor" 
-                              widgetVar="insertVendedor" 
-                              modal="true"                                     
-                              responsive="true"
-                              resizable="false"
-                              id="insertVendedor">
-                        <h:form>
-                            <p:panel id="panelInsertVendedor">                    
-                                <p:focus for="nome" />                                
-                                <p:panelGrid columns="2" class="ui-noborder">                                                            
-                                    <p:outputLabel for="nome" value="Nome"/>
-                                    <p:inputText id="nome" 
-                                                 value="#{vendedorView.vendedorInsert.nome}" 
-                                                 autocomplete="off" 
-                                                 maxlength="100"                                                 
-                                                 required="true"
-                                                 requiredMessage="Nome Obrigatório"/>                                    
-
-                                    <p:outputLabel for="cpf" value="CPF"/>
-                                    <p:inputMask id="cpf" 
-                                                 value="#{vendedorView.vendedorInsert.cnpjOuCpf}" 
-                                                 autocomplete="off" 
-                                                 placeholder="999.999.999-00"
-                                                 required="true"
-                                                 requiredMessage="CPF Obrigatório"
-                                                 mask="999.999.999-99"/>                                        
-
-                                    <p:outputLabel for="perc" value="Comissão %"/>
-                                    <p:inputMask id="perc" 
-                                                 value="#{vendedorView.vendedorInsert.percentualComissao}" 
-                                                 autocomplete="off"
-                                                 placeholder="99.99"
-                                                 required="true"
-                                                 requiredMessage="% Comissão Obrigatório"
-                                                 mask="99.99">                                       
-                                        <f:convertNumber pattern="#00.00"/>
-                                    </p:inputMask>     
-
-                                </p:panelGrid>
-                                <p:commandButton update="insertContato, panelInsertVendedor, growl"
-                                                 value="Inserir Contato"
-                                                 actionListener="#{contatoView.openDialogInsert()}"/>
-                                <p:commandButton update=":form:dataTableVendedor, growl, panelInsertVendedor" 
-                                                 value="Gravar" 
-                                                 actionListener="#{vendedorView.insertVendedor()}"/>                                           
-                                <p:commandButton value="Limpar" 
-                                                 type="reset" />                                
-                            </p:panel>
-
-                        </h:form>
-                    </p:dialog>  
-
-                    <div>
-                        <ui:insert >
-                            <ui:include src="/Contato/contatoInsertView.xhtml"/>
-                        </ui:insert>
-                    </div>
-
-                    <!-- EDIÇÃO DE VENDEDOR -->
-                    <p:dialog header="Editar Vendedor" 
-                              widgetVar="editVendedor" 
-                              modal="true"                                     
-                              responsive="true"
-                              resizable="false"
-                              id="editVendedor">
-                        <h:form>
-                            <p:panel id="panelEditVendedor">                    
-                                <p:focus for="nome" />                                
-                                <p:panelGrid columns="2" class="ui-noborder">                        
-                                    
-                                    <p:outputLabel for="id" value="Id"/>                                
-                                    <p:inplace id="id" 
-                                               label="#{vendedorView.vendedorUpdate.id}"
-                                               disabled="true"
-                                               widgetVar="id"/>                                    
-                                                                        
-                                    <p:outputLabel for="nome" value="Nome"/>                                
-                                    <p:inputText id="nome" 
-                                                 value="#{vendedorView.vendedorUpdate.nome}" 
-                                                 autocomplete="off" 
-                                                 maxlength="100"
-                                                 placeholder="Nome"
-                                                 required="true"
-                                                 requiredMessage="Nome Obrigatório"/>                                    
-
-
-                                    <p:outputLabel for="cpf" value="CPF"/>                        
-                                    <p:inputMask id="cpf" 
-                                                 value="#{vendedorView.vendedorUpdate.cnpjOuCpf}" 
-                                                 autocomplete="off" 
-                                                 placeholder="CPF: 999.999.999-00"
-                                                 required="true"
-                                                 requiredMessage="CPF Obrigatório"
-                                                 mask="999.999.999-99"/>
-
-
-                                    <p:outputLabel for="perc" value="Comissão %"/>                        
-                                    <p:inputMask id="perc" 
-                                                 value="#{vendedorView.vendedorUpdate.percentualComissao}" 
-                                                 autocomplete="off"
-                                                 placeholder="Comissão: 99.99"
-                                                 required="true"
-                                                 requiredMessage="% Comissão Obrigatório"
-                                                 mask="99.99">                                                                            
-                                        <f:convertNumber pattern="#00.00"/>
-                                    </p:inputMask>                                                                     
-
-                                </p:panelGrid>
-                                <p:commandButton update="editContato, panelEditVendedor, growl"
-                                                 value="Editar Contato"
-                                                 actionListener="#{vendedorView.openDialogEditContato()}"/>
-                                <p:commandButton update=":form:dataTableVendedor, growl, panelEditVendedor" 
-                                                 value="Gravar" 
-                                                 actionListener="#{vendedorView.updateVendedor()}"/>
-                                <p:commandButton value="Limpar" 
-                                                 type="reset" />                                     
-                            </p:panel>
-                        </h:form>
-                    </p:dialog>  
-                    
-                    <div>
-                        <ui:insert >
-                            <ui:include src="/Contato/contatoEditView.xhtml"/>
-                        </ui:insert>
-                    </div>
-
+                    </h:form>                                                            
                 </b:panel>
             </b:column>
             <b:column span="2"></b:column>            
         </b:row>
+
+        <div>
+            <ui:insert >
+                <ui:include src="/Vendedor/vendedorInsertView.xhtml"/>
+            </ui:insert>
+        </div>
+        
+        <div>
+            <ui:insert >
+                <ui:include src="/Vendedor/vendedorEditView.xhtml"/>
+            </ui:insert>
+        </div>
+        
+        <div>
+            <ui:insert >
+                <ui:include src="/Contato/contatoInsertView.xhtml"/>
+            </ui:insert>
+        </div>
+
+        <div>
+            <ui:insert >
+                <ui:include src="/Contato/contatoEditView.xhtml"/>
+            </ui:insert>
+        </div>
 
         <div id="footer">            
             <ui:insert name="footer"   >

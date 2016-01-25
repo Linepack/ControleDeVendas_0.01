@@ -7,16 +7,16 @@
     xmlns:b="http://bootsfaces.net/ui">
 
 
-    <!-- Inserção dos Contatos -->
+    <!-- Edição dos Contatos -->
     <p:dialog id="editContato"
               widgetVar="editContato"
               modal="true"                                     
               responsive="true"
-              resizable="false"
+              resizable="true"
               header="Editar Informações de Contato">
-        <b:panel>
-            <h:form>              
-                <p:dataTable id="dataTabledEditContato" 
+        <b:panel id="panelEditContato">
+            <h:form id="formEditContato">              
+                <p:dataTable id="dataTableEditContato" 
                              widgetVar="dataTableEditContato"
                              var="contato" 
                              value="#{contatoView.contatos}"                          
@@ -28,7 +28,7 @@
                              rowKey="#{contato.id}"
                              paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="5,10,15,25,50,100"
-                             style="margin-bottom:0;width: 1024px">                        
+                             style="margin-bottom:0;">                        
 
                     <p:column selectionMode="multiple" 
                               style="width:1px; text-align:center"/>
@@ -95,7 +95,9 @@
                         <h:outputText value="#{contato.endereco.cidade.cidade} #{contato.endereco.cidade.uf}" />
                     </p:column>                
                     <f:facet name="footer">
-                        <p:commandButton icon="ui-icon-plus" />
+                        <p:commandButton icon="ui-icon-plus" 
+                                         update="insertContato"
+                                         actionListener="#{contatoView.openDialogInsert()}"/>
                         <p:commandButton icon="ui-icon-pencil"/>
                         <p:commandButton icon="ui-icon-close"/>
                     </f:facet> 

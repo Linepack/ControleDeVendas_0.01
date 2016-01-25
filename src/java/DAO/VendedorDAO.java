@@ -1,5 +1,6 @@
 package DAO;
 
+import Model.Contato;
 import Model.Vendedor;
 import Utils.EntityManagerUtil;
 import Utils.TransactionUtil;
@@ -55,6 +56,12 @@ public class VendedorDAO {
     public static String updateVendedor(Vendedor vendedor) {
         try {
             TransactionUtil.begin(em);
+            
+            for(Contato contato: vendedor.getContatos()){
+                if (contato.getId() == null){
+                    em.persist(contato);
+                }                
+            }            
             em.merge(vendedor);
             em.getTransaction().commit();
         } catch (Exception e) {

@@ -11,7 +11,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -49,15 +48,11 @@ public class ContatoView implements Serializable {
     public void insertContato() {
         contatos.add(contato);
         RequestContext.getCurrentInstance().execute("PF('insertContato').hide();");
-    }
+    }        
     
-    public void openDialogUpdate() {                        
+    public void openDataTableUpdate() {       
         RequestContext.getCurrentInstance().execute("PF('editContato').show();");
-    }
-    
-    public void updateContato(){
-        RequestContext.getCurrentInstance().execute("PF('editContato').hide();");
-    }
+    }        
 
     public Contato getContato() {
         return contato;

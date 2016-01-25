@@ -1,6 +1,5 @@
 package Model;
 
-import com.sun.istack.internal.Nullable;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -12,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 /**

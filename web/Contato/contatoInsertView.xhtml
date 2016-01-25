@@ -63,13 +63,14 @@
                                     forceSelection="true"/>  
 
                 </p:panelGrid>                                
-                <p:commandButton update="panelInsertContato, growl" 
+                <p:commandButton update=":formEditContato:dataTableEditContato,
+                                         panelInsertContato, 
+                                         growl" 
                                  value="Gravar"
                                  actionListener="#{contatoView.insertContato()}"/>                                           
                 <p:commandButton value="Limpar" 
                                  type="reset" />
             </p:panel>
-
         </h:form>
     </p:dialog>
 </ui:composition>

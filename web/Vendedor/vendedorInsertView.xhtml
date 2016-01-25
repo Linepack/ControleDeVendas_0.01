@@ -1,0 +1,61 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <!-- INSERCAO DE VENDEDOR -->
+    <p:dialog header="Inserir Vendedor" 
+              widgetVar="insertVendedor" 
+              modal="true"                                     
+              responsive="true"
+              resizable="false"
+              id="insertVendedor">
+        <h:form>
+            <p:panel id="panelInsertVendedor">                    
+                <p:focus for="nome" />                                
+                <p:panelGrid columns="2" class="ui-noborder">                                                            
+                    <p:outputLabel for="nome" value="Nome"/>
+                    <p:inputText id="nome" 
+                                 value="#{vendedorView.vendedorInsert.nome}" 
+                                 autocomplete="off" 
+                                 maxlength="100"                                                 
+                                 required="true"
+                                 requiredMessage="Nome Obrigatório"/>                                    
+
+                    <p:outputLabel for="cpf" value="CPF"/>
+                    <p:inputMask id="cpf" 
+                                 value="#{vendedorView.vendedorInsert.cnpjOuCpf}" 
+                                 autocomplete="off" 
+                                 placeholder="999.999.999-00"
+                                 required="true"
+                                 requiredMessage="CPF Obrigatório"
+                                 mask="999.999.999-99"/>                                        
+
+                    <p:outputLabel for="perc" value="Comissão %"/>
+                    <p:inputMask id="perc" 
+                                 value="#{vendedorView.vendedorInsert.percentualComissao}" 
+                                 autocomplete="off"
+                                 placeholder="99.99"
+                                 required="true"
+                                 requiredMessage="% Comissão Obrigatório"
+                                 mask="99.99">                                       
+                        <f:convertNumber pattern="#00.00"/>
+                    </p:inputMask>     
+
+                </p:panelGrid>
+                <p:commandButton update="insertContato, panelInsertVendedor, growl"
+                                 value="Inserir Contato"
+                                 actionListener="#{contatoView.openDialogInsert()}"/>
+                <p:commandButton update=":form:dataTableVendedor, growl, panelInsertVendedor" 
+                                 value="Gravar" 
+                                 actionListener="#{vendedorView.insertVendedor()}"/>                                           
+                <p:commandButton value="Limpar" 
+                                 type="reset" />                                
+            </p:panel>
+
+        </h:form>
+    </p:dialog>
+
+</ui:composition>    
