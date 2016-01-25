@@ -2,7 +2,6 @@ package View;
 
 import Controller.ContatoController;
 import Controller.VendedorController;
-import static DAO.ContatoDAO.getContatosByPessoID;
 import Model.Cidade;
 import Model.Contato;
 import Model.Endereco;
@@ -124,16 +123,16 @@ public class VendedorView implements Serializable {
         contato.setPessoa(vendedor);
         RequestContext.getCurrentInstance().execute("PF('insertContato').show();");
     }
-    
+
     public String insertContato() {
         String retorno = null;
         FacesContext context = FacesContext.getCurrentInstance();
 
         for (Object contatoObj : contatoController.getContatosByPessoaID(contato.getPessoa().getId())) {
             Contato contatoCast = (Contato) contatoObj;
-            if ("Sim".equals(contatoCast.getPrincipal()) && 
-                "Sim".equals(contato.getPrincipal()) &&
-                !Objects.equals(contatoCast.getId(), contato.getId())) {
+            if ("Sim".equals(contatoCast.getPrincipal())
+                    && "Sim".equals(contato.getPrincipal())
+                    && !Objects.equals(contatoCast.getId(), contato.getId())) {
                 retorno = "Já existe um contato PRINCIPAL para esta pessoa, verifique!";
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro inserindo.", retorno));
                 contato.setPrincipal("Não");

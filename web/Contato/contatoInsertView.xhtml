@@ -16,16 +16,17 @@
               header="Inserir novo contato">
         <h:form>
             <b:panel id="panelInsertContato" 
-                     title="#{vendedorView.vendedor.id}  #{vendedorView.vendedor.nome}" 
+                     title="#{vendedorView.vendedor.id} - #{vendedorView.vendedor.nome}" 
                      look="primary" 
                      collapsible="false">
-                <p:focus for="desc" />                                  
+                <p:focus for="principal" />                                  
                 <p:panelGrid columns="4" class="ui-noborder">    
 
                     <p:outputLabel for="idContato" value="Id"/>
-                    <p:inplace id="idContato"
-                               disabled="true"
-                               label="#{vendedorView.contato.id}"/>   
+                    <p:inputText id="idContato"
+                                 disabled="true"
+                                 widgetVar="idContato"
+                                 value="#{vendedorView.contato.id}"/>   
 
                     <p:outputLabel for="principal" value="Principal"/>
                     <p:selectOneMenu id="principal" 
