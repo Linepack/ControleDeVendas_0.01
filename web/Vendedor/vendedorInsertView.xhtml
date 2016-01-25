@@ -3,17 +3,23 @@
     xmlns:h="http://xmlns.jcp.org/jsf/html"
     xmlns:p="http://primefaces.org/ui"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    xmlns:f="http://xmlns.jcp.org/jsf/core">
-    
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:b="http://bootsfaces.net/ui">
+
     <!-- INSERCAO DE VENDEDOR -->
     <p:dialog header="Inserir Vendedor" 
               widgetVar="insertVendedor" 
               modal="true"                                     
               responsive="true"
               resizable="false"
+              closeOnEscape="true"
               id="insertVendedor">
         <h:form>
-            <p:panel id="panelInsertVendedor">                    
+            <b:panel id="panelInsertVendedor"
+                     title="Novo" 
+                     look="primary" 
+                     collapsible="false">                                                                         
+
                 <p:focus for="nome" />                                
                 <p:panelGrid columns="2" class="ui-noborder">                                                            
                     <p:outputLabel for="nome" value="Nome"/>
@@ -53,7 +59,7 @@
                                  actionListener="#{vendedorView.insertVendedor()}"/>                                           
                 <p:commandButton value="Limpar" 
                                  type="reset" />                                
-            </p:panel>
+            </b:panel>
 
         </h:form>
     </p:dialog>

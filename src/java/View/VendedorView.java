@@ -9,6 +9,7 @@ import Model.Endereco;
 import Model.Vendedor;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -123,17 +124,20 @@ public class VendedorView implements Serializable {
         contato.setPessoa(vendedor);
         RequestContext.getCurrentInstance().execute("PF('insertContato').show();");
     }
-
+    
     public String insertContato() {
         String retorno = null;
         FacesContext context = FacesContext.getCurrentInstance();
 
         for (Object contatoObj : contatoController.getContatosByPessoaID(contato.getPessoa().getId())) {
             Contato contatoCast = (Contato) contatoObj;
-            if ("Sim".equals(contatoCast.getPrincipal()) && "Sim".equals(contato.getPrincipal())) {
+            if ("Sim".equals(contatoCast.getPrincipal()) && 
+                "Sim".equals(contato.getPrincipal()) &&
+                !Objects.equals(contatoCast.getId(), contato.getId())) {
                 retorno = "Já existe um contato PRINCIPAL para esta pessoa, verifique!";
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro inserindo.", retorno));
-                return retorno;
+                contato.setPrincipal("Não");
+                return "";
             }
         }
 
@@ -150,7 +154,7 @@ public class VendedorView implements Serializable {
             contatos = contatoController.getContatosByPessoaID(vendedor.getId());
             RequestContext.getCurrentInstance().execute("PF('insertContato').hide();");
             return "";
-        }                
+        }
 
     }
 

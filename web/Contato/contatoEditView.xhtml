@@ -13,8 +13,12 @@
               modal="true"                                     
               responsive="true"
               resizable="true"
-              header="Editar Informações de Contato - #{vendedorView.vendedor.nome}">
-        <b:panel id="panelEditContato">
+              closeOnEscape="true"
+              header="Editar Informações de Contato">
+        <b:panel id="panelEditContato"
+                 title="#{vendedorView.vendedor.id}  #{vendedorView.vendedor.nome}" 
+                 look="primary" 
+                 collapsible="false">                                 
             <h:form id="formEditContato">              
                 <p:dataTable id="dataTableEditContato" 
                              widgetVar="dataTableEditContato"

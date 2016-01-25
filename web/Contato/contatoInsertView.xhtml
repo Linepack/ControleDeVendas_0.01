@@ -3,7 +3,8 @@
     xmlns:h="http://xmlns.jcp.org/jsf/html"
     xmlns:p="http://primefaces.org/ui"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    xmlns:f="http://xmlns.jcp.org/jsf/core">
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:b="http://bootsfaces.net/ui">
 
     <!-- Inserção dos Contatos -->
     <p:dialog id="insertContato"
@@ -11,9 +12,13 @@
               modal="true"                                     
               responsive="true"
               resizable="false"
-              header="Informações de Contato - #{vendedorView.vendedor.nome}">
+              closeOnEscape="true"
+              header="Inserir novo contato">
         <h:form>
-            <p:panel id="panelInsertContato">                    
+            <b:panel id="panelInsertContato" 
+                     title="#{vendedorView.vendedor.id}  #{vendedorView.vendedor.nome}" 
+                     look="primary" 
+                     collapsible="false">
                 <p:focus for="desc" />                                  
                 <p:panelGrid columns="4" class="ui-noborder">    
 
@@ -21,7 +26,7 @@
                     <p:inplace id="idContato"
                                disabled="true"
                                label="#{vendedorView.contato.id}"/>   
-                                     
+
                     <p:outputLabel for="principal" value="Principal"/>
                     <p:selectOneMenu id="principal" 
                                      value="#{vendedorView.contato.principal}"                                      
@@ -76,7 +81,7 @@
                                     itemLabel="#{cidade.cidade} #{cidade.uf}" 
                                     itemValue="#{cidade}"
                                     forceSelection="true"/>  
-                   
+
                 </p:panelGrid>                                
                 <p:commandButton update=":formEditContato:dataTableEditContato,
                                  panelInsertContato, 
@@ -84,8 +89,8 @@
                                  value="Gravar"
                                  actionListener="#{vendedorView.insertContato()}"/>                                           
                 <p:commandButton value="Limpar" 
-                                 type="reset" />                
-            </p:panel>
+                                 type="reset" />                  
+            </b:panel>            
         </h:form>
     </p:dialog>
 </ui:composition>
