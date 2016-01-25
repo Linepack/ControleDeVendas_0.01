@@ -2,19 +2,34 @@
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:h="http://xmlns.jcp.org/jsf/html"
     xmlns:p="http://primefaces.org/ui"
-    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-        
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+
     <!-- Inserção dos Contatos -->
     <p:dialog id="insertContato"
               widgetVar="insertContato"
               modal="true"                                     
               responsive="true"
               resizable="false"
-              header="Informações de Contato">
+              header="Informações de Contato - #{vendedorView.vendedor.nome}">
         <h:form>
             <p:panel id="panelInsertContato">                    
-                <p:focus for="desc" />                                
+                <p:focus for="desc" />                                  
                 <p:panelGrid columns="4" class="ui-noborder">    
+
+                    <p:outputLabel for="idContato" value="Id"/>
+                    <p:inplace id="idContato"
+                               disabled="true"
+                               label="#{vendedorView.contato.id}"/>   
+                                     
+                    <p:outputLabel for="principal" value="Principal"/>
+                    <p:selectOneMenu id="principal" 
+                                     value="#{vendedorView.contato.principal}"                                      
+                                     required="true"
+                                     requiredMessage="Informe se o contato é PRINCIPAL, ou não!">                                                
+                        <f:selectItem itemLabel="Sim" itemValue="Sim"/>
+                        <f:selectItem itemLabel="Não" itemValue="Não"/>
+                    </p:selectOneMenu>
 
                     <p:outputLabel for="desc" value="Descrição"/>
                     <p:inputText id="desc" 
@@ -23,8 +38,8 @@
                                  maxlength="100"
                                  required="true"
                                  requiredMessage="Descrição do contato deve ser informada"/>  
-                    
-                    
+
+
                     <p:outputLabel for="email" value="E-mail"/>
                     <p:inputText id="email" 
                                  value="#{vendedorView.contato.email}" 
@@ -61,15 +76,15 @@
                                     itemLabel="#{cidade.cidade} #{cidade.uf}" 
                                     itemValue="#{cidade}"
                                     forceSelection="true"/>  
-
+                   
                 </p:panelGrid>                                
                 <p:commandButton update=":formEditContato:dataTableEditContato,
-                                         panelInsertContato, 
-                                         growl" 
+                                 panelInsertContato, 
+                                 growl" 
                                  value="Gravar"
                                  actionListener="#{vendedorView.insertContato()}"/>                                           
                 <p:commandButton value="Limpar" 
-                                 type="reset" />
+                                 type="reset" />                
             </p:panel>
         </h:form>
     </p:dialog>

@@ -26,7 +26,7 @@
             <b:column span="8">
                 <b:panel title="Cadastro de Vendedores" look="primary" collapsible="false">
 
-                    <p:growl id="growl" showDetail="true"/>  
+                    <p:growl id="growl" showDetail="true" sticky="true"/>  
 
                     <!-- LISTA DE VENEDDORES -->
                     <h:form id="form">                                                           
@@ -97,19 +97,19 @@
             </b:column>
             <b:column span="2"></b:column>            
         </b:row>
-
+       
         <div>
             <ui:insert >
                 <ui:include src="/Vendedor/vendedorInsertView.xhtml"/>
             </ui:insert>
         </div>
-        
+
         <div>
             <ui:insert >
                 <ui:include src="/Vendedor/vendedorEditView.xhtml"/>
             </ui:insert>
         </div>
-        
+
         <div>
             <ui:insert >
                 <ui:include src="/Contato/contatoInsertView.xhtml"/>

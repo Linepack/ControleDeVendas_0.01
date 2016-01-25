@@ -13,7 +13,7 @@
               modal="true"                                     
               responsive="true"
               resizable="true"
-              header="Editar Informações de Contato">
+              header="Editar Informações de Contato - #{vendedorView.vendedor.nome}">
         <b:panel id="panelEditContato">
             <h:form id="formEditContato">              
                 <p:dataTable id="dataTableEditContato" 
@@ -94,6 +94,15 @@
                               priority="2">
                         <h:outputText value="#{contato.endereco.cidade.cidade} #{contato.endereco.cidade.uf}" />
                     </p:column>                
+
+                    <p:column headerText="Principal" 
+                              filterBy="#{contato.principal}" 
+                              filterMatchMode="contains"
+                              sortBy="#{contato.principal}" 
+                              width="10" 
+                              priority="2">
+                        <h:outputText value="#{contato.principal}" />
+                    </p:column>
                     <f:facet name="footer">
                         <p:commandButton icon="ui-icon-plus" 
                                          update="insertContato"

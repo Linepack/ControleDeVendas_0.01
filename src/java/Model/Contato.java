@@ -2,6 +2,7 @@ package Model;
 
 import java.io.Serializable;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,9 +30,12 @@ public class Contato implements Serializable {
     private String telefone;
     private String descricaoContato;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "id_pessoa")
     private Pessoa pessoa;
+
+    @Column(name = "principal")
+    private String principal;
 
     public Integer getId() {
         return id;
@@ -81,4 +85,12 @@ public class Contato implements Serializable {
         this.pessoa = pessoa;
     }
 
+    public String getPrincipal() {
+        return principal;
+    }
+
+    public void setPrincipal(String principal) {
+        this.principal = principal;
+    }
+         
 }

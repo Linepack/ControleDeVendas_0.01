@@ -3,7 +3,6 @@ package Controller;
 import DAO.CidadeDAO;
 import DAO.VendedorDAO;
 import Model.Cidade;
-import Model.Contato;
 import Model.Vendedor;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -41,22 +40,6 @@ public class VendedorController implements Serializable {
         List<Cidade> cidades = new ArrayList<>();
         cidades = CidadeDAO.getCidadeListByLike(filtro);
         return cidades;
-    }
-
-    public String insertContato(Contato contato) {
-        return VendedorDAO.insertContato(contato);
-    }
-    
-    public String updateContato(Contato contato) {
-        return VendedorDAO.updateContato(contato);
-    }
-
-    public List<Contato> getContatosByPessoaID(Integer pessoaID) {
-        return VendedorDAO.getContatosByPessoID(pessoaID);
-    }
-
-    public String deleteContato(Contato contato) {
-        return VendedorDAO.deleteContato(contato);
-    }
+    }   
 
 }

@@ -1,6 +1,7 @@
 package Model;
 // Generated Dec 28, 2015 10:28:32 PM by Hibernate Tools 4.3.1
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,7 +9,7 @@ import javax.persistence.Id;
 
 
 @Entity(name = "Cidade")
-public class Cidade  implements java.io.Serializable {
+public class Cidade  implements Serializable {
      
      @Id
      @GeneratedValue(strategy = GenerationType.SEQUENCE)

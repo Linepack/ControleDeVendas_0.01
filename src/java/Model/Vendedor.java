@@ -1,5 +1,6 @@
 package Model;
 
+import java.io.Serializable;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -9,7 +10,7 @@ import javax.persistence.Entity;
  */
 @Entity
 @DiscriminatorValue("Vendedor")
-public class Vendedor extends Pessoa{
+public class Vendedor extends Pessoa implements Serializable{
         
     private Float percentualComissao;
 

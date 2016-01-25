@@ -2,12 +2,10 @@ package Controller;
 
 import DAO.CidadeDAO;
 import Model.Cidade;
-import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
-import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -15,7 +13,7 @@ import org.primefaces.context.RequestContext;
  */
 @ManagedBean(name = "cidadeController")
 @ApplicationScoped
-public class CidadeController {
+public class CidadeController implements Serializable{
               
     public List<Cidade> createCidades() {
         List<Cidade> cidadeList = null;       

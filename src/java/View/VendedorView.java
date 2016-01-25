@@ -1,6 +1,8 @@
 package View;
 
+import Controller.ContatoController;
 import Controller.VendedorController;
+import static DAO.ContatoDAO.getContatosByPessoID;
 import Model.Cidade;
 import Model.Contato;
 import Model.Endereco;
@@ -36,6 +38,9 @@ public class VendedorView implements Serializable {
     @ManagedProperty(value = "#{vendedorController}")
     private VendedorController vendedorController;
 
+    @ManagedProperty(value = "#{contatoController}")
+    private ContatoController contatoController;
+
     @PostConstruct
     public void init() {
         vendedores = vendedorController.createVendedores();
@@ -61,6 +66,15 @@ public class VendedorView implements Serializable {
     public void deleteVendedores() {
         String retorno = null;
         for (Vendedor vendedor : vendedoresSelecionados) {
+
+            for (Contato contato : contatoController.getContatosByPessoaID(vendedor.getId())) {
+                retorno = contatoController.deleteContato(contato);
+                if (retorno != "") {
+                    FacesContext context = FacesContext.getCurrentInstance();
+                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro deletando", retorno));
+                }
+            }
+
             retorno = vendedorController.deleteVendedor(vendedor);
             if (retorno != "") {
                 FacesContext context = FacesContext.getCurrentInstance();
@@ -110,32 +124,51 @@ public class VendedorView implements Serializable {
         RequestContext.getCurrentInstance().execute("PF('insertContato').show();");
     }
 
-    public void insertContato() {
+    public String insertContato() {
         String retorno = null;
-        if (contato.getId() == null) {
-            retorno = vendedorController.insertContato(contato);
-        } else {
-            retorno = vendedorController.updateContato(contato);
+        FacesContext context = FacesContext.getCurrentInstance();
+
+        for (Object contatoObj : contatoController.getContatosByPessoaID(contato.getPessoa().getId())) {
+            Contato contatoCast = (Contato) contatoObj;
+            if ("Sim".equals(contatoCast.getPrincipal()) && "Sim".equals(contato.getPrincipal())) {
+                retorno = "Já existe um contato PRINCIPAL para esta pessoa, verifique!";
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro inserindo.", retorno));
+                return retorno;
+            }
         }
-        contatos = vendedorController.getContatosByPessoaID(vendedor.getId());
-        RequestContext.getCurrentInstance().execute("PF('insertContato').hide();");
+
+        if (contato.getId() == null) {
+            retorno = contatoController.insertContato(contato);
+        } else {
+            retorno = contatoController.updateContato(contato);
+        }
+
+        if (retorno != "") {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro inserindo.", retorno));
+            return retorno;
+        } else {
+            contatos = contatoController.getContatosByPessoaID(vendedor.getId());
+            RequestContext.getCurrentInstance().execute("PF('insertContato').hide();");
+            return "";
+        }                
+
     }
 
     public void openDialogEditContato() {
-        contatos = vendedorController.getContatosByPessoaID(vendedor.getId());
+        contatos = contatoController.getContatosByPessoaID(vendedor.getId());
         RequestContext.getCurrentInstance().execute("PF('editContato').show();");
     }
 
     public void deleteContato() {
         String retorno = null;
         for (Contato contato : contatosSelecionados) {
-            retorno = vendedorController.deleteContato(contato);
+            retorno = contatoController.deleteContato(contato);
             if (retorno != "") {
                 FacesContext context = FacesContext.getCurrentInstance();
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro deletando", retorno));
             }
         }
-        contatos = vendedorController.getContatosByPessoaID(vendedor.getId());
+        contatos = contatoController.getContatosByPessoaID(vendedor.getId());
     }
 
     public void openDialogEditContatoIndividual() {
@@ -224,6 +257,14 @@ public class VendedorView implements Serializable {
 
     public void setContato(Contato contato) {
         this.contato = contato;
+    }
+
+    public ContatoController getContatoController() {
+        return contatoController;
+    }
+
+    public void setContatoController(ContatoController contatoController) {
+        this.contatoController = contatoController;
     }
 
 }
