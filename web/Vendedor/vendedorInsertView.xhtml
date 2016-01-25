@@ -18,7 +18,7 @@
                 <p:panelGrid columns="2" class="ui-noborder">                                                            
                     <p:outputLabel for="nome" value="Nome"/>
                     <p:inputText id="nome" 
-                                 value="#{vendedorView.vendedorInsert.nome}" 
+                                 value="#{vendedorView.vendedor.nome}" 
                                  autocomplete="off" 
                                  maxlength="100"                                                 
                                  required="true"
@@ -26,7 +26,7 @@
 
                     <p:outputLabel for="cpf" value="CPF"/>
                     <p:inputMask id="cpf" 
-                                 value="#{vendedorView.vendedorInsert.cnpjOuCpf}" 
+                                 value="#{vendedorView.vendedor.cnpjOuCpf}" 
                                  autocomplete="off" 
                                  placeholder="999.999.999-00"
                                  required="true"
@@ -35,7 +35,7 @@
 
                     <p:outputLabel for="perc" value="Comissão %"/>
                     <p:inputMask id="perc" 
-                                 value="#{vendedorView.vendedorInsert.percentualComissao}" 
+                                 value="#{vendedorView.vendedor.percentualComissao}" 
                                  autocomplete="off"
                                  placeholder="99.99"
                                  required="true"
@@ -47,7 +47,7 @@
                 </p:panelGrid>
                 <p:commandButton update="insertContato, panelInsertVendedor, growl"
                                  value="Inserir Contato"
-                                 actionListener="#{contatoView.openDialogInsert()}"/>
+                                 actionListener="#{vendedorView.openDialogInsertContato()}"/>
                 <p:commandButton update=":form:dataTableVendedor, growl, panelInsertVendedor" 
                                  value="Gravar" 
                                  actionListener="#{vendedorView.insertVendedor()}"/>                                           

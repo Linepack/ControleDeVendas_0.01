@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 /**
@@ -15,18 +16,22 @@ import javax.persistence.OneToOne;
  */
 @Entity
 public class Contato implements Serializable {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Integer id;        
-    
+    private Integer id;
+
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_endereco")    
+    @JoinColumn(name = "id_endereco")
     private Endereco endereco;
-    
+
     private String email;
-    private String telefone;    
+    private String telefone;
     private String descricaoContato;
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "id_pessoa")
+    private Pessoa pessoa;
 
     public Integer getId() {
         return id;
@@ -35,7 +40,7 @@ public class Contato implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
-    
+
     public Endereco getEndereco() {
         return endereco;
     }
@@ -67,5 +72,13 @@ public class Contato implements Serializable {
     public void setDescricaoContato(String descricaoContato) {
         this.descricaoContato = descricaoContato;
     }
-                        
+
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
+    }
+
 }

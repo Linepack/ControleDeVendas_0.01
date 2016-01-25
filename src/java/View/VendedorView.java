@@ -1,6 +1,9 @@
 package View;
 
 import Controller.VendedorController;
+import Model.Cidade;
+import Model.Contato;
+import Model.Endereco;
 import Model.Vendedor;
 import java.io.Serializable;
 import java.util.List;
@@ -23,35 +26,34 @@ public class VendedorView implements Serializable {
     private List<Vendedor> vendedores;
     private List<Vendedor> vendedoresSelecionados;
     private List<Vendedor> vendedoresFiltrador;
-    private Vendedor vendedorInsert;
-    private Vendedor vendedorUpdate;
+    private Vendedor vendedor;
+
+    private List<Contato> contatos;
+    private List<Contato> contatosSelecionados;
+    private List<Contato> contatosFiltrados;
+    private Contato contato;
 
     @ManagedProperty(value = "#{vendedorController}")
-    private VendedorController vendedorController;   
-    
-    @ManagedProperty(value = "#{contatoView}")
-    private ContatoView contatoView;
-        
+    private VendedorController vendedorController;
+
     @PostConstruct
-    public void init() {                
+    public void init() {
         vendedores = vendedorController.createVendedores();
-        this.contatoView.init();
     }
 
     public void openDialogInsert() {
-        vendedorInsert = new Vendedor();
+        vendedor = new Vendedor();
         RequestContext.getCurrentInstance().execute("PF('insertVendedor').show();");
     }
 
-    public String insertVendedor() {        
-        vendedorInsert.setContatos(contatoView.getContatos());
-        String retorno = vendedorController.insertVendedor(vendedorInsert);
+    public String insertVendedor() {
+        String retorno = vendedorController.insertVendedor(vendedor);
         if (retorno != "") {
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", retorno));
             return retorno;
         }
-        RequestContext.getCurrentInstance().execute("PF('insertVendedor').hide();");        
+        RequestContext.getCurrentInstance().execute("PF('insertVendedor').hide();");
         this.init();
         return "";
     }
@@ -73,7 +75,7 @@ public class VendedorView implements Serializable {
         for (Vendedor vendedor : vendedoresSelecionados) {
             numeroSelecoes++;
             if (numeroSelecoes == 1) {
-                this.vendedorUpdate = vendedor;
+                this.vendedor = vendedor;
             }
         }
         if (numeroSelecoes == 1) {
@@ -86,7 +88,7 @@ public class VendedorView implements Serializable {
 
     public void updateVendedor() {
         String retorno = null;
-        retorno = vendedorController.updateVendedor(vendedorUpdate);
+        retorno = vendedorController.updateVendedor(vendedor);
         if (retorno != "") {
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro atualizando", retorno));
@@ -95,10 +97,61 @@ public class VendedorView implements Serializable {
             this.init();
         }
     }
-    
-    public void openDialogEditContato() {        
-        contatoView.setContatos(vendedorUpdate.getContatos());
-        contatoView.openDataTableUpdate();
+
+    public List<Cidade> getCidadesByLike(String filtro) {
+        return vendedorController.getCidadesByLike(filtro);
+    }
+
+    public void openDialogInsertContato() {
+        contato = new Contato();
+        contato.setEndereco(new Endereco());
+        contato.getEndereco().setCidade(new Cidade());
+        contato.setPessoa(vendedor);
+        RequestContext.getCurrentInstance().execute("PF('insertContato').show();");
+    }
+
+    public void insertContato() {
+        String retorno = null;
+        if (contato.getId() == null) {
+            retorno = vendedorController.insertContato(contato);
+        } else {
+            retorno = vendedorController.updateContato(contato);
+        }
+        contatos = vendedorController.getContatosByPessoaID(vendedor.getId());
+        RequestContext.getCurrentInstance().execute("PF('insertContato').hide();");
+    }
+
+    public void openDialogEditContato() {
+        contatos = vendedorController.getContatosByPessoaID(vendedor.getId());
+        RequestContext.getCurrentInstance().execute("PF('editContato').show();");
+    }
+
+    public void deleteContato() {
+        String retorno = null;
+        for (Contato contato : contatosSelecionados) {
+            retorno = vendedorController.deleteContato(contato);
+            if (retorno != "") {
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro deletando", retorno));
+            }
+        }
+        contatos = vendedorController.getContatosByPessoaID(vendedor.getId());
+    }
+
+    public void openDialogEditContatoIndividual() {
+        Integer numeroSelecoes = 0;
+        for (Contato contato : contatosSelecionados) {
+            numeroSelecoes++;
+            if (numeroSelecoes == 1) {
+                this.contato = contato;
+            }
+        }
+        if (numeroSelecoes == 1) {
+            RequestContext.getCurrentInstance().execute("PF('insertContato').show();");
+        } else if (numeroSelecoes > 1) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Edite um (1) contato por vez."));
+        }
     }
 
     public List<Vendedor> getVendedores() {
@@ -133,29 +186,44 @@ public class VendedorView implements Serializable {
         this.vendedoresFiltrador = vendedoresFiltrador;
     }
 
-    public Vendedor getVendedorInsert() {
-        return vendedorInsert;
+    public Vendedor getVendedor() {
+        return vendedor;
     }
 
-    public void setVendedorInsert(Vendedor vendedorInsert) {
-        this.vendedorInsert = vendedorInsert;
+    public void setVendedor(Vendedor vendedor) {
+        this.vendedor = vendedor;
     }
 
-    public Vendedor getVendedorUpdate() {
-        return vendedorUpdate;
+    public List<Contato> getContatos() {
+        return contatos;
     }
 
-    public void setVendedorUpdate(Vendedor vendedorUpdate) {
-        this.vendedorUpdate = vendedorUpdate;
-    }   
-
-    public ContatoView getContatoView() {
-        return contatoView;
+    public void setContatos(List<Contato> contatos) {
+        this.contatos = contatos;
     }
 
-    public void setContatoView(ContatoView contatoView) {
-        this.contatoView = contatoView;
+    public List<Contato> getContatosSelecionados() {
+        return contatosSelecionados;
     }
-    
-    
+
+    public void setContatosSelecionados(List<Contato> contatosSelecionados) {
+        this.contatosSelecionados = contatosSelecionados;
+    }
+
+    public List<Contato> getContatosFiltrados() {
+        return contatosFiltrados;
+    }
+
+    public void setContatosFiltrados(List<Contato> contatosFiltrados) {
+        this.contatosFiltrados = contatosFiltrados;
+    }
+
+    public Contato getContato() {
+        return contato;
+    }
+
+    public void setContato(Contato contato) {
+        this.contato = contato;
+    }
+
 }

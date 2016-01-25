@@ -28,9 +28,15 @@ public class VendedorDAO {
 
     public static String insertVendedor(Vendedor vendedor) {
         try {
-            TransactionUtil.begin(em);                        
-            em.persist(vendedor);
-            em.getTransaction().commit();            
+            TransactionUtil.begin(em);
+
+            if (vendedor.getId() == null) {
+                em.persist(vendedor);
+            } else {
+                em.merge(vendedor);
+            }
+
+            em.getTransaction().commit();
         } catch (Exception e) {
             return e.toString();
         }
@@ -56,13 +62,55 @@ public class VendedorDAO {
     public static String updateVendedor(Vendedor vendedor) {
         try {
             TransactionUtil.begin(em);
-            
-            for(Contato contato: vendedor.getContatos()){
-                if (contato.getId() == null){
-                    em.persist(contato);
-                }                
-            }            
             em.merge(vendedor);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            return e.toString();
+        }
+        return "";
+    }
+
+    public static String insertContato(Contato contato) {
+
+        try {
+            TransactionUtil.begin(em);
+            em.persist(contato);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            return e.toString();
+        }
+        return "";
+    }
+
+    public static List getContatosByPessoID(Integer pessoaID) {
+
+        List<Contato> contatos = new ArrayList<>();
+        try {
+            TransactionUtil.begin(em);
+            Query q = em.createQuery("select c from Contato c join c.pessoa d where d.id = " + pessoaID);
+            contatos = (List<Contato>) q.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return contatos;
+    }
+
+    public static String deleteContato(Contato contato) {
+        try {
+            TransactionUtil.begin(em);
+            em.remove(contato);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            return e.toString();
+        }
+        return "";
+    }
+    
+    public static String updateContato(Contato contato) {
+
+        try {
+            TransactionUtil.begin(em);
+            em.merge(contato);
             em.getTransaction().commit();
         } catch (Exception e) {
             return e.toString();

@@ -19,13 +19,13 @@
 
                     <p:outputLabel for="id" value="Id"/>                                
                     <p:inplace id="id" 
-                               label="#{vendedorView.vendedorUpdate.id}"
+                               label="#{vendedorView.vendedor.id}"
                                disabled="true"
                                widgetVar="id"/>                                    
 
                     <p:outputLabel for="nome" value="Nome"/>                                
                     <p:inputText id="nome" 
-                                 value="#{vendedorView.vendedorUpdate.nome}" 
+                                 value="#{vendedorView.vendedor.nome}" 
                                  autocomplete="off" 
                                  maxlength="100"
                                  placeholder="Nome"
@@ -35,7 +35,7 @@
 
                     <p:outputLabel for="cpf" value="CPF"/>                        
                     <p:inputMask id="cpf" 
-                                 value="#{vendedorView.vendedorUpdate.cnpjOuCpf}" 
+                                 value="#{vendedorView.vendedor.cnpjOuCpf}" 
                                  autocomplete="off" 
                                  placeholder="CPF: 999.999.999-00"
                                  required="true"
@@ -45,7 +45,7 @@
 
                     <p:outputLabel for="perc" value="Comissão %"/>                        
                     <p:inputMask id="perc" 
-                                 value="#{vendedorView.vendedorUpdate.percentualComissao}" 
+                                 value="#{vendedorView.vendedor.percentualComissao}" 
                                  autocomplete="off"
                                  placeholder="Comissão: 99.99"
                                  required="true"

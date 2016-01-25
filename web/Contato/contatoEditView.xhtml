@@ -19,11 +19,11 @@
                 <p:dataTable id="dataTableEditContato" 
                              widgetVar="dataTableEditContato"
                              var="contato" 
-                             value="#{contatoView.contatos}"                          
+                             value="#{vendedorView.contatos}"                          
                              paginator="true"
                              rows="5"       
-                             selection="#{contatoView.contatosSelecionados}"
-                             filteredValue="#{contatoView.contatosFiltrados}"
+                             selection="#{vendedorView.contatosSelecionados}"
+                             filteredValue="#{vendedorView.contatosFiltrados}"
                              emptyMessage="Nada encontrado."
                              rowKey="#{contato.id}"
                              paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -97,9 +97,13 @@
                     <f:facet name="footer">
                         <p:commandButton icon="ui-icon-plus" 
                                          update="insertContato"
-                                         actionListener="#{contatoView.openDialogInsert()}"/>
-                        <p:commandButton icon="ui-icon-pencil"/>
-                        <p:commandButton icon="ui-icon-close"/>
+                                         actionListener="#{vendedorView.openDialogInsertContato()}"/>
+                        <p:commandButton icon="ui-icon-pencil"
+                                         update="dataTableEditContato, growl, insertContato"
+                                         actionListener="#{vendedorView.openDialogEditContatoIndividual()}"/>
+                        <p:commandButton icon="ui-icon-close"
+                                         update="dataTableEditContato, growl"
+                                         actionListener="#{vendedorView.deleteContato()}"/>
                     </f:facet> 
                 </p:dataTable>            
             </h:form>
