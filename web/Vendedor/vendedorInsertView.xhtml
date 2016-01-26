@@ -34,7 +34,7 @@
                     <p:inputMask id="cpf" 
                                  value="#{vendedorView.vendedor.cnpjOuCpf}" 
                                  autocomplete="off" 
-                                 placeholder="999.999.999-00"
+                                 placeholder="999.999.999-99"
                                  required="true"
                                  requiredMessage="CPF Obrigatório"
                                  mask="999.999.999-99"/>                                        
@@ -46,7 +46,7 @@
                                  placeholder="99.99"
                                  required="true"
                                  requiredMessage="% Comissão Obrigatório"
-                                 mask="99.99">                                       
+                                 mask="99.?99">                                       
                         <f:convertNumber pattern="#00.00"/>
                     </p:inputMask>     
 
