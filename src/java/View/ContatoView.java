@@ -10,7 +10,9 @@ import Model.Cidade;
 import Model.Contato;
 import Model.Endereco;
 import Model.Pessoa;
+import Model.TiposDeContato;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import javax.annotation.PostConstruct;
@@ -43,6 +45,13 @@ public class ContatoView implements Serializable {
         if (pessoaAuxiliar != null) {
             contatos = contatoController.getContatosByPessoaID(pessoaAuxiliar.getId());
         }
+    }
+
+    public List<TiposDeContato> getTiposDeContato() {
+        if (contato != null) {
+            return Arrays.asList(TiposDeContato.values());
+        }
+        return null;
     }
 
     public List<Cidade> getCidadesByLike(String filtro) {

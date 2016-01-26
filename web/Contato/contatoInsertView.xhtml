@@ -31,13 +31,11 @@
                                rendered="#{contatoView.contato.id == null ? false : true}"/>   
 
                     <p:outputLabel for="desc" value="Descrição"/>
-                    <p:inputText id="desc" 
-                                 value="#{contatoView.contato.descricaoContato}" 
-                                 autocomplete="off" 
-                                 maxlength="100"
-                                 required="true"
-                                 requiredMessage="Descrição do contato deve ser informada"/>  
-
+                    <p:selectOneMenu id="desc"
+                                     value="#{contatoView.contato.descricaoContato}"
+                                     style="width: 180px">
+                        <f:selectItems value="#{contatoView.tiposDeContato}"/>
+                    </p:selectOneMenu>
 
                     <p:outputLabel for="email" value="E-mail"/>
                     <p:inputText id="email" 
@@ -83,7 +81,7 @@
                         <f:selectItem itemLabel="Sim" itemValue="Sim"/>
                         <f:selectItem itemLabel="Não" itemValue="Não"/>
                     </p:selectOneMenu>
-                    
+
                 </p:panelGrid>                                
                 <p:commandButton update=":formEditContato:dataTableEditContato,
                                  panelInsertContato, 
