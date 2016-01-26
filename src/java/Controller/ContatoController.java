@@ -5,9 +5,12 @@
  */
 package Controller;
 
+import DAO.CidadeDAO;
 import DAO.ContatoDAO;
+import Model.Cidade;
 import Model.Contato;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
@@ -36,4 +39,9 @@ public class ContatoController implements Serializable{
         return ContatoDAO.deleteContato(contato);
     }
     
+    public List<Cidade> getCidadesByLike(String filtro) {
+        List<Cidade> cidades = new ArrayList<>();
+        cidades = CidadeDAO.getCidadeListByLike(filtro);
+        return cidades;
+    }  
 }

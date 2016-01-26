@@ -16,18 +16,18 @@
               closeOnEscape="true"
               header="Editar Informações de Contato">
         <b:panel id="panelEditContato"
-                 title="#{vendedorView.vendedor.id} - #{vendedorView.vendedor.nome}" 
+                 title="#{contatoView.pessoaAuxiliar.id} - #{contatoView.pessoaAuxiliar.nome}" 
                  look="primary" 
                  collapsible="false">                                 
             <h:form id="formEditContato">              
                 <p:dataTable id="dataTableEditContato" 
                              widgetVar="dataTableEditContato"
                              var="contato" 
-                             value="#{vendedorView.contatos}"                          
+                             value="#{contatoView.contatos}"                          
                              paginator="true"
                              rows="5"       
-                             selection="#{vendedorView.contatosSelecionados}"
-                             filteredValue="#{vendedorView.contatosFiltrados}"
+                             selection="#{contatoView.contatosSelecionados}"
+                             filteredValue="#{contatoView.contatosFiltrados}"
                              emptyMessage="Nada encontrado."
                              rowKey="#{contato.id}"
                              paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -110,13 +110,13 @@
                     <f:facet name="footer">
                         <p:commandButton icon="ui-icon-plus" 
                                          update="insertContato"
-                                         actionListener="#{vendedorView.openDialogInsertContato()}"/>
+                                         actionListener="#{contatoView.openDialogInsertContato()}"/>
                         <p:commandButton icon="ui-icon-pencil"
                                          update="dataTableEditContato, growl, insertContato"
-                                         actionListener="#{vendedorView.openDialogEditContatoIndividual()}"/>
+                                         actionListener="#{contatoView.openDialogEditContatoIndividual()}"/>
                         <p:commandButton icon="ui-icon-close"
                                          update="dataTableEditContato, growl"
-                                         actionListener="#{vendedorView.deleteContato()}"/>
+                                         actionListener="#{contatoView.deleteContato()}"/>
                     </f:facet> 
                 </p:dataTable>            
             </h:form>

@@ -34,12 +34,6 @@ public class VendedorController implements Serializable {
 
     public String updateVendedor(Vendedor vendedor) {
         return VendedorDAO.updateVendedor(vendedor);
-    }
-
-    public List<Cidade> getCidadesByLike(String filtro) {
-        List<Cidade> cidades = new ArrayList<>();
-        cidades = CidadeDAO.getCidadeListByLike(filtro);
-        return cidades;
-    }   
+    }    
 
 }

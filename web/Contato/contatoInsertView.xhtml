@@ -16,7 +16,7 @@
               header="Inserir novo contato">
         <h:form>
             <b:panel id="panelInsertContato" 
-                     title="#{vendedorView.vendedor.id} - #{vendedorView.vendedor.nome}" 
+                     title="#{contatoView.contato.pessoa.id} - #{contatoView.contato.pessoa.nome}" 
                      look="primary" 
                      collapsible="false">
                 <p:focus for="principal" />                                  
@@ -26,11 +26,11 @@
                     <p:inputText id="idContato"
                                  disabled="true"
                                  widgetVar="idContato"
-                                 value="#{vendedorView.contato.id}"/>   
+                                 value="#{contatoView.contato.id}"/>   
 
                     <p:outputLabel for="principal" value="Principal"/>
                     <p:selectOneMenu id="principal" 
-                                     value="#{vendedorView.contato.principal}"                                      
+                                     value="#{contatoView.contato.principal}"                                      
                                      required="true"
                                      requiredMessage="Informe se o contato é PRINCIPAL, ou não!">                                                
                         <f:selectItem itemLabel="Sim" itemValue="Sim"/>
@@ -39,7 +39,7 @@
 
                     <p:outputLabel for="desc" value="Descrição"/>
                     <p:inputText id="desc" 
-                                 value="#{vendedorView.contato.descricaoContato}" 
+                                 value="#{contatoView.contato.descricaoContato}" 
                                  autocomplete="off" 
                                  maxlength="100"
                                  required="true"
@@ -48,13 +48,13 @@
 
                     <p:outputLabel for="email" value="E-mail"/>
                     <p:inputText id="email" 
-                                 value="#{vendedorView.contato.email}" 
+                                 value="#{contatoView.contato.email}" 
                                  autocomplete="off" 
                                  maxlength="100"/>  
 
                     <p:outputLabel for="tel" value="Telefone"/>
                     <p:inputMask id="tel" 
-                                 value="#{vendedorView.contato.telefone}" 
+                                 value="#{contatoView.contato.telefone}" 
                                  autocomplete="off"
                                  placeholder="(44) 09999-9999"                                                 
                                  mask="(99) 99999-9999">                                                                               
@@ -62,13 +62,13 @@
 
                     <p:outputLabel for="end" value="Endereço"/>
                     <p:inputText id="end" 
-                                 value="#{vendedorView.contato.endereco.endereco}" 
+                                 value="#{contatoView.contato.endereco.endereco}" 
                                  autocomplete="off" 
                                  maxlength="200"/> 
 
                     <p:outputLabel for="cep" value="CEP"/>
                     <p:inputMask id="cep" 
-                                 value="#{vendedorView.contato.endereco.cep}" 
+                                 value="#{contatoView.contato.endereco.cep}" 
                                  autocomplete="off"
                                  placeholder="99999-999"                                                 
                                  mask="99999-999">                                                                               
@@ -76,8 +76,8 @@
 
                     <p:outputLabel for="cidadeAutoComplete" value="Cidade"/>
                     <p:autoComplete id="cidadeAutoComplete"                                                     
-                                    value="#{vendedorView.contato.endereco.cidade}" 
-                                    completeMethod="#{vendedorView.getCidadesByLike}"
+                                    value="#{contatoView.contato.endereco.cidade}" 
+                                    completeMethod="#{contatoView.getCidadesByLike}"
                                     var="cidade" 
                                     itemLabel="#{cidade.cidade} #{cidade.uf}" 
                                     itemValue="#{cidade}"
@@ -88,7 +88,7 @@
                                  panelInsertContato, 
                                  growl" 
                                  value="Gravar"
-                                 actionListener="#{vendedorView.insertContato()}"/>                                           
+                                 actionListener="#{contatoView.insertContato()}"/>                                           
                 <p:commandButton value="Limpar" 
                                  type="reset" />                  
             </b:panel>            
