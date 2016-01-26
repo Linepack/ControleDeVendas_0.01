@@ -1,0 +1,57 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:b="http://bootsfaces.net/ui">
+        
+    <!-- Inserção das Cidades -->
+    <p:dialog header="#{cidadeView.cidade.cidade == null ? 'Inserir Cidade' : 'Atualizar Cidade'}" 
+              widgetVar="insertCidade" 
+              modal="true"                                     
+              responsive="true"
+              resizable="false"
+              id="insertCidade"
+              closeOnEscape="true">
+        <h:form>
+            <b:panel title="#{cidadeView.cidade.cidade == null ? 'Nova' : cidadeView.cidade}" 
+                     look="primary" 
+                     collapsible="false">                    
+                <p:focus for="nome" />                                
+                <p:panelGrid columns="2" class="ui-noborder">                        
+                    
+                    <p:outputLabel for="id" 
+                                   value="Id"
+                                   rendered="#{cidadeView.cidade.id == null ? false : true}"/>
+                    
+                    <p:inplace id="id"
+                               label="#{cidadeView.cidade.id}"
+                               disabled="true"
+                               rendered="#{cidadeView.cidade.id == null ? false : true}"/>                    
+                    
+                    <p:outputLabel for="nome" value="Nome"/>                        
+                    <p:inputText id="nome" 
+                                 value="#{cidadeView.cidade.cidade}" 
+                                 autocomplete="off" 
+                                 maxlength="100"
+                                 required="true"
+                                 requiredMessage="Cidade deve ser informada."/>
+
+                    <p:outputLabel for="uf" value="Estado"/>
+                    <p:selectOneMenu id="uf"
+                                     value="#{cidadeView.cidade.uf}"
+                                     style="width:180px">
+                        <f:selectItems value="#{cidadeView.UF}"/>
+                    </p:selectOneMenu>
+
+                    <p:commandButton update=":form:dataTableCidade, growl" 
+                                     value="Gravar" 
+                                     actionListener="#{cidadeView.insertCidade()}"/>                                           
+                    <p:commandButton value="Limpar" 
+                                     type="reset" />                                     
+                </p:panelGrid>
+            </b:panel>
+        </h:form>
+    </p:dialog>  
+</ui:composition>    

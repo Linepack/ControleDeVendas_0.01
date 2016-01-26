@@ -58,74 +58,28 @@
                             </p:column>
 
                             <f:facet name="footer">
-                                <p:commandButton icon="ui-icon-plus" update="insertCidade" actionListener="#{cidadeView.openDialogInsert()}"/>
-                                <p:commandButton icon="ui-icon-pencil" update="editCidade,growl" actionListener="#{cidadeView.openDialogEdit()}"/>
-                                <p:commandButton icon="ui-icon-close" update=":form:dataTableCidade, growl" actionListener="#{cidadeView.deleteCidade()}"/>
+                                <p:commandButton icon="ui-icon-plus" 
+                                                 update="insertCidade" 
+                                                 actionListener="#{cidadeView.openDialogInsert()}"/>
+                                <p:commandButton icon="ui-icon-pencil" 
+                                                 update="insertCidade,growl" 
+                                                 actionListener="#{cidadeView.openDialogEdit()}"/>
+                                <p:commandButton icon="ui-icon-close" 
+                                                 update=":form:dataTableCidade, growl" 
+                                                 actionListener="#{cidadeView.deleteCidade()}"/>
                             </f:facet>                                                                
                         </p:dataTable>  
-                    </h:form>
-
-                    <p:dialog header="Editar Cidade" 
-                              widgetVar="editCidade" 
-                              modal="true"                                     
-                              responsive="true"
-                              resizable="false"                      
-                              id="editCidade">
-                        <h:form>
-                            <p:panel>
-                                <p:focus for="nome"/>
-                                
-                                <h:panelGrid columns="2" cellpadding="5" id="panelGridEditCidade">                                          
-                                    <p:outputLabel for="id" value="Id"/>
-                                    <p:inplace id="id" disabled="true"> 
-                                        <p:inputText value="#{cidadeView.cidadeUpdate.id}"/>
-                                    </p:inplace>
-
-                                    <p:outputLabel for="nome" value="Nome"/>                        
-                                    <p:inputText id="nome" value="#{cidadeView.cidadeUpdate.cidade}" autocomplete="off" maxlength="100"/>
-
-                                    <p:outputLabel for="uf" value="UF"/>                        
-
-                                    <p:inputText id="uf" value="#{cidadeView.cidadeUpdate.uf}" autocomplete="off" maxlength="2" validatorMessage="UF deve conter apenas letras (maiúsculas)."> 
-                                        <f:validateRegex pattern="^[A-Z]+$"/>
-                                        <p:ajax event="keyup" update="growl"/> 
-                                    </p:inputText>
-
-                                    <p:commandButton update=":form:dataTableCidade,growl" value="Gravar" actionListener="#{cidadeView.updateCidade()}"/>
-                                </h:panelGrid>
-                            </p:panel>
-                        </h:form>
-                    </p:dialog>                                                             
-
-                    <p:dialog header="Inserir Cidade" 
-                              widgetVar="insertCidade" 
-                              modal="true"                                     
-                              responsive="true"
-                              resizable="false"
-                              id="insertCidade">
-                        <h:form>
-                            <p:panel>                    
-                                <p:focus for="nome" />                                
-                                <h:panelGrid columns="2" cellpadding="5">                        
-                                    <h:outputLabel for="nome" value="Nome"/>                        
-                                    <p:inputText id="nome" value="#{cidadeView.cidadeInsert.cidade}" autocomplete="off" maxlength="100"/>
-
-                                    <h:outputLabel for="uf" value="UF"/>
-                                    <p:inputText id="uf" value="#{cidadeView.cidadeInsert.uf}" autocomplete="off" maxlength="2" validatorMessage="UF deve conter apenas letras (maiúsculas).">                                                                            
-                                        <f:validateRegex pattern="^[A-Z]+$"/>
-                                        <p:ajax event="keyup" update="growl"/>
-                                    </p:inputText>
-
-                                    <p:commandButton update=":form:dataTableCidade, growl" value="Gravar" actionListener="#{cidadeView.insertCidade()}"/>                                           
-                                    <p:commandButton value="Limpar" type="reset" />                                     
-                                </h:panelGrid>
-                            </p:panel>
-                        </h:form>
-                    </p:dialog>  
+                    </h:form>                                                                                               
                 </b:panel>
             </b:column>
             <b:column span="3"></b:column>            
         </b:row>
+        
+        <div>
+            <ui:insert >
+                <ui:include src="/Cidade/cidadeInsertView.xhtml"/>
+            </ui:insert>
+        </div>
 
         <div id="footer">            
             <ui:insert name="footer"   >

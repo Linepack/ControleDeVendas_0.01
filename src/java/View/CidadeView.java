@@ -2,11 +2,11 @@ package View;
 
 import Controller.CidadeController;
 import Model.Cidade;
+import Model.UF;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -26,8 +26,7 @@ public class CidadeView implements Serializable {
     private List<Cidade> cidades;
     private List<Cidade> cidadesSelecionadas;
     private List<Cidade> cidadesFiltradas;
-    private Cidade cidadeUpdate;
-    private Cidade cidadeInsert;
+    private Cidade cidade;
     private String mensagem;
 
     @ManagedProperty("#{cidadeController}")
@@ -38,34 +37,36 @@ public class CidadeView implements Serializable {
         cidades = controller.createCidades();
     }
 
+    public List<UF> getUF(){
+        if (cidade != null){
+            return Arrays.asList(UF.values());
+        }return null;
+    }
+    
     public void openDialogInsert() {
-        this.cidadeInsert = new Cidade();
+        this.cidade = new Cidade();
         RequestContext.getCurrentInstance().execute("PF('insertCidade').show();");
     }
 
     public void insertCidade() throws IOException {
-        FacesContext context = FacesContext.getCurrentInstance();
-
-        if (cidadeInsert.getCidade() == "") {
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Validação!", "Nome deve ser informado!"));
-        } else if (cidadeInsert.getUf() == "") {
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Validação!", "UF deve ser informado!"));
+        if (cidade.getId() == null) {
+            controller.insertCidade(cidade);
         } else {
-            controller.insertCidade(cidadeInsert);
-            RequestContext.getCurrentInstance().execute("PF('insertCidade').hide();");
-            this.init();
+            controller.updateCidade(cidade);
         }
+        RequestContext.getCurrentInstance().execute("PF('insertCidade').hide();");
+        this.init();
     }
 
     public void deleteCidade() throws IOException {
         String retorno = null;
-        for (Cidade cidade : cidadesSelecionadas) {            
+        for (Cidade cidade : cidadesSelecionadas) {
             retorno = controller.deleteCidade(cidade);
-            if (retorno != ""){
+            if (retorno != "") {
                 FacesContext context = FacesContext.getCurrentInstance();
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro Deletando", retorno));
             }
-            
+
         }
         this.init();
     }
@@ -75,28 +76,15 @@ public class CidadeView implements Serializable {
         for (Cidade cidade : cidadesSelecionadas) {
             numeroSelecoes++;
             if (numeroSelecoes == 1) {
-                this.cidadeUpdate = new Cidade();
-                this.cidadeUpdate = cidade;
+                this.cidade = new Cidade();
+                this.cidade = cidade;
             }
         }
         if (numeroSelecoes == 1) {
-            RequestContext.getCurrentInstance().execute("PF('editCidade').show();");
+            RequestContext.getCurrentInstance().execute("PF('insertCidade').show();");
         } else if (numeroSelecoes >= 2) {
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Atenção!", "Selecione apenas um registro!"));
-        }
-    }
-
-    public void updateCidade() throws IOException {
-        FacesContext context = FacesContext.getCurrentInstance();
-
-        if (cidadeUpdate.getCidade() == "") {
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Validação", "Nome deve ser informado!"));
-        } else if (cidadeUpdate.getUf() == "") {
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Validação", "UF deve ser informado!"));
-        } else {
-            controller.updateCidade(this.cidadeUpdate);
-            RequestContext.getCurrentInstance().execute("PF('editCidade').hide();");
         }
     }
 
@@ -132,20 +120,12 @@ public class CidadeView implements Serializable {
         this.mensagem = mensagem;
     }
 
-    public Cidade getCidadeUpdate() {
-        return cidadeUpdate;
+    public Cidade getCidade() {
+        return cidade;
     }
 
-    public void setCidadeUpdate(Cidade cidadeUpdate) {
-        this.cidadeUpdate = cidadeUpdate;
-    }
-
-    public Cidade getCidadeInsert() {
-        return cidadeInsert;
-    }
-
-    public void setCidadeInsert(Cidade cidadeInsert) {
-        this.cidadeInsert = cidadeInsert;
+    public void setCidade(Cidade cidade) {
+        this.cidade = cidade;
     }
 
 }
