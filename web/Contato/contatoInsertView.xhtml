@@ -13,29 +13,22 @@
               responsive="true"
               resizable="false"
               closeOnEscape="true"
-              header="Inserir novo contato">
+              header="#{contatoView.contato.id == null ? 'Inserir novo contato' : 'Atualizar Contato'}">
         <h:form>
             <b:panel id="panelInsertContato" 
                      title="#{contatoView.contato.pessoa.id} - #{contatoView.contato.pessoa.nome}" 
                      look="primary" 
                      collapsible="false">
-                <p:focus for="principal" />                                  
+                <p:focus for="desc" />                                  
                 <p:panelGrid columns="4" class="ui-noborder">    
 
-                    <p:outputLabel for="idContato" value="Id"/>
-                    <p:inputText id="idContato"
-                                 disabled="true"
-                                 widgetVar="idContato"
-                                 value="#{contatoView.contato.id}"/>   
-
-                    <p:outputLabel for="principal" value="Principal"/>
-                    <p:selectOneMenu id="principal" 
-                                     value="#{contatoView.contato.principal}"                                      
-                                     required="true"
-                                     requiredMessage="Informe se o contato é PRINCIPAL, ou não!">                                                
-                        <f:selectItem itemLabel="Sim" itemValue="Sim"/>
-                        <f:selectItem itemLabel="Não" itemValue="Não"/>
-                    </p:selectOneMenu>
+                    <p:outputLabel for="idContato" 
+                                   value="Id"
+                                   rendered="#{contatoView.contato.id == null ? false : true}"/>
+                    <p:inplace id="idContato"
+                               disabled="true"                                 
+                               label="#{contatoView.contato.id}"
+                               rendered="#{contatoView.contato.id == null ? false : true}"/>   
 
                     <p:outputLabel for="desc" value="Descrição"/>
                     <p:inputText id="desc" 
@@ -83,6 +76,14 @@
                                     itemValue="#{cidade}"
                                     forceSelection="true"/>  
 
+                    <p:outputLabel for="principal" value="Principal"/>
+                    <p:selectOneMenu id="principal" 
+                                     value="#{contatoView.contato.principal}"                                      
+                                     style="width: 180px">                                                
+                        <f:selectItem itemLabel="Sim" itemValue="Sim"/>
+                        <f:selectItem itemLabel="Não" itemValue="Não"/>
+                    </p:selectOneMenu>
+                    
                 </p:panelGrid>                                
                 <p:commandButton update=":formEditContato:dataTableEditContato,
                                  panelInsertContato, 
