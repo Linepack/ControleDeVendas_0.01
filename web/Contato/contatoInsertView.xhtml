@@ -15,12 +15,24 @@
               closeOnEscape="true"
               header="#{contatoView.contato.id == null ? 'Inserir novo contato' : 'Atualizar Contato'}">
         <h:form>
-            <b:panel id="panelInsertContato" 
+            <b:panel id="panelInsertContato"
                      title="#{contatoView.contato.pessoa.id} - #{contatoView.contato.pessoa.nome}" 
                      look="primary" 
                      collapsible="false">
-                <p:focus for="desc" />                                  
-                <p:panelGrid columns="4" class="ui-noborder">    
+                <p:focus for="desc" />       
+
+                <p:contextMenu for="cidadeAutoComplete">
+                    <p:menuitem value="Nova" 
+                                update="insertCidade" 
+                                icon="ui-icon-plus" 
+                                actionListener="#{contatoView.openDialogInsertCidade()}"/>                       
+                    <p:menuitem value="Editar" 
+                                update="insertCidade" 
+                                icon="ui-icon-pencil" 
+                                actionListener="#{contatoView.openDialogEditCidade()}"/>                       
+                </p:contextMenu>
+
+                <p:panelGrid columns="4" class="ui-noborder">     
 
                     <p:outputLabel for="idContato" 
                                    value="Id"
@@ -72,10 +84,8 @@
                                     completeMethod="#{contatoView.getCidadesByLike}"
                                     var="cidade" 
                                     itemLabel="#{cidade.cidade}-#{cidade.uf}" 
-                                    itemValue="#{cidade}">
-                        <p:ajax event="blur"                                 
-                                listener="#{contatoView.openDialogInsertCidadeIfNew()}"/>
-                    </p:autoComplete>                                          
+                                    itemValue="#{cidade}"
+                                    forceSelection="true"/>                                                                                                       
 
                     <p:outputLabel for="principal" value="Principal"/>
                     <p:selectOneMenu id="principal" 

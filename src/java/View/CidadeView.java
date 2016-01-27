@@ -26,8 +26,8 @@ public class CidadeView implements Serializable {
     private List<Cidade> cidades;
     private List<Cidade> cidadesSelecionadas;
     private List<Cidade> cidadesFiltradas;
-    private Cidade cidade = new Cidade();
-    private String mensagem;
+    private Cidade cidade;
+    
 
     @ManagedProperty("#{cidadeController}")
     private CidadeController controller;
@@ -35,6 +35,7 @@ public class CidadeView implements Serializable {
     @PostConstruct
     public void init() {
         cidades = controller.createCidades();
+        cidade = new Cidade();
     }
 
     public List<UF> getUF() {
@@ -117,15 +118,7 @@ public class CidadeView implements Serializable {
     public void setCidade(Cidade cidade) {
         this.cidade = cidade;
     }
-
-    public String getMensagem() {
-        return mensagem;
-    }
-
-    public void setMensagem(String mensagem) {
-        this.mensagem = mensagem;
-    }
-
+    
     public CidadeController getController() {
         return controller;
     }

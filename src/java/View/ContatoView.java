@@ -12,6 +12,7 @@ import Model.Endereco;
 import Model.Pessoa;
 import Model.TiposDeContato;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -34,7 +35,7 @@ public class ContatoView implements Serializable {
     private List<Contato> contatos;
     private List<Contato> contatosSelecionados;
     private List<Contato> contatosFiltrados;
-    private Contato contato = new Contato();
+    private Contato contato;
     private Pessoa pessoaAuxiliar;
 
     @ManagedProperty(value = "#{contatoController}")
@@ -48,6 +49,7 @@ public class ContatoView implements Serializable {
         if (pessoaAuxiliar != null) {
             contatos = contatoController.getContatosByPessoaID(pessoaAuxiliar.getId());
         }
+        contato = new Contato();
     }
 
     public List<TiposDeContato> getTiposDeContato() {
@@ -58,11 +60,14 @@ public class ContatoView implements Serializable {
         return contatoController.getCidadesByLike(filtro);
     }
 
-    public void openDialogInsertCidadeIfNew() {
-        if (contato.getEndereco().getCidade() == null) {            
-            cidadeView.setCidade(new Cidade());
-            RequestContext.getCurrentInstance().execute("PF('insertCidade').show();");            
-        }
+    public void openDialogInsertCidade() {     
+        cidadeView.openDialogInsert();        
+    }
+
+    public void openDialogEditCidade() {        
+        cidadeView.setCidadesSelecionadas(new ArrayList<>());
+        cidadeView.getCidadesSelecionadas().add(contato.getEndereco().getCidade());
+        cidadeView.openDialogEdit();        
     }
 
     public void openDialogInsertContato() {
