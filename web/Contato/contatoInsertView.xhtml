@@ -25,7 +25,7 @@
                     <p:outputLabel for="idContato" 
                                    value="Id"
                                    rendered="#{contatoView.contato.id == null ? false : true}"/>
-                    
+
                     <p:inplace id="idContato"
                                disabled="true"                                 
                                label="#{contatoView.contato.id}"
@@ -71,9 +71,11 @@
                                     value="#{contatoView.contato.endereco.cidade}" 
                                     completeMethod="#{contatoView.getCidadesByLike}"
                                     var="cidade" 
-                                    itemLabel="#{cidade.cidade} #{cidade.uf}" 
-                                    itemValue="#{cidade}"
-                                    forceSelection="true"/>  
+                                    itemLabel="#{cidade.cidade}-#{cidade.uf}" 
+                                    itemValue="#{cidade}">
+                        <p:ajax event="blur"                                 
+                                listener="#{contatoView.openDialogInsertCidadeIfNew()}"/>
+                    </p:autoComplete>                                          
 
                     <p:outputLabel for="principal" value="Principal"/>
                     <p:selectOneMenu id="principal" 

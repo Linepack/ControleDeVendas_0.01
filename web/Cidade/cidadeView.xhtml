@@ -27,7 +27,7 @@
                 <b:panel title="Cadastro de Cidades" look="primary" collapsible="false">
                     <p:growl id="growl" showDetail="true"/>  
                     <h:form id="form">                                                           
-                        <p:dataTable id="dataTableCidade"
+                        <p:dataTable id="dataTable"
                                      var="cidade" 
                                      value="#{cidadeView.cidades}" 
                                      paginator="true"
@@ -65,7 +65,7 @@
                                                  update="insertCidade,growl" 
                                                  actionListener="#{cidadeView.openDialogEdit()}"/>
                                 <p:commandButton icon="ui-icon-close" 
-                                                 update=":form:dataTableCidade, growl" 
+                                                 update=":form:dataTable, growl" 
                                                  actionListener="#{cidadeView.deleteCidade()}"/>
                             </f:facet>                                                                
                         </p:dataTable>  

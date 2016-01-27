@@ -30,7 +30,7 @@
 
                     <!-- LISTA DE VENEDDORES -->
                     <h:form id="form">                                                           
-                        <p:dataTable id="dataTableVendedor"
+                        <p:dataTable id="dataTable"
                                      var="vendedor" 
                                      value="#{vendedorView.vendedores}" 
                                      paginator="true"
@@ -88,7 +88,7 @@
                                                  update=":editVendedor, growl" 
                                                  actionListener="#{vendedorView.openDialogEdit()}"/>
                                 <p:commandButton icon="ui-icon-close" 
-                                                 update=":form:dataTableVendedor, growl"
+                                                 update=":form:dataTable, growl"
                                                  actionListener="#{vendedorView.deleteVendedores()}"/>
                             </f:facet> 
                         </p:dataTable>  
@@ -119,6 +119,12 @@
         <div>
             <ui:insert >
                 <ui:include src="/Contato/contatoEditView.xhtml"/>
+            </ui:insert>
+        </div>
+        
+        <div>
+            <ui:insert >
+                <ui:include src="/Cidade/cidadeInsertView.xhtml"/>
             </ui:insert>
         </div>
 

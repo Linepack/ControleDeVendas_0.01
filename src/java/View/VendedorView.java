@@ -103,8 +103,8 @@ public class VendedorView implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('editVendedor').hide();");
             this.init();
         }
-    }  
-      
+    }
+
     public List<Vendedor> getVendedores() {
         return vendedores;
     }

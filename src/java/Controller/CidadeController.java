@@ -21,6 +21,10 @@ public class CidadeController implements Serializable{
         return cidadeList;
     }
     
+    public Cidade getCidadeByID(Integer id){
+        return CidadeDAO.getCidadeByID(id);
+    }
+    
     public void insertCidade(Cidade cidade){
         CidadeDAO.insertCidade(cidade);
     }

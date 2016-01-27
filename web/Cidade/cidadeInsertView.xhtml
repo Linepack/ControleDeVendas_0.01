@@ -18,7 +18,7 @@
             <b:panel title="#{cidadeView.cidade.cidade == null ? 'Nova' : cidadeView.cidade}" 
                      look="primary" 
                      collapsible="false">                    
-                <p:focus for="nome" />                                
+                <p:focus for="nomeCidade" />                                
                 <p:panelGrid columns="2" class="ui-noborder">                        
                     
                     <p:outputLabel for="id" 
@@ -30,8 +30,8 @@
                                disabled="true"
                                rendered="#{cidadeView.cidade.id == null ? false : true}"/>                    
                     
-                    <p:outputLabel for="nome" value="Nome"/>                        
-                    <p:inputText id="nome" 
+                    <p:outputLabel for="nomeCidade" value="Nome"/>                        
+                    <p:inputText id="nomeCidade" 
                                  value="#{cidadeView.cidade.cidade}" 
                                  autocomplete="off" 
                                  maxlength="100"
@@ -45,7 +45,7 @@
                         <f:selectItems value="#{cidadeView.UF}"/>
                     </p:selectOneMenu>
 
-                    <p:commandButton update=":form:dataTableCidade, growl" 
+                    <p:commandButton update=":form:dataTable, growl" 
                                      value="Gravar" 
                                      actionListener="#{cidadeView.insertCidade()}"/>                                           
                     <p:commandButton value="Limpar" 

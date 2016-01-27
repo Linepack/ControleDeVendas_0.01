@@ -34,11 +34,14 @@ public class ContatoView implements Serializable {
     private List<Contato> contatos;
     private List<Contato> contatosSelecionados;
     private List<Contato> contatosFiltrados;
-    private Contato contato;
+    private Contato contato = new Contato();
     private Pessoa pessoaAuxiliar;
 
     @ManagedProperty(value = "#{contatoController}")
     private ContatoController contatoController;
+
+    @ManagedProperty(value = "#{cidadeView}")
+    private CidadeView cidadeView;
 
     @PostConstruct
     public void init() {
@@ -48,14 +51,18 @@ public class ContatoView implements Serializable {
     }
 
     public List<TiposDeContato> getTiposDeContato() {
-        if (contato != null) {
-            return Arrays.asList(TiposDeContato.values());
-        }
-        return null;
+        return Arrays.asList(TiposDeContato.values());
     }
 
     public List<Cidade> getCidadesByLike(String filtro) {
         return contatoController.getCidadesByLike(filtro);
+    }
+
+    public void openDialogInsertCidadeIfNew() {
+        if (contato.getEndereco().getCidade() == null) {            
+            cidadeView.setCidade(new Cidade());
+            RequestContext.getCurrentInstance().execute("PF('insertCidade').show();");            
+        }
     }
 
     public void openDialogInsertContato() {
@@ -178,6 +185,14 @@ public class ContatoView implements Serializable {
 
     public void setPessoaAuxiliar(Pessoa pessoaAuxiliar) {
         this.pessoaAuxiliar = pessoaAuxiliar;
+    }
+
+    public CidadeView getCidadeView() {
+        return cidadeView;
+    }
+
+    public void setCidadeView(CidadeView cidadeView) {
+        this.cidadeView = cidadeView;
     }
 
 }

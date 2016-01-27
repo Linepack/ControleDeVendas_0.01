@@ -26,7 +26,7 @@ public class CidadeView implements Serializable {
     private List<Cidade> cidades;
     private List<Cidade> cidadesSelecionadas;
     private List<Cidade> cidadesFiltradas;
-    private Cidade cidade;
+    private Cidade cidade = new Cidade();
     private String mensagem;
 
     @ManagedProperty("#{cidadeController}")
@@ -37,12 +37,10 @@ public class CidadeView implements Serializable {
         cidades = controller.createCidades();
     }
 
-    public List<UF> getUF(){
-        if (cidade != null){
-            return Arrays.asList(UF.values());
-        }return null;
+    public List<UF> getUF() {
+        return Arrays.asList(UF.values());
     }
-    
+
     public void openDialogInsert() {
         this.cidade = new Cidade();
         RequestContext.getCurrentInstance().execute("PF('insertCidade').show();");
@@ -89,11 +87,11 @@ public class CidadeView implements Serializable {
     }
 
     public List<Cidade> getCidades() {
-        return this.cidades;
+        return cidades;
     }
 
-    public void setController(CidadeController controller) {
-        this.controller = controller;
+    public void setCidades(List<Cidade> cidades) {
+        this.cidades = cidades;
     }
 
     public List<Cidade> getCidadesSelecionadas() {
@@ -112,6 +110,14 @@ public class CidadeView implements Serializable {
         this.cidadesFiltradas = cidadesFiltradas;
     }
 
+    public Cidade getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(Cidade cidade) {
+        this.cidade = cidade;
+    }
+
     public String getMensagem() {
         return mensagem;
     }
@@ -120,12 +126,12 @@ public class CidadeView implements Serializable {
         this.mensagem = mensagem;
     }
 
-    public Cidade getCidade() {
-        return cidade;
+    public CidadeController getController() {
+        return controller;
     }
 
-    public void setCidade(Cidade cidade) {
-        this.cidade = cidade;
+    public void setController(CidadeController controller) {
+        this.controller = controller;
     }
 
 }
