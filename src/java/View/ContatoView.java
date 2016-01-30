@@ -62,13 +62,7 @@ public class ContatoView implements Serializable {
 
     public void openDialogInsertCidade() {     
         cidadeView.openDialogInsert();        
-    }
-
-    public void openDialogEditCidade() {        
-        cidadeView.setCidadesSelecionadas(new ArrayList<>());
-        cidadeView.getCidadesSelecionadas().add(contato.getEndereco().getCidade());
-        cidadeView.openDialogEdit();        
-    }
+    }   
 
     public void openDialogInsertContato() {
         contato = new Contato();

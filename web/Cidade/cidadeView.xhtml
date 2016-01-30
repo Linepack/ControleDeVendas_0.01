@@ -67,6 +67,7 @@
                                 <p:commandButton icon="ui-icon-close" 
                                                  update=":form:dataTable, growl" 
                                                  actionListener="#{cidadeView.deleteCidade()}"/>
+
                             </f:facet>                                                                
                         </p:dataTable>  
                     </h:form>                                                                                               
@@ -74,7 +75,7 @@
             </b:column>
             <b:column span="3"></b:column>            
         </b:row>
-        
+
         <div>
             <ui:insert >
                 <ui:include src="/Cidade/cidadeInsertView.xhtml"/>

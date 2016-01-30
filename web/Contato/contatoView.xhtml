@@ -1,4 +1,4 @@
- <ui:composition 
+<ui:composition 
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:h="http://xmlns.jcp.org/jsf/html"
     xmlns:p="http://primefaces.org/ui"
@@ -32,7 +32,7 @@
                              rowKey="#{contato.id}"
                              paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="5,10,15,25,50,100"
-                             style="margin-bottom:0;">                        
+                             style="margin-bottom:0;width: 800px">                        
 
                     <p:column selectionMode="multiple" 
                               style="width:1px; text-align:center"/>
@@ -70,25 +70,7 @@
                               width="30" 
                               priority="1">
                         <h:outputText value="#{contato.telefone}" />
-                    </p:column>
-
-                    <p:column headerText="Endereço" 
-                              filterBy="#{contato.endereco.endereco}" 
-                              filterMatchMode="contains"
-                              sortBy="#{contato.endereco.endereco}" 
-                              width="50" 
-                              priority="1">
-                        <h:outputText value="#{contato.endereco.endereco}" />
-                    </p:column>
-
-                    <p:column headerText="CEP" 
-                              filterBy="#{contato.endereco.cep}" 
-                              filterMatchMode="contains"
-                              sortBy="#{contato.endereco.cep}" 
-                              width="10" 
-                              priority="3">
-                        <h:outputText value="#{contato.endereco.cep}" />
-                    </p:column>
+                    </p:column>                   
 
                     <p:column headerText="Cidade" 
                               filterBy="#{contato.endereco.cidade.cidade} #{contato.endereco.cidade.uf}" 
@@ -110,13 +92,14 @@
                     <f:facet name="footer">
                         <p:commandButton icon="ui-icon-plus" 
                                          update="insertContato"
-                                         actionListener="#{contatoView.openDialogInsertContato()}"/>
+                                         actionListener="#{contatoView.openDialogInsertContato()}"/>                        
                         <p:commandButton icon="ui-icon-pencil"
                                          update="dataTableEditContato, growl, insertContato"
-                                         actionListener="#{contatoView.openDialogEditContatoIndividual()}"/>
+                                         actionListener="#{contatoView.openDialogEditContatoIndividual()}"/>                       
                         <p:commandButton icon="ui-icon-close"
                                          update="dataTableEditContato, growl"
                                          actionListener="#{contatoView.deleteContato()}"/>
+
                     </f:facet> 
                 </p:dataTable>            
             </h:form>

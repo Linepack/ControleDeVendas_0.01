@@ -25,6 +25,7 @@ public class VendedorView implements Serializable {
     private List<Vendedor> vendedoresSelecionados;
     private List<Vendedor> vendedoresFiltrador;
     private Vendedor vendedor;
+    private Boolean inserindo; 
 
     @ManagedProperty(value = "#{vendedorController}")
     private VendedorController vendedorController;
@@ -38,13 +39,21 @@ public class VendedorView implements Serializable {
     }
 
     public void openDialogInsert() {
+        this.inserindo = true;
         vendedor = new Vendedor();
         contatoView.setPessoaAuxiliar(vendedor);
         RequestContext.getCurrentInstance().execute("PF('insertVendedor').show();");
     }
 
     public String insertVendedor() {
-        String retorno = vendedorController.insertVendedor(vendedor);
+        String retorno = "";
+        
+        if (vendedor.getId() == null){
+            retorno = vendedorController.insertVendedor(vendedor);
+        }else{
+            retorno = vendedorController.updateVendedor(vendedor);
+        }
+        
         if (retorno != "") {
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", retorno));
@@ -77,6 +86,7 @@ public class VendedorView implements Serializable {
     }
 
     public void openDialogEdit() {
+        this.inserindo = false;
         Integer numeroSelecoes = 0;
         for (Vendedor vendedor : vendedoresSelecionados) {
             numeroSelecoes++;
@@ -86,24 +96,12 @@ public class VendedorView implements Serializable {
             }
         }
         if (numeroSelecoes == 1) {
-            RequestContext.getCurrentInstance().execute("PF('editVendedor').show();");
+            RequestContext.getCurrentInstance().execute("PF('insertVendedor').show();");
         } else if (numeroSelecoes > 1) {
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Edite um (1) vendedor por vez."));
         }
-    }
-
-    public void updateVendedor() {
-        String retorno = null;
-        retorno = vendedorController.updateVendedor(vendedor);
-        if (retorno != "") {
-            FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro atualizando", retorno));
-        } else {
-            RequestContext.getCurrentInstance().execute("PF('editVendedor').hide();");
-            this.init();
-        }
-    }
+    }  
 
     public List<Vendedor> getVendedores() {
         return vendedores;
@@ -152,5 +150,15 @@ public class VendedorView implements Serializable {
     public void setContatoView(ContatoView contatoView) {
         this.contatoView = contatoView;
     }
+
+    public Boolean getInserindo() {
+        return inserindo;
+    }
+
+    public void setInserindo(Boolean inserindo) {
+        this.inserindo = inserindo;
+    }
+    
+    
 
 }

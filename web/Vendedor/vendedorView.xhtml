@@ -83,13 +83,13 @@
                             <f:facet name="footer">
                                 <p:commandButton icon="ui-icon-plus" 
                                                  update=":insertVendedor" 
-                                                 actionListener="#{vendedorView.openDialogInsert()}"/>
+                                                 actionListener="#{vendedorView.openDialogInsert()}"/>                                                                
                                 <p:commandButton icon="ui-icon-pencil" 
-                                                 update=":editVendedor, growl" 
-                                                 actionListener="#{vendedorView.openDialogEdit()}"/>
+                                                 update=":insertVendedor, growl" 
+                                                 actionListener="#{vendedorView.openDialogEdit()}"/>                                                                                                
                                 <p:commandButton icon="ui-icon-close" 
                                                  update=":form:dataTable, growl"
-                                                 actionListener="#{vendedorView.deleteVendedores()}"/>
+                                                 actionListener="#{vendedorView.deleteVendedores()}"/>                                                                
                             </f:facet> 
                         </p:dataTable>  
                     </h:form>                                                            
@@ -97,18 +97,12 @@
             </b:column>
             <b:column span="2"></b:column>            
         </b:row>
-       
+
         <div>
             <ui:insert >
                 <ui:include src="/Vendedor/vendedorInsertView.xhtml"/>
             </ui:insert>
-        </div>
-
-        <div>
-            <ui:insert >
-                <ui:include src="/Vendedor/vendedorEditView.xhtml"/>
-            </ui:insert>
-        </div>
+        </div>       
 
         <div>
             <ui:insert >
@@ -118,10 +112,10 @@
 
         <div>
             <ui:insert >
-                <ui:include src="/Contato/contatoEditView.xhtml"/>
+                <ui:include src="/Contato/contatoView.xhtml"/>
             </ui:insert>
         </div>
-        
+
         <div>
             <ui:insert >
                 <ui:include src="/Cidade/cidadeInsertView.xhtml"/>

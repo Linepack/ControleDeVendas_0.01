@@ -46,5 +46,12 @@ public class Pessoa implements Serializable {
 
     public void setCnpjOuCpf(String cnpjOuCpf) {
         this.cnpjOuCpf = cnpjOuCpf;
-    }       
+    }    
+
+    @Override
+    public String toString() {
+        return this.id+" - "+this.nome;
+    }
+    
+    
 }

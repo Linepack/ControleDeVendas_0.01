@@ -5,9 +5,9 @@
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:b="http://bootsfaces.net/ui">
-
+ 
     <!-- INSERCAO DE VENDEDOR -->
-    <p:dialog header="Inserir Vendedor" 
+    <p:dialog header="#{vendedorView.inserindo ? 'Inserir Vendedor' : 'Atualizar Vendedor'}" 
               widgetVar="insertVendedor" 
               modal="true"                                     
               responsive="true"
@@ -16,12 +16,21 @@
               id="insertVendedor">
         <h:form>
             <b:panel id="panelInsertVendedor"
-                     title="Novo" 
+                     title="#{vendedorView.inserindo ? 'Novo' : vendedorView.vendedor}" 
                      look="primary" 
                      collapsible="false">                                                                         
 
                 <p:focus for="nome" />                                
                 <p:panelGrid columns="2" class="ui-noborder">                                                            
+                    
+                    <p:outputLabel for="idVendedor" 
+                                   value="Id"
+                                   rendered="#{!vendedorView.inserindo}"/>
+                    <p:inplace id="idVendedor"
+                               disabled="true"
+                               label="#{vendedorView.vendedor.id}"
+                               rendered="#{!vendedorView.inserindo}"/>
+                    
                     <p:outputLabel for="nome" value="Nome"/>
                     <p:inputText id="nome" 
                                  value="#{vendedorView.vendedor.nome}" 
@@ -53,7 +62,14 @@
                 </p:panelGrid>
                 <p:commandButton update="insertContato, panelInsertVendedor, growl"
                                  value="Inserir Contato"
-                                 actionListener="#{contatoView.openDialogInsertContato()}"/>
+                                 actionListener="#{contatoView.openDialogInsertContato()}"
+                                 rendered="#{vendedorView.inserindo}"/>
+                
+                <p:commandButton update="editContato, panelInsertVendedor, growl"
+                                 value="Editar Contato"
+                                 actionListener="#{contatoView.openDialogEditContato()}"
+                                 rendered="#{!vendedorView.inserindo}"/>
+                
                 <p:commandButton update=":form:dataTable, growl, panelInsertVendedor" 
                                  value="Gravar" 
                                  actionListener="#{vendedorView.insertVendedor()}"/>                                           

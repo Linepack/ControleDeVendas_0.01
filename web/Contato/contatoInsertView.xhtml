@@ -5,7 +5,7 @@
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:b="http://bootsfaces.net/ui">
-
+ 
     <!-- Inserção dos Contatos -->
     <p:dialog id="insertContato"
               widgetVar="insertContato"
@@ -25,11 +25,7 @@
                     <p:menuitem value="Nova" 
                                 update="insertCidade" 
                                 icon="ui-icon-plus" 
-                                actionListener="#{contatoView.openDialogInsertCidade()}"/>                       
-                    <p:menuitem value="Editar" 
-                                update="insertCidade" 
-                                icon="ui-icon-pencil" 
-                                actionListener="#{contatoView.openDialogEditCidade()}"/>                       
+                                actionListener="#{contatoView.openDialogInsertCidade()}"/>                                                              
                 </p:contextMenu>
 
                 <p:panelGrid columns="4" class="ui-noborder">     
