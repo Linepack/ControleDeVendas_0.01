@@ -56,8 +56,8 @@
                     <p:inputMask id="tel" 
                                  value="#{contatoView.contato.telefone}" 
                                  autocomplete="off"
-                                 placeholder="(44) 99999-9999"                                                 
-                                 mask="(99) 99999-999?9">                     
+                                 placeholder="(44) 9999-99999"                                                 
+                                 mask="(99) 9999-9999?9">                     
                     </p:inputMask>    
 
                     <p:outputLabel for="end" value="Endereço"/>
@@ -92,15 +92,18 @@
                     </p:selectOneMenu>
 
                 </p:panelGrid>                                
-                <p:commandButton update=":formInsertVendedor:formEditContato:dataTableEditContato,
-                                 panelInsertContato, 
-                                 growl" 
-                                 value="Gravar"
-                                 actionListener="#{contatoView.insertContato()}"/>                                           
-                <p:commandButton value="Limpar" 
-                                 type="reset" />                  
+
+                <f:facet name="footer">
+                    <p:commandButton update=":formInsertVendedor:formEditContato:dataTableEditContato,
+                                     panelInsertContato, 
+                                     growl" 
+                                     value="Gravar"
+                                     actionListener="#{contatoView.insertContato()}"/>                                           
+                    <p:commandButton value="Limpar" 
+                                     type="reset" />                  
+                </f:facet>
             </b:panel>            
         </h:form>
-       
+
     </p:dialog>
 </ui:composition>

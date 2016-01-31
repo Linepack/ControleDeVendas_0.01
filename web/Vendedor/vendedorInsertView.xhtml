@@ -6,76 +6,88 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:b="http://bootsfaces.net/ui">
 
-    <!-- INSERCAO DE VENDEDOR -->
-    <p:dialog header="#{vendedorView.inserindo ? 'Inserir Vendedor' : 'Atualizar Vendedor'}" 
-              widgetVar="insertVendedor" 
-              modal="true"                                     
-              responsive="true"
-              resizable="false"
-              closeOnEscape="true"
-              id="insertVendedor">
-        <h:form id="formInsertVendedor">
-            <b:panel id="panelInsertVendedor"
-                     title="#{vendedorView.inserindo ? 'Novo' : vendedorView.vendedor}" 
-                     look="primary" 
-                     collapsible="false">                                                                         
+    <b:row>
+        <b:column span="3"></b:column>
+        <b:column span="6">
 
-                <p:focus for="nome" />                                
-                <p:panelGrid columns="2" class="ui-noborder">                                                            
+            <!-- INSERCAO DE VENDEDOR -->
+            <p:dialog header="#{vendedorView.inserindo ? 'Inserir Vendedor' : 'Atualizar Vendedor'}" 
+                      widgetVar="insertVendedor" 
+                      modal="true"                                     
+                      responsive="true"
+                      resizable="false"
+                      closeOnEscape="true"
+                      id="insertVendedor"                                    
+                      positionType="absolute"
+                      position="left center"
+                      width="100%">
+                <h:form id="formInsertVendedor">
+                    <b:panel id="panelInsertVendedor"
+                             title="#{vendedorView.inserindo ? 'Novo' : vendedorView.vendedor}" 
+                             look="primary" 
+                             collapsible="false">                                                                         
 
-                    <p:outputLabel for="idVendedor" 
-                                   value="Id"
-                                   rendered="#{!vendedorView.inserindo}"/>
-                    <p:inplace id="idVendedor"
-                               disabled="true"
-                               label="#{vendedorView.vendedor.id}"
-                               rendered="#{!vendedorView.inserindo}"/>
+                        <p:focus for="nome" />                                
+                        <p:panelGrid columns="2" class="ui-noborder">                                                            
 
-                    <p:outputLabel for="nome" value="Nome"/>
-                    <p:inputText id="nome" 
-                                 value="#{vendedorView.vendedor.nome}" 
-                                 autocomplete="off" 
-                                 maxlength="100"                                                 
-                                 required="true"
-                                 requiredMessage="Nome Obrigatório"/>                                    
+                            <p:outputLabel for="idVendedor" 
+                                           value="Id"
+                                           rendered="#{!vendedorView.inserindo}"/>
+                            <p:inplace id="idVendedor"
+                                       disabled="true"
+                                       label="#{vendedorView.vendedor.id}"
+                                       rendered="#{!vendedorView.inserindo}"/>
 
-                    <p:outputLabel for="cpf" value="CPF"/>
-                    <p:inputMask id="cpf" 
-                                 value="#{vendedorView.vendedor.cnpjOuCpf}" 
-                                 autocomplete="off" 
-                                 placeholder="999.999.999-99"
-                                 required="true"
-                                 requiredMessage="CPF Obrigatório"
-                                 mask="999.999.999-99"/>                                        
+                            <p:outputLabel for="nome" value="Nome"/>
+                            <p:inputText id="nome" 
+                                         value="#{vendedorView.vendedor.nome}" 
+                                         autocomplete="off" 
+                                         maxlength="100"                                                 
+                                         required="true"
+                                         requiredMessage="Nome Obrigatório"/>                                    
 
-                    <p:outputLabel for="perc" value="Comissão %"/>
-                    <p:inputMask id="perc" 
-                                 value="#{vendedorView.vendedor.percentualComissao}" 
-                                 autocomplete="off"
-                                 placeholder="99.99"
-                                 required="true"
-                                 requiredMessage="% Comissão Obrigatório"
-                                 mask="99.?99">                                       
-                        <f:convertNumber pattern="#00.00"/>
-                    </p:inputMask>     
+                            <p:outputLabel for="cpf" value="CPF"/>
+                            <p:inputMask id="cpf" 
+                                         value="#{vendedorView.vendedor.cnpjOuCpf}" 
+                                         autocomplete="off" 
+                                         placeholder="999.999.999-99"
+                                         required="true"
+                                         requiredMessage="CPF Obrigatório"
+                                         mask="999.999.999-99"/>                                        
 
-                </p:panelGrid>                
+                            <p:outputLabel for="perc" value="Comissão %"/>
+                            <p:inputMask id="perc" 
+                                         value="#{vendedorView.vendedor.percentualComissao}" 
+                                         autocomplete="off"
+                                         placeholder="99.99"
+                                         required="true"
+                                         requiredMessage="% Comissão Obrigatório"
+                                         mask="99.?99">                                       
+                                <f:convertNumber pattern="#00.00"/>
+                            </p:inputMask>     
 
-                <div>
-                    <ui:insert >
-                        <ui:include src="/Contato/contatoView.xhtml"/>
-                    </ui:insert>
-                </div>
+                        </p:panelGrid>                
 
-                <p:commandButton update=":form:dataTable, growl, panelInsertVendedor" 
-                                 value="Gravar" 
-                                 actionListener="#{vendedorView.insertVendedor()}"/>                                           
-                <p:commandButton value="Limpar" 
-                                 type="reset" />                                
-            </b:panel>
+                        <div>
+                            <ui:insert >
+                                <ui:include src="/Contato/contatoView.xhtml"/>
+                            </ui:insert>
+                        </div>
 
-        </h:form>
+                        <f:facet name="footer">
+                            <p:commandButton update=":form:dataTable, growl, panelInsertVendedor" 
+                                             value="Gravar" 
+                                             actionListener="#{vendedorView.insertVendedor()}"/>                                           
+                            <p:commandButton value="Limpar" 
+                                             type="reset" />                                
+                        </f:facet>
+                    </b:panel>
 
-    </p:dialog>
+                </h:form>
+
+            </p:dialog>
+        </b:column>
+        <b:column span="3"></b:column>
+    </b:row>
 
 </ui:composition>    

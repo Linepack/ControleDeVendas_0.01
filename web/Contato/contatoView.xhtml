@@ -10,7 +10,8 @@
     <b:panel id="panelEditContato"
              title="Informações de Contato" 
              look="primary" 
-             collapsible="true">                                 
+             collapsible="true"
+             style="margin-top: 15px">             
         <h:form id="formEditContato">              
             <p:dataTable id="dataTableEditContato" 
                          widgetVar="dataTableEditContato"
@@ -24,25 +25,17 @@
                          rowKey="#{contato.id}"
                          paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="5,10,15,25,50,100"
-                         style="margin-bottom:0;width: 800px">                        
+                         style="margin-bottom:0">                        
 
                 <p:column selectionMode="multiple" 
-                          style="width:1px; text-align:center"/>
-
-                <p:column headerText="Id" 
-                          filterBy="#{contato.id}" 
-                          sortBy="#{contato.id}" 
-                          width="10" 
-                          priority="3">
-                    <h:outputText value="#{contato.id}" />
-                </p:column>
+                          style="width:1px; text-align:center"/>               
 
                 <p:column headerText="Tipo" 
                           filterBy="#{contato.descricaoContato}" 
                           filterMatchMode="contains"
                           sortBy="#{contato.descricaoContato}" 
                           width="10" 
-                          priority="3">
+                          priority="1">
                     <h:outputText value="#{contato.descricaoContato}" />
                 </p:column>
 
@@ -51,7 +44,7 @@
                           filterMatchMode="contains"
                           sortBy="#{contato.email}" 
                           width="30" 
-                          priority="1">
+                          priority="3">
                     <h:outputText value="#{contato.email}" />
                 </p:column>
 
@@ -60,7 +53,7 @@
                           filterMatchMode="contains"
                           sortBy="#{contato.telefone}" 
                           width="30" 
-                          priority="1">
+                          priority="3">
                     <h:outputText value="#{contato.telefone}" />
                 </p:column>                   
 
@@ -90,7 +83,11 @@
                                      actionListener="#{contatoView.openDialogEditContatoIndividual()}"/>                       
                     <p:commandButton icon="ui-icon-close"
                                      update="dataTableEditContato, growl, formInsertVendedor"
-                                     actionListener="#{contatoView.deleteContato()}"/>
+                                     actionListener="#{contatoView.deleteContato()}">
+                        <p:confirm header="Exclusão" 
+                                   message="Deseja realmente excluir?" 
+                                   icon="ui-icon-alert"/>
+                    </p:commandButton>
 
                 </f:facet> 
             </p:dataTable>            

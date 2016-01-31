@@ -15,21 +15,40 @@
     </h:head>
     <h:body style="background-color: floralwhite">
 
+        <div>
+            <ui:insert >
+                <ui:include src="/Vendedor/vendedorInsertView.xhtml"/>
+            </ui:insert>
+        </div>  
+
         <div id="header">
             <ui:insert name="header">
                 <ui:include src="/Padrao/header.xhtml"/>                
             </ui:insert>
-        </div>
+        </div>       
 
         <b:row>
             <b:column span="2"></b:column>
             <b:column span="8">
                 <b:panel title="Cadastro de Vendedores" look="primary" collapsible="false">
 
-                    <p:growl id="growl" showDetail="true"/>  
+                    <p:growl id="growl" showDetail="true"/>                                        
 
                     <!-- LISTA DE VENEDDORES -->
-                    <h:form id="form">                                                           
+                    <h:form id="form">          
+
+                        <p:confirmDialog global="true"
+                                         closeOnEscape="true">
+                            <p:commandButton value="Sim" 
+                                             type="button" 
+                                             styleClass="ui-confirmdialog-yes" 
+                                             icon="ui-icon-check"/>
+                            <p:commandButton value="Não" 
+                                             type="button" 
+                                             styleClass="ui-confirmdialog-no" 
+                                             icon="ui-icon-close"/>
+                        </p:confirmDialog>
+
                         <p:dataTable id="dataTable"
                                      var="vendedor" 
                                      value="#{vendedorView.vendedores}" 
@@ -80,6 +99,7 @@
                                       priority="2">
                                 <h:outputText value="#{vendedor.percentualComissao}" />
                             </p:column>  
+
                             <f:facet name="footer">
                                 <p:commandButton icon="ui-icon-plus" 
                                                  update=":insertVendedor" 
@@ -87,29 +107,26 @@
                                 <p:commandButton icon="ui-icon-pencil" 
                                                  update=":insertVendedor, growl" 
                                                  actionListener="#{vendedorView.openDialogEdit()}"/>                                                                                                
+
                                 <p:commandButton icon="ui-icon-close" 
                                                  update=":form:dataTable, growl"
-                                                 actionListener="#{vendedorView.deleteVendedores()}"/>                                                                
+                                                 actionListener="#{vendedorView.deleteVendedores()}">
+                                    <p:confirm header="Exclusão" 
+                                               message="Deseja realmente excluir?" 
+                                               icon="ui-icon-alert"/>
+                                </p:commandButton>                                
+
                             </f:facet> 
+
                         </p:dataTable>  
                     </h:form>                                                            
                 </b:panel>
             </b:column>
-            <b:column span="2"></b:column>            
+            <b:column span="2"></b:column>
         </b:row>
 
-        <div>
+        <div>            
             <ui:insert >
-                <ui:include src="/Vendedor/vendedorInsertView.xhtml"/>
-            </ui:insert>
-        </div>       
-
-        <div>
-            
-            <!--
-            colocar a ROW e COLUMN no dialogo da inserção do vendedor
-            -->
-            <ui:insert 
                 <ui:include src="/Contato/contatoInsertView.xhtml"/>
             </ui:insert>
         </div>       

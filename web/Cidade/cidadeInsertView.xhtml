@@ -1,11 +1,11 @@
- <ui:composition 
+<ui:composition 
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:h="http://xmlns.jcp.org/jsf/html"
     xmlns:p="http://primefaces.org/ui"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:b="http://bootsfaces.net/ui">
-        
+
     <!-- Inserção das Cidades -->
     <p:dialog header="#{cidadeView.cidade.cidade == null ? 'Inserir Cidade' : 'Atualizar Cidade'}" 
               widgetVar="insertCidade" 
@@ -20,16 +20,16 @@
                      collapsible="false">                    
                 <p:focus for="nomeCidade" />                                
                 <p:panelGrid columns="2" class="ui-noborder">                        
-                    
+
                     <p:outputLabel for="id" 
                                    value="Id"
                                    rendered="#{cidadeView.cidade.id == null ? false : true}"/>
-                    
+
                     <p:inplace id="id"
                                label="#{cidadeView.cidade.id}"
                                disabled="true"
                                rendered="#{cidadeView.cidade.id == null ? false : true}"/>                    
-                    
+
                     <p:outputLabel for="nomeCidade" value="Nome"/>                        
                     <p:inputText id="nomeCidade" 
                                  value="#{cidadeView.cidade.cidade}" 
@@ -43,14 +43,18 @@
                                      value="#{cidadeView.cidade.uf}"
                                      style="width:180px">
                         <f:selectItems value="#{cidadeView.UF}"/>
-                    </p:selectOneMenu>
-
+                    </p:selectOneMenu>                   
+                </p:panelGrid>
+                
+                <f:facet name="footer">
                     <p:commandButton update=":form:dataTable, growl" 
                                      value="Gravar" 
                                      actionListener="#{cidadeView.insertCidade()}"/>                                           
                     <p:commandButton value="Limpar" 
                                      type="reset" />                                     
-                </p:panelGrid>
+
+                </f:facet>
+
             </b:panel>
         </h:form>
     </p:dialog>  
