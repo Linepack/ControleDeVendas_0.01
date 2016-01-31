@@ -7,102 +7,93 @@
     xmlns:b="http://bootsfaces.net/ui">
 
 
-    <!-- Edição dos Contatos -->
-    <p:dialog id="editContato"
-              widgetVar="editContato"
-              modal="true"                                     
-              responsive="true"
-              resizable="true"
-              closeOnEscape="true"
-              header="Editar Informações de Contato">
-        <b:panel id="panelEditContato"
-                 title="#{contatoView.pessoaAuxiliar.id} - #{contatoView.pessoaAuxiliar.nome}" 
-                 look="primary" 
-                 collapsible="false">                                 
-            <h:form id="formEditContato">              
-                <p:dataTable id="dataTableEditContato" 
-                             widgetVar="dataTableEditContato"
-                             var="contato" 
-                             value="#{contatoView.contatos}"                          
-                             paginator="true"
-                             rows="5"       
-                             selection="#{contatoView.contatosSelecionados}"
-                             filteredValue="#{contatoView.contatosFiltrados}"
-                             emptyMessage="Nada encontrado."
-                             rowKey="#{contato.id}"
-                             paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             rowsPerPageTemplate="5,10,15,25,50,100"
-                             style="margin-bottom:0;width: 800px">                        
+    <b:panel id="panelEditContato"
+             title="Informações de Contato" 
+             look="primary" 
+             collapsible="true">                                 
+        <h:form id="formEditContato">              
+            <p:dataTable id="dataTableEditContato" 
+                         widgetVar="dataTableEditContato"
+                         var="contato" 
+                         value="#{contatoView.contatos}"                          
+                         paginator="true"
+                         rows="5"       
+                         selection="#{contatoView.contatosSelecionados}"
+                         filteredValue="#{contatoView.contatosFiltrados}"
+                         emptyMessage="Nada encontrado."
+                         rowKey="#{contato.id}"
+                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15,25,50,100"
+                         style="margin-bottom:0;width: 800px">                        
 
-                    <p:column selectionMode="multiple" 
-                              style="width:1px; text-align:center"/>
+                <p:column selectionMode="multiple" 
+                          style="width:1px; text-align:center"/>
 
-                    <p:column headerText="Id" 
-                              filterBy="#{contato.id}" 
-                              sortBy="#{contato.id}" 
-                              width="10" 
-                              priority="3">
-                        <h:outputText value="#{contato.id}" />
-                    </p:column>
+                <p:column headerText="Id" 
+                          filterBy="#{contato.id}" 
+                          sortBy="#{contato.id}" 
+                          width="10" 
+                          priority="3">
+                    <h:outputText value="#{contato.id}" />
+                </p:column>
 
-                    <p:column headerText="Tipo" 
-                              filterBy="#{contato.descricaoContato}" 
-                              filterMatchMode="contains"
-                              sortBy="#{contato.descricaoContato}" 
-                              width="10" 
-                              priority="3">
-                        <h:outputText value="#{contato.descricaoContato}" />
-                    </p:column>
+                <p:column headerText="Tipo" 
+                          filterBy="#{contato.descricaoContato}" 
+                          filterMatchMode="contains"
+                          sortBy="#{contato.descricaoContato}" 
+                          width="10" 
+                          priority="3">
+                    <h:outputText value="#{contato.descricaoContato}" />
+                </p:column>
 
-                    <p:column headerText="E-mail" 
-                              filterBy="#{contato.email}" 
-                              filterMatchMode="contains"
-                              sortBy="#{contato.email}" 
-                              width="30" 
-                              priority="1">
-                        <h:outputText value="#{contato.email}" />
-                    </p:column>
+                <p:column headerText="E-mail" 
+                          filterBy="#{contato.email}" 
+                          filterMatchMode="contains"
+                          sortBy="#{contato.email}" 
+                          width="30" 
+                          priority="1">
+                    <h:outputText value="#{contato.email}" />
+                </p:column>
 
-                    <p:column headerText="Telefone" 
-                              filterBy="#{contato.telefone}" 
-                              filterMatchMode="contains"
-                              sortBy="#{contato.telefone}" 
-                              width="30" 
-                              priority="1">
-                        <h:outputText value="#{contato.telefone}" />
-                    </p:column>                   
+                <p:column headerText="Telefone" 
+                          filterBy="#{contato.telefone}" 
+                          filterMatchMode="contains"
+                          sortBy="#{contato.telefone}" 
+                          width="30" 
+                          priority="1">
+                    <h:outputText value="#{contato.telefone}" />
+                </p:column>                   
 
-                    <p:column headerText="Cidade" 
-                              filterBy="#{contato.endereco.cidade.cidade} #{contato.endereco.cidade.uf}" 
-                              filterMatchMode="contains"
-                              sortBy="#{contato.endereco.cidade.cidade} #{contato.endereco.cidade.uf}" 
-                              width="10" 
-                              priority="2">
-                        <h:outputText value="#{contato.endereco.cidade.cidade}  #{contato.endereco.cidade.uf}" />
-                    </p:column>                
+                <p:column headerText="Cidade" 
+                          filterBy="#{contato.endereco.cidade.cidade} #{contato.endereco.cidade.uf}" 
+                          filterMatchMode="contains"
+                          sortBy="#{contato.endereco.cidade.cidade} #{contato.endereco.cidade.uf}" 
+                          width="10" 
+                          priority="2">
+                    <h:outputText value="#{contato.endereco.cidade.cidade}  #{contato.endereco.cidade.uf}" />
+                </p:column>                
 
-                    <p:column headerText="Principal" 
-                              filterBy="#{contato.principal}" 
-                              filterMatchMode="contains"
-                              sortBy="#{contato.principal}" 
-                              width="10" 
-                              priority="2">
-                        <h:outputText value="#{contato.principal}" />
-                    </p:column>
-                    <f:facet name="footer">
-                        <p:commandButton icon="ui-icon-plus" 
-                                         update="insertContato"
-                                         actionListener="#{contatoView.openDialogInsertContato()}"/>                        
-                        <p:commandButton icon="ui-icon-pencil"
-                                         update="dataTableEditContato, growl, insertContato"
-                                         actionListener="#{contatoView.openDialogEditContatoIndividual()}"/>                       
-                        <p:commandButton icon="ui-icon-close"
-                                         update="dataTableEditContato, growl"
-                                         actionListener="#{contatoView.deleteContato()}"/>
+                <p:column headerText="Principal" 
+                          filterBy="#{contato.principal}" 
+                          filterMatchMode="contains"
+                          sortBy="#{contato.principal}" 
+                          width="10" 
+                          priority="2">
+                    <h:outputText value="#{contato.principal}" />
+                </p:column>
+                <f:facet name="footer">
+                    <p:commandButton icon="ui-icon-plus" 
+                                     update="insertContato, growl, formInsertVendedor"
+                                     actionListener="#{contatoView.openDialogInsertContato()}"/>                        
+                    <p:commandButton icon="ui-icon-pencil"
+                                     update="dataTableEditContato, growl, insertContato, formInsertVendedor"
+                                     actionListener="#{contatoView.openDialogEditContatoIndividual()}"/>                       
+                    <p:commandButton icon="ui-icon-close"
+                                     update="dataTableEditContato, growl, formInsertVendedor"
+                                     actionListener="#{contatoView.deleteContato()}"/>
 
-                    </f:facet> 
-                </p:dataTable>            
-            </h:form>
-        </b:panel>
-    </p:dialog>    
+                </f:facet> 
+            </p:dataTable>            
+        </h:form>
+    </b:panel>     
 </ui:composition>

@@ -96,6 +96,7 @@ public class VendedorView implements Serializable {
             }
         }
         if (numeroSelecoes == 1) {
+            contatoView.init();
             RequestContext.getCurrentInstance().execute("PF('insertVendedor').show();");
         } else if (numeroSelecoes > 1) {
             FacesContext context = FacesContext.getCurrentInstance();

@@ -26,7 +26,7 @@
             <b:column span="8">
                 <b:panel title="Cadastro de Vendedores" look="primary" collapsible="false">
 
-                    <p:growl id="growl" showDetail="true" sticky="true"/>  
+                    <p:growl id="growl" showDetail="true"/>  
 
                     <!-- LISTA DE VENEDDORES -->
                     <h:form id="form">                                                           
@@ -105,16 +105,14 @@
         </div>       
 
         <div>
-            <ui:insert >
+            
+            <!--
+            colocar a ROW e COLUMN no dialogo da inserção do vendedor
+            -->
+            <ui:insert 
                 <ui:include src="/Contato/contatoInsertView.xhtml"/>
             </ui:insert>
-        </div>
-
-        <div>
-            <ui:insert >
-                <ui:include src="/Contato/contatoView.xhtml"/>
-            </ui:insert>
-        </div>
+        </div>       
 
         <div>
             <ui:insert >
