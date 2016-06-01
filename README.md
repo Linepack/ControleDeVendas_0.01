@@ -2,4 +2,11 @@
 Controle de vendas e comissões.
 
 #FrameWorks
-Primefaces 5.3, JSF 2.1, jpa 2.0, Bootsfaces, tomcat 8.2 e derby
+<ul>
+<li>Primefaces 5.3</li>
+<li>JSF 2.1</li>
+<li>jpa 2.0</li>
+<li>Bootsfaces</li>
+<li>tomcat 8.2</li>
+<li>derby</li>
+</ul>
